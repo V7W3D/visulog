@@ -34,7 +34,6 @@ public class CLILauncher {
                             // TODO: parse argument and make an instance of PluginConfig
 
                             // Let's just trivially do this, before the TODO is fixed:
-
                             if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig() {
                             });
 

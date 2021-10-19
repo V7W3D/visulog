@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public class Commit {
     // FIXME: (some of) these fields could have more specialized types than String
+    // Modification de certains types par exemple id
     public final String id;
     public final String date;
     public final String author;

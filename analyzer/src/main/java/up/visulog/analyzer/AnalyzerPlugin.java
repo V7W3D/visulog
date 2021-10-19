@@ -10,6 +10,8 @@ public interface AnalyzerPlugin {
 
     /**
      * run this analyzer plugin
+     *
+     *
      */
     void run();
 
