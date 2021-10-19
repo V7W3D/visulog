@@ -22,7 +22,7 @@ public class AnalyzerResult {
     }
     public static void CreateFile(){
         try {
-            File fic = new File("results.html");
+            File fic = new File("../results.html");
             if (fic.createNewFile()) {
                 System.out.println("File created: " + fic.getName());
             } else {
@@ -36,7 +36,7 @@ public class AnalyzerResult {
     public String toHTML() {
         CreateFile();
         try {
-            FileWriter writer = new FileWriter("results.html");
+            FileWriter writer = new FileWriter("../.results.html");
             writer.write("<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>");
             writer.close();
             System.out.println("Successfully wrote to the file.");
