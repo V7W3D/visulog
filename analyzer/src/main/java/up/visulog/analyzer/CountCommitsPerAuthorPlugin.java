@@ -81,7 +81,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
                 System.out.println(item.getKey()+": "+""+item.getValue()+" commit(s) ");
                 System.out.println(" ");
             }
-            System.out.println("**Le nombre total de commits est: "+mbTotalcommits);
+            System.out.println("**Le nombre total de commits branche principale: "+mbTotalcommits);
             System.out.println(" ");
              //Ajout
             for (var item : commitsPerAuthor.entrySet()) {
