@@ -41,6 +41,7 @@ public class CLILauncher {
                             break;
                         case "--loadConfigFile":
                             // TODO (load options from a file)
+//                            System.out.print("HHHHHH");
                             break;
                         case "--justSaveConfigFile":
                             // TODO (save command line options to a file instead of running the analysis)
