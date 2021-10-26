@@ -33,4 +33,41 @@ public class TestCommit {
         }
     }
 
+    @Test
+    public void testConversionCalendar()
+    {
+        String date = "Wed Sep 29 20:33:07 2021 +0200";
+        String[] parts = date.split(" ");
+        int i = 0;
+        for(i = 0; i < parts.length; i++)
+        {
+            System.out.println(parts[i]);
+
+        }
+        String month = parts[1];
+        String day = parts[2];
+        String year = parts[4];
+        String[] time = parts[3].split(":");
+        String hour = time[0];
+        String min = time[1];
+        String sec = time[2];
+        System.out.println(hour + "h "+ min+"m "+sec+"s" );
+
+
+
+    }
+
+    
+
+    @Test
+    public void TestJourMois()
+    {
+        String day = "Wed";
+        String month = "Nov";
+        System.out.println(day + " est "+Day.remplacer(day));
+        System.out.println(month +" est "+Month.remplacer(month));
+
+    }
+
+
 }

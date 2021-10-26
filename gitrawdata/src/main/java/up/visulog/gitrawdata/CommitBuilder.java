@@ -5,7 +5,7 @@ import java.util.Calendar;
 public class CommitBuilder {
     private final String id;
     private String author;
-    private Calendar date;
+    private String date;
     private String description;
     private String mergedFrom;
 
@@ -18,7 +18,7 @@ public class CommitBuilder {
         return this;
     }
 
-    public CommitBuilder setDate(Calendar date) {
+    public CommitBuilder setDate(String date) {
         this.date = date;
         return this;
     }
