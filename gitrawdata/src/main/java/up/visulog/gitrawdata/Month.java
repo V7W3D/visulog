@@ -6,25 +6,49 @@ import static java.util.Map.entry;
 import java.util.HashMap; 
 
 public class Month {
-    private static HashMap<String, String> months = new HashMap<String, String>();
+    private static HashMap<String, String> monthsInFrench = new HashMap<String, String>();
     static{
-        months.put("Jan", "Janvier");
-        months.put("Feb", "Février");
-        months.put("Mar", "Mars");
-        months.put("Apr", "Avril");
-        months.put("May", "Mai");
-        months.put("Jun", "Juin");
-        months.put("Jul", "Juillet");
-        months.put("Aug", "Août");
-        months.put("Sep", "Septembre");
-        months.put("Oct", "Octobre");
-        months.put("Nov", "Novembre");
-        months.put("Dec", "Décembre");
+        monthsInFrench.put("Jan", "Janvier");
+        monthsInFrench.put("Feb", "Février");
+        monthsInFrench.put("Mar", "Mars");
+        monthsInFrench.put("Apr", "Avril");
+        monthsInFrench.put("May", "Mai");
+        monthsInFrench.put("Jun", "Juin");
+        monthsInFrench.put("Jul", "Juillet");
+        monthsInFrench.put("Aug", "Août");
+        monthsInFrench.put("Sep", "Septembre");
+        monthsInFrench.put("Oct", "Octobre");
+        monthsInFrench.put("Nov", "Novembre");
+        monthsInFrench.put("Dec", "Décembre");
     }
 
-    static String remplacer(String s)
+    private static HashMap<String, String> monthsInEnglish = new HashMap<String, String>();
+    static{
+        monthsInEnglish.put("Jan", "January");
+        monthsInEnglish.put("Feb", "February");
+        monthsInEnglish.put("Mar", "March");
+        monthsInEnglish.put("Apr", "April");
+        monthsInEnglish.put("May", "May");
+        monthsInEnglish.put("Jun", "June");
+        monthsInEnglish.put("Jul", "July");
+        monthsInEnglish.put("Aug", "August");
+        monthsInEnglish.put("Sep", "September");
+        monthsInEnglish.put("Oct", "October");
+        monthsInEnglish.put("Nov", "November");
+        monthsInEnglish.put("Dec", "December");
+    }
+
+
+    //Return the full month of the simplified month in French
+    static String replaceFr(String s)
     {
-        return months.get(s);
+        return monthsInFrench.get(s);
+    }
+
+    //Return the full month of the simplified month in English
+    static String replaceEn(String s)
+    {
+        return monthsInEnglish.get(s);
     }
     
 }

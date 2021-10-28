@@ -44,6 +44,7 @@ public class TestCommit {
             System.out.println(parts[i]);
 
         }
+        String dayString = parts[0];
         String month = parts[1];
         String day = parts[2];
         String year = parts[4];
@@ -52,8 +53,42 @@ public class TestCommit {
         String min = time[1];
         String sec = time[2];
         System.out.println(hour + "h "+ min+"m "+sec+"s" );
+        StringBuilder sb = new StringBuilder();
+        sb.append(Day.replaceFr(dayString));
+        sb.append(" le");
+        sb.append(" "+day);
+        sb.append(" "+Month.replaceFr(month));
+        sb.append(" "+year);
 
 
+
+    }
+
+    static String buildDateEnglish(String date)
+    {
+        StringBuilder res = new StringBuilder();
+
+        // This is an example of date "Wed Sep 29 20:33:07 2021 +0200"
+        //and this is an exemple of what we want to get "Saturday the 13th of April, 2019 at 20h 33min 07sec"
+        String[] parts = date.split(" ");
+
+        String dayString = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        String year = parts[4];
+        String[] time = parts[3].split(":");
+        String hour = time[0];
+        String min = time[1];
+        String sec = time[2];
+        System.out.println(hour + "h "+ min+"m "+sec+"s" );
+        StringBuilder sb = new StringBuilder();
+        sb.append(Day.replaceFr(dayString));
+        sb.append(" le");
+        sb.append(" "+day);
+        sb.append(" "+Month.replaceFr(month));
+        sb.append(" "+year);
+
+        return sb.toString();
 
     }
 
@@ -64,8 +99,10 @@ public class TestCommit {
     {
         String day = "Wed";
         String month = "Nov";
-        System.out.println(day + " est "+Day.remplacer(day));
-        System.out.println(month +" est "+Month.remplacer(month));
+        String dayString = "23";
+        System.out.println(day + " est "+Day.replaceEn(day));
+        System.out.println(month +" est "+Month.replaceEn(month));
+        System.out.println(dayString +" est "+Day.addAfterDay(dayString));
 
     }
 
