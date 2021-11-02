@@ -28,9 +28,8 @@ public class CommitBuilder {
         return this;
     }
 
-    public CommitBuilder setMergedFrom(String mergedFrom) {
+    public void setMergedFrom(String mergedFrom) {
         this.mergedFrom = mergedFrom;
-        return this;
     }
 
     public Commit createCommit() {
