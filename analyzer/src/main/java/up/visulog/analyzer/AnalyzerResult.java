@@ -17,9 +17,9 @@ public class AnalyzerResult {
     public String toString() {
         return subResults.stream().map(AnalyzerPlugin.Result::getResultAsString).reduce("", (acc, cur) -> acc + "\n" + cur);
     }
-
     public String toHTML() {
         return "<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("khalifa", (acc, cur) -> acc + cur) + "</body></html>";
 
     }
+
 }

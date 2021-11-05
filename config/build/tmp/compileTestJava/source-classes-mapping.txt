@@ -1,0 +1,2 @@
+up/visulog/config/TestConfiguration.java
+ up.visulog.config.TestConfiguration
