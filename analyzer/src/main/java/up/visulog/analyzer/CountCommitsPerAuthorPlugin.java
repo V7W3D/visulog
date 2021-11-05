@@ -106,29 +106,36 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             //System.out.println(" ");
             //Thu Aug 27 00:35:19 2020 +0200
             LocalDateTime ldt = LocalDateTime.now();
-            System.out.println(DateTimeFormatter.ofPattern("EEEE MM dd yyyy", Locale.ENGLISH).format(ldt));
+            System.out.print("Date du jour: ");
+            System.out.println(DateTimeFormatter.ofPattern("EEE MMM dd yyyy", Locale.ENGLISH).format(ldt));
+            String jour = DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH).format(ldt);
+            String mois = DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH).format(ldt);
+            String date_jour = DateTimeFormatter.ofPattern("d", Locale.ENGLISH).format(ldt);
+            String annee = DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH).format(ldt);
+            System.out.println("Liste des commits du jour: ");
 
             for (var item1 : getCommitsPerAuth().entrySet()) {
                 //startsWith("")
                 //if (item1.getKey().startsWith(DateTimeFormatter.ofPattern("EEE MM dd", Locale.ENGLISH).format(ldt))) {
-                    if(item1.getKey().contains(DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH).format(ldt))
+                    /*if(item1.getKey().contains(DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH).format(ldt))
                             && item1.getKey().contains(DateTimeFormatter.ofPattern("MM", Locale.ENGLISH).format(ldt))
                             && item1.getKey().contains(DateTimeFormatter.ofPattern("dd", Locale.ENGLISH).format(ldt))
                             && item1.getKey().contains(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH).format(ldt))) {
                             System.out.println(item1.getKey()+" "+item1.getValue()+" commits");
                         //add to my result list
-                    }
+                    }*/
                 //Thu Aug 27 00:35:19 2020 +0200
-                /*if (item1.getKey().contains("Thu")
-                        && item1.getKey().contains("Aug")
-                        && item1.getKey().contains("27")
-                        && item1.getKey().contains("2020")) {
-                    System.out.println(item1.getKey() + " " + item1.getValue() + " commits");
+                if (item1.getKey().contains(jour)
+                        && item1.getKey().contains(mois)
+                        && item1.getKey().contains(date_jour)
+                        && item1.getKey().contains(annee)) {
+                    System.out.println("-"+item1.getKey() + ": " + item1.getValue() + " commit(s)");
                     //add to my result list
-                }*/
+                }
 
 
             }
+            System.out.println(" ");
 
 
                /*try{
@@ -146,7 +153,8 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             BufferedWriter bf = null;
             try {
                 bf = new BufferedWriter(new FileWriter(fil));
-                for (Map.Entry<String, Integer> entry : commitsdate.entrySet()) {
+                //
+                for (Map.Entry<String, Integer> entry: commitsdate.entrySet()) {
                     bf.write(entry.getKey() + ":" + entry.getValue()+" commit(s)");
 
                     bf.newLine();
