@@ -1,0 +1,55 @@
+										LISTE DES TYPES/METHODES du projet visulog :
+	PluginConfig.java :
+		//TODO: define what this type should be (probably a Map: settingKey -> settingValue
+		pour le moment c'est une interface, mais rien n'est encore fait dessus.
+		
+	Configuration.java :
+		TYPES:
+			on un objet de type Path(chemin donc) -> correspondant au chemin vers notre git.
+			et un autre objet de type Map -> correspondant au connexion.
+		METHODES:
+			deux methodes get qui servent a recuperer le gitPaths(toujours le chemin vers le git) et l'autre les plugins(connexion)
+			Ont a egalement un constructeur qui prend en paramètres un Path et un Map.
+			
+	Commit.java :
+		TYPES:
+			ici on a 5 champs de type String correspondant a un id | date |author(auteur) | description | mergedfrom(venant de).
+		METHODES:
+			parseLogFromCommand->prend en paramètres un Path ...
+			
+	CommitBuilder.java :
+		Cette classe est implementer avec exactement les memes champs que la classe Commit, cependant ses methodes ne sont que des set(modificateur)
+		Et on a egalement une methode permetant de creer un commit(sans aucun argument).
+	
+	AnalyzerPlugin :
+		AnalyzerPlugin est une interface qui implémente egalement une autre interface Result qui elle possède deux méthode de type String qui sont getResultasString et asHtml
+		Les méthode implementer par notre interface AnalyzerPlugin on a void run() et une autre de type Result getResult().
+	
+	AnalyzerResult.java :
+		TYPES:
+			une liste des Result de type AnalyzerPlugin
+		METHODES:
+			Une premiere méthode qui permet de recuperer les resultes de notre liste getSubResults().
+			La methode toString() qui est hériter de la class Object, elle nou s permet d'avoir notre liste des plugins 
+			Une autre methode toHtml() qui fait exactement la meme chose que notre methode toString, mais qui i ajoute des balise html au debut et a la fin.
+			Et enfin une constructeur qui prend en paramètres une liste des Result de type AnalyzerPlugin.
+
+		
+	Analyzer.java :
+		TYPES:
+			On a un champ de type Configuration et un autre de type AnalyzerResult.
+			Le constructeur prend en paramètres une configuration uniquement.
+		METHODES:
+			Tout d'abord nous avons la méthode computeResults, elle commence par creer une ArrayList ensuite une nouvelle configuration sera creer a partir de notre champ Configuration
+			et si elle existe alors elle sera ajouter a notre ArrayList, qui sera donc retourner a la fin.
+			(Dans cette méthode il faut faire en sorte de pouvoir tous les faires "marcher" tous ensemble).
+			Et l'autre méthode de cette classe est makePlugin qui prend en paramètres un String et une Configuration et tente donc de faire une connexion entre les deux.
+	CLILauncher.java:
+		TYPES:
+			Aucun.
+		METHODES:
+			C'est ici que nous avons la méthode qui nous permet d'executer (./gradlew run --args='here are my args') dans un terminal.
+			makeConfigFromCommandLineArgs va d'abord s'assurer que notre commande commence bien par "--", ensuite on fait un switch en fonction de l'argument et le cas par default renvoi un optional vide.
+			void displayHelpAndExit va juste afficher un message d'erreur.
+			(La liste des options et leurs syntaxes doit etre ajouter).
+			
