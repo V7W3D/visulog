@@ -4,6 +4,12 @@ import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Optional;
@@ -15,7 +21,8 @@ public class CLILauncher {
         if (config.isPresent()) {
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-            System.out.println(results.toHTML());
+            results.toHTML();
+            //System.out.println(results.toHTML());
         } else displayHelpAndExit();
     }
 
@@ -45,9 +52,45 @@ public class CLILauncher {
                             break;
                         case "--loadConfigFile":
                             // TODO (load options from a file)
+                            try {
+                                File myArgs = new File(pValue);
+                                Scanner myReader = new Scanner(myArgs);
+                                while (myReader.hasNextLine()) {
+                                  String data = myReader.nextLine();
+                                  makeConfigFromCommandLineArgs(data.split(" "));
+                                }
+                                myReader.close();
+                            } catch (FileNotFoundException e) {
+                                System.out.println("An error occurred.");
+                                e.printStackTrace();
+                            }
                             break;
                         case "--justSaveConfigFile":
                             // TODO (save command line options to a file instead of running the analysis)
+                            try {
+                                File myObj = new File(pValue);
+                                if (myObj.createNewFile()) {
+                                  System.out.println("File created: " + myObj.getName());
+                                } else {
+                                  System.out.println("File already exists.");
+                                }
+                            } catch (IOException e) {
+                                System.out.println("An error occurred.");
+                                e.printStackTrace();
+                            }
+                            try {
+                                FileWriter myWriter = new FileWriter(pValue);
+                                for(String a : args) {
+                                    if(a.startsWith("--")){
+                                        myWriter.write(a);
+                                    }
+                                }
+                                myWriter.close();
+                                System.out.println("Successfully wrote to the file.");
+                            } catch (IOException e) {
+                                System.out.println("An error occurred.");
+                                e.printStackTrace();
+                            }
                             break;
                         default:
                             return Optional.empty();
