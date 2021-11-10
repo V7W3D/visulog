@@ -34,10 +34,14 @@ public class CLILauncher {
                             // TODO: parse argument and make an instance of PluginConfig
 
                             // Let's just trivially do this, before the TODO is fixed:
-
-                            if (pValue.equals("countCommits")) plugins.put("countCommits", new PluginConfig() {
-                            });
-
+                            switch(pValue) {
+                                case "countCommits" : 
+                                    plugins.put("countCommits", new PluginConfig(){});
+                                    break;
+                                case "countMergeCommits" : 
+                                    plugins.put("countMergeCommits", new PluginConfig(){});
+                                    break;
+                            }
                             break;
                         case "--loadConfigFile":
                             // TODO (load options from a file)
