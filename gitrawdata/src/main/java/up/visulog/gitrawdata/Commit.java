@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,14 +18,58 @@ public class Commit {
     public final String author;
     public final String description;
     public final String mergedFrom;
+    public Calendar calendarDate = Calendar.getInstance();
 
     public Commit(String id, String author, String date, String description, String mergedFrom) {
         this.id = id;
         this.author = author;
-        this.date = date;
+        this.date = buildDateEnglish(date);
         this.description = description;
         this.mergedFrom = mergedFrom;
+
     }
+
+    //Return a better date format
+    public String buildDateEnglish(String date)
+    {
+
+        // This is an example of date "Wed Sep 29 20:33:07 2021 +0200"
+        //and this is an exemple of what we want to get "Saturday the 13th of April, 2019 at 20h 33min 07sec"
+        String[] parts = date.split(" ");
+
+        String dayString = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        String year = parts[4];
+        String[] time = parts[3].split(":");
+        String hour = time[0];
+        String min = time[1];
+        String sec = time[2];
+        System.out.println(hour + "h "+ min+"m "+sec+"s" );
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(Day.replaceEn(dayString));
+        sb.append(" the");
+        sb.append(" "+Day.addAfterDay(day));
+        sb.append(" of");
+        sb.append(" "+Month.replaceEn(month));
+        sb.append(" "+year);
+        sb.append(" at");
+        sb.append(" "+hour+"h");
+        sb.append(" "+min+"min");
+        sb.append(" "+sec+"sec");
+
+        //We give value to the calendarDate field
+        calendarDate = new GregorianCalendar(Integer.parseInt(year),Month.convertMonth(month),
+        Integer.parseInt(day),Integer.parseInt(hour),Integer.parseInt(min),Integer.parseInt(sec));
+   
+        
+
+        return sb.toString();
+
+    }
+
 
     // TODO: factor this out (similar code will have to be used for all git commands)
     public static List<Commit> parseLogFromCommand(Path gitPath) {

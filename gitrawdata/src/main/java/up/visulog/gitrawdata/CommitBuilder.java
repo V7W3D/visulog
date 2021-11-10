@@ -1,5 +1,7 @@
 package up.visulog.gitrawdata;
 
+import java.util.Calendar;
+
 public class CommitBuilder {
     private final String id;
     private String author;
@@ -26,12 +28,16 @@ public class CommitBuilder {
         return this;
     }
 
-    public CommitBuilder setMergedFrom(String mergedFrom) {
+    public void setMergedFrom(String mergedFrom) {
         this.mergedFrom = mergedFrom;
-        return this;
     }
 
     public Commit createCommit() {
         return new Commit(id, author, date, description, mergedFrom);
+    }
+
+    public String dateToString()
+    {
+        return "";
     }
 }
