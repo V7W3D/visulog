@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,5 +36,119 @@ public class TestCommit {
             assertEquals(expectedUTF8, log.toString());
         }
     }
+
+    @Test
+    public void testConversionCalendar()
+    {
+        String date = "Wed Sep 29 20:33:07 2021 +0200";
+        String[] parts = date.split(" ");
+        int i = 0;
+        for(i = 0; i < parts.length; i++)
+        {
+            System.out.println(parts[i]);
+
+        }
+        String dayString = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        String year = parts[4];
+        String[] time = parts[3].split(":");
+        String hour = time[0];
+        String min = time[1];
+        String sec = time[2];
+        System.out.println(hour + "h "+ min+"m "+sec+"s" );
+        StringBuilder sb = new StringBuilder();
+        sb.append(Day.replaceFr(dayString));
+        sb.append(" le");
+        sb.append(" "+day);
+        sb.append(" "+Month.replaceFr(month));
+        sb.append(" "+year);
+
+
+
+    }
+
+    static String buildDateEnglish(String date)
+    {
+        StringBuilder res = new StringBuilder();
+
+        // This is an example of date "Wed Sep 29 20:33:07 2021 +0200"
+        //and this is an exemple of what we want to get "Saturday the 13th of April, 2019 at 20h 33min 07sec"
+        String[] parts = date.split(" ");
+
+        String dayString = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        String year = parts[4];
+        String[] time = parts[3].split(":");
+        String hour = time[0];
+        String min = time[1];
+        String sec = time[2];
+        System.out.println(hour + "h "+ min+"m "+sec+"s" );
+        StringBuilder sb = new StringBuilder();
+        sb.append(Day.replaceEn(dayString));
+        sb.append(" the");
+        sb.append(" "+Day.addAfterDay(day));
+        sb.append(" of");
+        sb.append(" "+Month.replaceEn(month));
+        sb.append(" "+year);
+        sb.append(" at");
+        sb.append(" "+hour+"h");
+        sb.append(" "+min+"min");
+        sb.append(" "+sec+"sec");
+        
+        Calendar calendar = new GregorianCalendar(Integer.parseInt(date),Month.convertMonth(month),
+        Integer.parseInt(day),Integer.parseInt(hour),Integer.parseInt(min),Integer.parseInt(sec));
+        return sb.toString();
+
+    }
+
+    
+
+    @Test
+    public void testJourMois()
+    {
+        String date  = "Thu Feb 23 20:33:07 1998 +0200";
+        // String day = "Wed";
+        // String month = "Nov";
+        // String dayString = "23";
+        // System.out.println(day + " est "+Day.replaceEn(day));
+        // System.out.println(month +" est "+Month.replaceEn(month));
+        // System.out.println(dayString +" est "+Day.addAfterDay(dayString));
+        System.out.println(buildDateEnglish(date));
+
+        // SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");	
+	    // Calendar calendar1 = new GregorianCalendar(2013,00,28,13,24,56);
+        Calendar calendar2 = new GregorianCalendar(2013,01,27,13,24,56);
+
+        // System.out.println(calendar1.compareTo(calendar2));
+        // System.out.println(calendar2.compareTo(calendar1));
+        System.out.println(calendar2.getTime());
+
+
+        
+
+    }
+
+    @Test
+    public void testCalendar()
+    {
+        String date  = "Thu Feb 23 20:33:07 1998 +0200";
+        String[] parts = date.split(" ");
+
+        String dayString = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        String year = parts[4];
+        String[] time = parts[3].split(":");
+        String hour = time[0];
+        String min = time[1];
+        String sec = time[2];
+        Calendar calendar = new GregorianCalendar(Integer.parseInt(year),Month.convertMonth(month),
+        Integer.parseInt(day),Integer.parseInt(hour),Integer.parseInt(min),Integer.parseInt(sec));
+        System.out.println(calendar.getTime());
+
+    }
+
 
 }
