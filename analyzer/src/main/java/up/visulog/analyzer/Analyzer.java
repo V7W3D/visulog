@@ -27,7 +27,7 @@ public class Analyzer {
         }
         // run all the plugins
         // TODO: try running them in parallel
-        for (var plugin: plugins) plugin.run();
+        for (var plugin: plugins) plugin.run(); 
 
         // store the results together in an AnalyzerResult instance and return it
         return new AnalyzerResult(plugins.stream().map(AnalyzerPlugin::getResult).collect(Collectors.toList()));
@@ -37,6 +37,7 @@ public class Analyzer {
     private Optional<AnalyzerPlugin> makePlugin(String pluginName, PluginConfig pluginConfig) {
         switch (pluginName) {
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
+            case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
             default : return Optional.empty();
         }
     }
