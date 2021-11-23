@@ -207,8 +207,10 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         //Ajout
             for (var item : commitsPerAuthor.entrySet()) {
                 html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+                total = total + item.getValue();
             }
             html.append("</ul></div>");
+            html.append("Total commits : " + total);
             return html.toString();
         }
     }
