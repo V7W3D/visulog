@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+StringBu
+<h2>Branch Wise Employee</h2>
+<h2></h2>
+<div id="chart_div" style="height:400px;width:450px"></div>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['Branch Name', 'Total Employee'],
+            ['Delhi', 1000],
+            ['Mumbai', 900],
+            ['Pune', 700],
+            ['Chenai', 855]
+        ]);
+		var options = {
+			chart: {
+				title: 'Employee List ',
+			}
+        };
+		var chart = new google.charts.Bar(document.getElementById('chart_div'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+        chart.draw(data, options);
+        google.visualization.events.addListener(chart, 'select', selectHandler);
+        function selectHandler(e) {
+             var selection = chart.getSelection();
+             var district=data.getFormattedValue(selection[0].row,0);
+             var url="http://google.com";
+             window.location.href =url;
+            var message = '';
+            for(var i = 0; i < selection.length; i++) {
+                var item = selection[i];
+                if (item.row != null && item.column != null) {
+                    var str = data.toJSON(item.row, item.column);
+                    message += str;
+                } else if (item.row != null) {
+                    var str = data.getFormattedValue(item.row, 0);
+                    message += '{row:' + item.row + ', column:none}; value (col 0) = ' + str + '\n';
+                } else if (item.column != null) {
+                    var str = data.getFormattedValue(0, item.column);
+                     message += '{row:none, column:' + item.column + '}; value (row 0) = ' + str + '\n';
+                }
+            }
+            if (message == '') {
+                message = 'nothing';
+            }
+
+        }
+    }
+</script>
+</body>
+</html>

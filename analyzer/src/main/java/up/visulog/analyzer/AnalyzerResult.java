@@ -46,4 +46,5 @@ public class AnalyzerResult {
         }
         return "Successfully creating the html file of the results.";
     }
+
 }

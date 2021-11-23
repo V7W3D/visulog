@@ -6,10 +6,14 @@ public interface AnalyzerPlugin {
     interface Result {
         String getResultAsString();
         String getResultAsHtmlDiv();
+        // Methode define pour recuperer le nombre de commits par date
+        String getResultAsStringdate();
     }
 
     /**
      * run this analyzer plugin
+     *
+     *
      */
     void run();
 

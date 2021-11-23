@@ -34,6 +34,7 @@ public class CommitBuilder {
 
     public Commit createCommit() {
         return new Commit(id, author, date, description, mergedFrom);
+
     }
 
     public String dateToString()
