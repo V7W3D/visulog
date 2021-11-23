@@ -50,10 +50,13 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         @Override
         public String getResultAsHtmlDiv() {
             StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+            int total = 0;
             for (var item : commitsPerAuthor.entrySet()) {
                 html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+                total = total + item.getValue();
             }
             html.append("</ul></div>");
+            html.append("Total commits : " + total);
             return html.toString();
         }
     }
