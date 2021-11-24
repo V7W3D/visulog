@@ -17,5 +17,5 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation("org.json:json:20210307")
 }
