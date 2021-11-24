@@ -15,3 +15,7 @@ allprojects {
     java.sourceCompatibility = JavaVersion.VERSION_1_10
 
 }
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.9'
+}
