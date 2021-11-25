@@ -59,5 +59,11 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
             html.append("</ul></div>");
             return html.toString();
         }
+
+        @Override
+        public String getResultAsStringdate() {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
 }

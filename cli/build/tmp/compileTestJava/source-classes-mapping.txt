@@ -1,0 +1,2 @@
+up/visulog/cli/TestCLILauncher.java
+ up.visulog.cli.TestCLILauncher

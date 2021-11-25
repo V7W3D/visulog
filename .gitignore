@@ -4,3 +4,8 @@ build/
 .project
 bin/
 .gradle/
+.idea
+analyzer/Graphe.html
+analyzer/src/main/Donnees.txt
+analyzer/src/main/Graphedonnees.html
+analyzer/src/main/java/up/visulog/analyzer/Graphe.html
