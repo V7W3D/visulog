@@ -6,6 +6,8 @@ import java.util.Map;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
+import up.visulog.gitrawdata.Parsable;
+import up.visulog.gitrawdata.Parsing;
 
 
 public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
@@ -16,12 +18,13 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
         this.configuration = generalConfiguration;
     }
 
-    static Result processLog(List<Commit> gitLog) {
+    static Result processLog(List<Parsable> list) {
         var result = new Result();
-        for (var mergeCommit : gitLog) {
-            if(mergeCommit.mergedFrom != null){
-                var nb = result.mergeCommitsPerAuthor.getOrDefault(mergeCommit.author, 0);
-                result.mergeCommitsPerAuthor.put(mergeCommit.author, nb + 1);
+        for (var mergeCommit : list) {
+            Commit merge = (Commit) mergeCommit;
+            if(merge.mergedFrom != null){
+                var nb = result.mergeCommitsPerAuthor.getOrDefault(merge.author, 0);
+                result.mergeCommitsPerAuthor.put(merge.author, nb + 1);
             }
         }
         return result;
@@ -29,7 +32,7 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
     @Override
     public void run() {
-        //result = processLog(Commit.parseLogFromCommand(configuration.getGitPath()));
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
     }
 
     @Override

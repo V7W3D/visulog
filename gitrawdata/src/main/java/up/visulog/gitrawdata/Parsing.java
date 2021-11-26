@@ -5,12 +5,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Parsing {
-    public static List<Parsable> parseLogFromCommand(Path gitPath, List<String> command) {//On rajoute une liste d'arguments comme paramètre
+    public static List<Parsable> parseLogFromCommand(Path gitPath,String args) {
+        List<String> command = new ArrayList<String>();
+        Scanner sc = new Scanner(args);
+        sc.useDelimiter(" ");
+        while(sc.hasNext()) {
+            command.add(sc.next());
+        }
+        sc.close();
         ProcessBuilder builder =
-                new ProcessBuilder(command).directory(gitPath.toFile());//on passe tous les pramètres de la liste
+                new ProcessBuilder(command).directory(gitPath.toFile());
         Process process;
         try {
             process = builder.start();
@@ -19,12 +28,11 @@ public class Parsing {
         }
         InputStream is = process.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        return parseLog(reader);//La partie parsing the log diffère suivant l'output de la commande éxécutée
+        switch(command.get(1)) {
+            case "log":
+                return Commit.parseLog(reader);
+            default: 
+                return null;
+        }
     }
-
-    public static List<Parsable> parseLog(BufferedReader reader) {
-        return null;
-    }
-
-    
 }
