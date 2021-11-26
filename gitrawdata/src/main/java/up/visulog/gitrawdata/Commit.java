@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Optional;
 
-public class Commit {
+public class Commit implements Parsable {
     // FIXME: (some of) these fields could have more specialized types than String
     // Modification de certains types par exemple id
     public final String id;
