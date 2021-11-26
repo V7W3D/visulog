@@ -2,13 +2,8 @@ package up.visulog.gitrawdata;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Optional;
 
 public class Commit {
@@ -46,7 +41,6 @@ public class Commit {
         String hour = time[0];
         String min = time[1];
         String sec = time[2];
-        System.out.println(hour + "h "+ min+"m "+sec+"s" );
 
         StringBuilder sb = new StringBuilder();
 
@@ -71,37 +65,11 @@ public class Commit {
 
     }
 
-
-    // TODO: factor this out (similar code will have to be used for all git commands)
-    public static List<Commit> parseLogFromCommand(Path gitPath) {
-        ProcessBuilder builder =
-                new ProcessBuilder("git", "log").directory(gitPath.toFile());
-        Process process;
-        try {
-            process = builder.start();
-        } catch (IOException e) {
-            throw new RuntimeException("Error running \"git log\".", e);
-        }
-        InputStream is = process.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        return parseLog(reader);
-    }
-
-    public static List<Commit> parseLog(BufferedReader reader) {
-        var result = new ArrayList<Commit>();
-        Optional<Commit> commit = parseCommit(reader);
-        while (commit.isPresent()) {
-            result.add(commit.get());
-            commit = parseCommit(reader);
-        }
-        return result;
-    }
-
     /**
      * Parses a log item and outputs a commit object. Exceptions will be thrown in case the input does not have the proper format.
      * Returns an empty optional if there is nothing to parse anymore.
      */
-    public static Optional<Commit> parseCommit(BufferedReader input) {
+    public static Optional<Commit> parseCommit(BufferedReader input) {//proper to log parameter
         try {
 
             var line = input.readLine();
