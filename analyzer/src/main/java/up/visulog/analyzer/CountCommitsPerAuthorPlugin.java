@@ -2,6 +2,9 @@ package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
+import up.visulog.gitrawdata.Parsable;
+import up.visulog.gitrawdata.Parsing;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,16 +19,12 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         this.configuration = generalConfiguration;
     }
 
-    static Result processLog(List<Commit> gitLog) {
+    static Result processLog(List<Parsable> gitLog) {
         var result = new Result();
-        for (var commit : gitLog) {
-
+        for (var parsable : gitLog) {
+            Commit commit = (Commit) parsable;
             var nb = result.commitsPerAuthor.getOrDefault(commit.author, 0);
-
             result.commitsPerAuthor.put(commit.author, nb + 1);
-
-            // lister les dates
-            var nb1 = result.commitsdate.getOrDefault(commit.date, 0);
             result.commitsdate.put(commit.date, nb + 1);
         }
 
@@ -35,7 +34,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
     @Override
     public void run() {
-        //result = processLog(Commit.parseLogFromCommand(configuration.getGitPath()));
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
     }
 
     @Override
@@ -88,12 +87,6 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
              //Ajout
 
-            Set<String> da = commitsdate.keySet();
-
-            for (String data : da) {
-                //System.out.println(String.format(data));
-            }
-
             // nombre totale de commits branche principale et branche intermediaire acceder par un checkout
             int mbTotalcommits = 0;
             for (var item : getCommitsPerAuthor().entrySet()) {
@@ -142,7 +135,6 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
             // Enregidtrement des dates de commits et le nombre de commits pour chaque date dans un fichier
             File fildc = new File("/home/khalifa/Documents/L3/Donnees.txt");
-            File fild = new File("/home/khalifa/Documents/L3/Date.txt");
             BufferedWriter bfdc = null;
             try {
                 bfdc = new BufferedWriter(new FileWriter(fildc));

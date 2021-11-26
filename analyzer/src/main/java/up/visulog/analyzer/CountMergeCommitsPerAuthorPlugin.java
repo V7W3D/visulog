@@ -20,11 +20,11 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
     static Result processLog(List<Parsable> list) {
         var result = new Result();
-        for (var mergeCommit : list) {
-            Commit merge = (Commit) mergeCommit;
-            if(merge.mergedFrom != null){
-                var nb = result.mergeCommitsPerAuthor.getOrDefault(merge.author, 0);
-                result.mergeCommitsPerAuthor.put(merge.author, nb + 1);
+        for (var parsable : list) {
+            Commit mergeCommit = (Commit) parsable;
+            if(mergeCommit.mergedFrom != null){
+                var nb = result.mergeCommitsPerAuthor.getOrDefault(mergeCommit.author, 0);
+                result.mergeCommitsPerAuthor.put(mergeCommit.author, nb + 1);
             }
         }
         return result;

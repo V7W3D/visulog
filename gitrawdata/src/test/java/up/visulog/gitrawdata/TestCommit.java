@@ -31,9 +31,9 @@ public class TestCommit {
         var expectedUTF8 = new String(expected.getBytes(), StandardCharsets.UTF_8);
         var uri = getClass().getClassLoader().getResource("git.log").toURI();
         try (var reader = Files.newBufferedReader(Paths.get(uri))) {
-            //var log = Commit.parseLog(reader);
-//            System.out.println(log);
-            //assertEquals(expectedUTF8, log.toString());
+            var log = Commit.parseLog(reader);
+            System.out.println(log);
+            assertEquals(expectedUTF8, log.toString());
         }
     }
 
@@ -70,8 +70,6 @@ public class TestCommit {
 
     static String buildDateEnglish(String date)
     {
-        StringBuilder res = new StringBuilder();
-
         // This is an example of date "Wed Sep 29 20:33:07 2021 +0200"
         //and this is an exemple of what we want to get "Saturday the 13th of April, 2019 at 20h 33min 07sec"
         String[] parts = date.split(" ");
@@ -97,8 +95,6 @@ public class TestCommit {
         sb.append(" "+min+"min");
         sb.append(" "+sec+"sec");
         
-        Calendar calendar = new GregorianCalendar(Integer.parseInt(date),Month.convertMonth(month),
-        Integer.parseInt(day),Integer.parseInt(hour),Integer.parseInt(min),Integer.parseInt(sec));
         return sb.toString();
 
     }
@@ -136,7 +132,6 @@ public class TestCommit {
         String date  = "Thu Feb 23 20:33:07 1998 +0200";
         String[] parts = date.split(" ");
 
-        String dayString = parts[0];
         String month = parts[1];
         String day = parts[2];
         String year = parts[4];
