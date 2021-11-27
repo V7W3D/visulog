@@ -1,8 +1,5 @@
 package up.visulog.gitrawdata;
 
-import java.util.Map;
-import static java.util.Map.entry;
-
 import java.util.HashMap; 
 
 public class Month {
