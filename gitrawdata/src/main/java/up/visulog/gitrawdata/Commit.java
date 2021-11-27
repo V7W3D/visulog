@@ -46,7 +46,6 @@ public class Commit {
         String hour = time[0];
         String min = time[1];
         String sec = time[2];
-        System.out.println(hour + "h "+ min+"m "+sec+"s" );
 
         StringBuilder sb = new StringBuilder();
 
@@ -65,10 +64,7 @@ public class Commit {
         calendarDate = new GregorianCalendar(Integer.parseInt(year),Month.convertMonth(month),
         Integer.parseInt(day),Integer.parseInt(hour),Integer.parseInt(min),Integer.parseInt(sec));
    
-        
-
         return sb.toString();
-
     }
 
 

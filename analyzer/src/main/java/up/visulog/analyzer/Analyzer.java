@@ -27,8 +27,8 @@ public class Analyzer {
         }
         // run all the plugins (exécuter tous les plugins)
          // Ajout
-        for (var pluginName: plugins) pluginName.run();
-        for (var pluginConfig: plugins) pluginConfig.run();
+        //for (var pluginName: plugins) pluginName.run();
+        //for (var pluginConfig: plugins) pluginConfig.run();
         // Ajout
         // TODO: try running them in parallel (A FAIRE : essayez de les exécuter en parallèle)
         for (var plugin: plugins) plugin.run();
@@ -43,6 +43,7 @@ public class Analyzer {
         switch (pluginName) {
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
             case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
+            case "countMergeCommitsPerDay" : return Optional.of(new CountMergeCommitsPerDayPlugin(config));
             default : return Optional.empty();
         }
     }
