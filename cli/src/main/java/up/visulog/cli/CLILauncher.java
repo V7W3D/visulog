@@ -58,11 +58,13 @@ public class CLILauncher {
                             try {
                                 File myArgs = new File(pValue);
                                 Scanner myReader = new Scanner(myArgs);
-                                while (myReader.hasNextLine()) {
-                                  String data = myReader.nextLine();
-                                  makeConfigFromCommandLineArgs(data.split(" "));
+                                Optional<Configuration> makeConfigFromCommandLineArgs = Optional.empty();
+                                if (myReader.hasNextLine()) {
+                                    String data = myReader.nextLine();
+                                    makeConfigFromCommandLineArgs = makeConfigFromCommandLineArgs(data.split(" "));
                                 }
                                 myReader.close();
+                                return makeConfigFromCommandLineArgs;
                             } catch (FileNotFoundException e) {
                                 System.out.println("An error occurred.");
                                 e.printStackTrace();
@@ -84,7 +86,7 @@ public class CLILauncher {
                             try {
                                 FileWriter myWriter = new FileWriter(pValue);
                                 for(String a : args) {
-                                    if(a.startsWith("--")){
+                                    if(a.startsWith("--") && !a.contains("justSaveConfigFile")){
                                         myWriter.write(a);
                                     }
                                 }
