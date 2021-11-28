@@ -1,12 +1,12 @@
-up/visulog/gitrawdata/Day.java
- up.visulog.gitrawdata.Day
 up/visulog/gitrawdata/Month.java
  up.visulog.gitrawdata.Month
 up/visulog/gitrawdata/Parsing.java
  up.visulog.gitrawdata.Parsing
-up/visulog/gitrawdata/Parsable.java
- up.visulog.gitrawdata.Parsable
 up/visulog/gitrawdata/Commit.java
  up.visulog.gitrawdata.Commit
+up/visulog/gitrawdata/Parsable.java
+ up.visulog.gitrawdata.Parsable
 up/visulog/gitrawdata/CommitBuilder.java
  up.visulog.gitrawdata.CommitBuilder
+up/visulog/gitrawdata/Day.java
+ up.visulog.gitrawdata.Day

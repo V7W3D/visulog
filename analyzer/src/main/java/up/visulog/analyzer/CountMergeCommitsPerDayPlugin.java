@@ -8,6 +8,8 @@ import java.util.Map;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Month;
+import up.visulog.gitrawdata.Parsable;
+import up.visulog.gitrawdata.Parsing;
 
 public class CountMergeCommitsPerDayPlugin implements AnalyzerPlugin{
 
@@ -18,11 +20,12 @@ public class CountMergeCommitsPerDayPlugin implements AnalyzerPlugin{
         this.configuration = generalConfiguration;
     }
 
-    static Result processLog(List<Commit> gitLog) {
+    static Result processLog(List<Parsable> gitLog) {
         var result = new Result();
-        for (var commit : gitLog) {
+        for (var parsable : gitLog) {
+            Commit commit=(Commit)parsable;
             if(commit.mergedFrom != null){
-                String[] date=commit.date.split("at");
+                String[] date=commit.date.split(" at ");
                 var nb = result.mergeCommitsPerDate.getOrDefault(date[0], 0);
                 result.mergeCommitsPerDate.put(date[0], nb + 1);
             }
@@ -32,7 +35,7 @@ public class CountMergeCommitsPerDayPlugin implements AnalyzerPlugin{
 
     @Override
     public void run() {
-        result = processLog(Commit.parseLogFromCommand(configuration.getGitPath()));
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
     }
 
     @Override
