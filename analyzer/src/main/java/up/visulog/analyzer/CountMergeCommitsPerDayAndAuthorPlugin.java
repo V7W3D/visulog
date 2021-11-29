@@ -52,7 +52,7 @@ public class CountMergeCommitsPerDayAndAuthorPlugin implements AnalyzerPlugin {
     static class Result implements AnalyzerPlugin.Result {
         private final Map<String, HashMap<String, Integer>> mergeCommitsPerDayAndAuthor = new HashMap<>();
 
-        Map<String, HashMap<String,Integer>> getMergeCommitsPerAuthor() {
+        Map<String, HashMap<String,Integer>> getMergeCommitsPerDayAndAuthor() {
             return mergeCommitsPerDayAndAuthor;
         }
 
