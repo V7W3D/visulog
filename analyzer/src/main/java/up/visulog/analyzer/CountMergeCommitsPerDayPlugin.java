@@ -70,7 +70,7 @@ public class CountMergeCommitsPerDayPlugin implements AnalyzerPlugin{
         }
 
         /*
-        creer une LinkedList qui contient les elements de mergeCommitsPerDate tries
+        creer une LinkedList qui contient les elements de mergeCommits tries
         du plus recent au moins recent en mettant chaque Value apres sa Key
         */
         public static LinkedList<String> toList(Map <String, Integer> mergeCommits){
