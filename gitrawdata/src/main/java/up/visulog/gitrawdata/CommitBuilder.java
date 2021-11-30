@@ -1,7 +1,5 @@
 package up.visulog.gitrawdata;
 
-import java.util.Calendar;
-
 public class CommitBuilder {
     private final String id;
     private String author;

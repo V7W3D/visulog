@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 public class Analyzer {
     private final Configuration config;
 
-    private AnalyzerResult result;
-
     public Analyzer(Configuration config) {
         this.config = config;
     }
@@ -43,6 +41,9 @@ public class Analyzer {
         switch (pluginName) {
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
             case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
+            case "countMergeCommitsPerDay" : return Optional.of(new CountMergeCommitsPerDayPlugin(config));
+            case "countCommitsPerDayAndAuthor" : return Optional.of(new CountCommitsPerDayAndAuthorPlugin(config));
+            case "countMergeCommitsPerDayAndAuthor" : return Optional.of(new CountMergeCommitsPerDayAndAuthorPlugin(config));
             default : return Optional.empty();
         }
     }

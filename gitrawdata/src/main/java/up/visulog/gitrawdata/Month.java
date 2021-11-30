@@ -1,8 +1,5 @@
 package up.visulog.gitrawdata;
 
-import java.util.Map;
-import static java.util.Map.entry;
-
 import java.util.HashMap; 
 
 public class Month {
@@ -71,6 +68,33 @@ public class Month {
     static int convertMonth(String s)
     {
         return monthToInt.get(s);
+    }
+
+    //renvoie 1 si month1 est superieur a month 2
+    //-1 si month1 est inferieur a month2
+    //0 sinon
+    public static int estSuperieur(String month1, String month2){
+        if(monthsTrie.get(month1)>monthsTrie.get(month2))
+            return 1;
+        if(monthsTrie.get(month1)<monthsTrie.get(month2))
+            return -1;
+        return 0;
+    }
+
+    private static HashMap<String, Integer> monthsTrie = new HashMap<String, Integer>();
+    static{
+        monthsTrie.put("January",1);
+        monthsTrie.put("February",2);
+        monthsTrie.put("March",3);
+        monthsTrie.put("April",4);
+        monthsTrie.put("May",5);
+        monthsTrie.put("June",6);
+        monthsTrie.put("July",7);
+        monthsTrie.put("August",8);
+        monthsTrie.put("September",9);
+        monthsTrie.put("October",10);
+        monthsTrie.put("November",11);
+        monthsTrie.put("December",12);
     }
     
 }
