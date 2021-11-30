@@ -31,8 +31,8 @@ public class CountMergeCommitsPerDayAndAuthorPlugin implements AnalyzerPlugin {
                 commitPerAuthorDefault.put(mergeCommit.author,0);
                 HashMap<String,Integer> map=result.mergeCommitsPerDayAndAuthor.getOrDefault(date[0], commitPerAuthorDefault);
                 var nb=map.getOrDefault(mergeCommit.author,0);
-                commitPerAuthorDefault.put(mergeCommit.author,nb+1);
-                result.mergeCommitsPerDayAndAuthor.put(date[0],commitPerAuthorDefault);
+                map.put(mergeCommit.author,nb+1);
+                result.mergeCommitsPerDayAndAuthor.put(date[0],map);
             }
         }
         return result;
