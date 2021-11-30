@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -169,9 +170,10 @@ public class TestCommit {
     @Test
     public void testReadJson() throws JSONException, IOException
     {
-        JSONObject json = readJsonFromUrl("https://api.github.com/users/torvalds");
+        JSONObject json = readJsonFromUrl("https://api.github.com/repos/torvalds/linux");
+        
         System.out.println(json.toString());
-        System.out.println(json.get("login"));
+        // System.out.println(json.get("commit"));
 
     }
 
@@ -196,5 +198,33 @@ public class TestCommit {
         }
       }
 
+    public static JSONArray readJsonCommitsFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+          BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+          String jsonText = readAll(rd);
+          JSONArray json = new JSONArray(jsonText);
+          return json;
+        } finally {
+          is.close();
+        }
+      }
+
+    
+    @Test
+    public void testReadJsonCommit() throws JSONException, IOException
+    {
+      int count=0;
+      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/torvalds/linux/commits");
+      for(int i=0; i<jsonarray.length();i++){
+        // System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name"));
+        // System.out.println(jsonarray.getJSONObject(0).get("node_id"));
+        //System.out.println(jsonarray.getJSONObject(0).getJSONObject("commit").get("message"));
+        // System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date"));
+        count++;
+      }System.out.println(count);
+    }
 
 }
+
+
