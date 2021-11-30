@@ -29,8 +29,8 @@ public class CountCommitsPerDayAndAuthorPlugin implements AnalyzerPlugin {
             commitPerAuthorDefault.put(commit.author,0);
             HashMap<String,Integer> map=result.commitsPerDayAndAuthor.getOrDefault(date[0], commitPerAuthorDefault);
             var nb=map.getOrDefault(commit.author,0);
-            commitPerAuthorDefault.put(commit.author,nb+1);
-            result.commitsPerDayAndAuthor.put(date[0],commitPerAuthorDefault);
+            map.put(commit.author,nb+1);
+            result.commitsPerDayAndAuthor.put(date[0],map);
         }
         return result;
     }
