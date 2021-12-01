@@ -3,23 +3,21 @@ package up.visulog.analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
-import up.visulog.gitrawdata.Parsing;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
-    private final Configuration configuration;
-    private Result result;
+public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
     public static int nbcommits=0;
 
     public CountCommitsPerAuthorPlugin(Configuration generalConfiguration) {
-        this.configuration = generalConfiguration;
+        if(configuration==null)
+            configuration = generalConfiguration;
     }
 
-    static Result processLog(List<Parsable> gitLog) {
+    protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
         for (var parsable : gitLog) {
             Commit commit = (Commit) parsable;
@@ -32,16 +30,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         return result;
     }
 
-    @Override
-    public void run() {
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
-    }
 
-    @Override
-    public Result getResult() {
-        if (result == null) run();
-        return result;
-    }
 
     static class Result implements AnalyzerPlugin.Result {
 
