@@ -65,7 +65,6 @@ public class Commit implements Parsable{
     }
 
     public static List<Parsable> parseLog(BufferedReader reader) {
-        System.out.println("je suis la");
         var result = new ArrayList<Parsable>();
         Optional<Commit> commit = parseCommit(reader);
         while (commit.isPresent()) {
