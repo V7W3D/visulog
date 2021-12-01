@@ -4,9 +4,12 @@ import org.junit.Test;
 import up.visulog.gitrawdata.CommitBuilder;
 import up.visulog.gitrawdata.Parsable;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import up.visulog.config.*;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +23,8 @@ public class TestCountCommitsPerAuthorPlugin {
         for (int i = 0; i < entries; i++) {
             log.add(new CommitBuilder("").setAuthor(authors[i % 3]).createCommit());
         }
-        var res = CountCommitsPerAuthorPlugin.processLog(log);
+        Configuration config=new Configuration(Paths.get("."), new HashMap<String,PluginConfig>());
+        var res = new CountCommitsPerAuthorPlugin(config).processLog(log);
         assertEquals(authors.length, res.getCommitsPerAuthor().size());
         var sum = res.getCommitsPerAuthor().values()
                 .stream().reduce(0, Integer::sum);
@@ -53,8 +57,8 @@ public class TestCountCommitsPerAuthorPlugin {
         list.add(commit01);
         list.add(commit02);
         list.add(commit03);
-
-        CountCommitsPerDayAndAuthorPlugin.Result result=CountCommitsPerDayAndAuthorPlugin.processLog(list);
+        Configuration config=new Configuration(Paths.get("."), new HashMap<String,PluginConfig>());
+        CountCommitsPerDayAndAuthorPlugin.Result result=new CountCommitsPerDayAndAuthorPlugin(config).processLog(list);
         for(var res : result.getCommitsPerDayAndAuthor().entrySet()){
             System.out.println(res.getKey());
             for(var com : res.getValue().entrySet()){
@@ -84,7 +88,8 @@ public class TestCountCommitsPerAuthorPlugin {
         commit3.setAuthor("Mouloud Amara");
         commit3.setDate("Sat Nov 27 03:21:03 2021 +0100");
         commit3.setDescription("ajout plugin CountMergeCommitsPerDay");
-       
+        commit3.setMergedFrom("055f547 0f88186");
+
         Parsable commit01=commit1.createCommit();
         Parsable commit02=commit2.createCommit();
         Parsable commit03=commit3.createCommit();
@@ -94,7 +99,8 @@ public class TestCountCommitsPerAuthorPlugin {
         list.add(commit02);
         list.add(commit03);
 
-        CountMergeCommitsPerDayAndAuthorPlugin.Result result=CountMergeCommitsPerDayAndAuthorPlugin.processLog(list);
+        Configuration config=new Configuration(Paths.get("."), new HashMap<String,PluginConfig>());
+        CountMergeCommitsPerDayAndAuthorPlugin.Result result=new CountMergeCommitsPerDayAndAuthorPlugin(config).processLog(list);
         for(var res : result.getMergeCommitsPerDayAndAuthor().entrySet()){
             System.out.println(res.getKey());
             for(var com : res.getValue().entrySet()){
