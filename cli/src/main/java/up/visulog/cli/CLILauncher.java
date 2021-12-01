@@ -21,7 +21,8 @@ public class CLILauncher {
         if (config.isPresent()) {
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-            results.toHTML();
+            System.out.println(results);
+            // results.toHTML();
             //System.out.println(results.toHTML());
         } else displayHelpAndExit();
     }
@@ -76,6 +77,19 @@ public class CLILauncher {
                                 e.printStackTrace();
                             }
                             break;
+                        case "--githubProjects":
+                            if(pValue.length() < 8)
+                                return Optional.empty();
+                            String commitsString = pValue.substring(0,8);
+                            String issuesString = pValue.substring(0,7);
+
+                            if((commitsString.compareTo("commits/") == 0) || (issuesString.compareTo("issues/") == 0))
+                                plugins.put(pValue, new PluginConfig(){});
+                            else
+                                return Optional.empty();
+
+                            break;
+
                         case "--justSaveConfigFile":
                             // TODO (save command line options to a file instead of running the analysis)
                             try {

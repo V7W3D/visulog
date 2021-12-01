@@ -20,4 +20,8 @@ public class Configuration {
     public Map<String, PluginConfig> getPluginConfigs() {
         return plugins;
     }
+
+    // public String getPluginName(String name) {
+    //     return plugins.getkey(PluginConfig);
+    // }
 }

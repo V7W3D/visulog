@@ -1,22 +1,25 @@
-up/visulog/analyzer/CountMergeCommitsPerDayPlugin.java
- up.visulog.analyzer.CountMergeCommitsPerDayPlugin
- up.visulog.analyzer.CountMergeCommitsPerDayPlugin$Result
 up/visulog/analyzer/AnalyzerPlugin.java
  up.visulog.analyzer.AnalyzerPlugin
  up.visulog.analyzer.AnalyzerPlugin$Result
-up/visulog/analyzer/CountMergeCommitsPerAuthorPlugin.java
- up.visulog.analyzer.CountMergeCommitsPerAuthorPlugin
- up.visulog.analyzer.CountMergeCommitsPerAuthorPlugin$Result
 up/visulog/analyzer/AnalyzerResult.java
  up.visulog.analyzer.AnalyzerResult
-up/visulog/analyzer/CountCommitsPerAuthorPlugin.java
- up.visulog.analyzer.CountCommitsPerAuthorPlugin
- up.visulog.analyzer.CountCommitsPerAuthorPlugin$Result
 up/visulog/analyzer/CountMergeCommitsPerDayAndAuthorPlugin.java
  up.visulog.analyzer.CountMergeCommitsPerDayAndAuthorPlugin
  up.visulog.analyzer.CountMergeCommitsPerDayAndAuthorPlugin$Result
-up/visulog/analyzer/Analyzer.java
- up.visulog.analyzer.Analyzer
 up/visulog/analyzer/CountCommitsPerDayAndAuthorPlugin.java
  up.visulog.analyzer.CountCommitsPerDayAndAuthorPlugin
  up.visulog.analyzer.CountCommitsPerDayAndAuthorPlugin$Result
+up/visulog/analyzer/CountMergeCommitsPerAuthorPlugin.java
+ up.visulog.analyzer.CountMergeCommitsPerAuthorPlugin
+ up.visulog.analyzer.CountMergeCommitsPerAuthorPlugin$Result
+up/visulog/analyzer/CountMergeCommitsPerDayPlugin.java
+ up.visulog.analyzer.CountMergeCommitsPerDayPlugin
+ up.visulog.analyzer.CountMergeCommitsPerDayPlugin$Result
+up/visulog/analyzer/CountCommitsPerAuthorPlugin.java
+ up.visulog.analyzer.CountCommitsPerAuthorPlugin
+ up.visulog.analyzer.CountCommitsPerAuthorPlugin$Result
+up/visulog/analyzer/CountGithubCommitPerAuthor.java
+ up.visulog.analyzer.CountGithubCommitPerAuthor
+ up.visulog.analyzer.CountGithubCommitPerAuthor$Result
+up/visulog/analyzer/Analyzer.java
+ up.visulog.analyzer.Analyzer

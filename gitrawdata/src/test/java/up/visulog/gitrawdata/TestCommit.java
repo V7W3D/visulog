@@ -220,6 +220,15 @@ public class TestCommit {
       }System.out.println(count);
     }
 
+    @Test
+    public void testToutBete()
+    {
+      String s = "rrr";
+      String sm = "rrr";
+      String r = "ssss";
+      System.out.println(s == r);
+    }
+
 }
 
 

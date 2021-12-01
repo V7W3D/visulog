@@ -23,10 +23,12 @@ public class Analyzer {
             var plugin = makePlugin(pluginName, pluginConfig);
             plugin.ifPresent(plugins::add);
         }
+        System.out.println("Dans Analyser"+config.getPluginConfigs().size());
+        
         // run all the plugins (exécuter tous les plugins)
          // Ajout
-        for (var pluginName: plugins) pluginName.run();
-        for (var pluginConfig: plugins) pluginConfig.run();
+        // for (var pluginName: plugins) pluginName.run();
+        // for (var pluginConfig: plugins) pluginConfig.run();
         // Ajout
         // TODO: try running them in parallel (A FAIRE : essayez de les exécuter en parallèle)
         for (var plugin: plugins) plugin.run();
@@ -38,12 +40,19 @@ public class Analyzer {
     // TODO: find a way so that the list of plugins is not hardcoded in this factory
     //(A FAIRE : trouver un moyen pour que la liste des plugins ne soit pas codée en dur dans cette usine)
     private Optional<AnalyzerPlugin> makePlugin(String pluginName, PluginConfig pluginConfig) {
+        String commitsString = pluginName.substring(0,8);
+        // String issuesString = pluginName.substring(0,7);
+        if(commitsString.compareTo("commits/") == 0)
+            return Optional.of(new CountGithubCommitPerAuthor(config));
+
+
         switch (pluginName) {
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
             case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
             case "countMergeCommitsPerDay" : return Optional.of(new CountMergeCommitsPerDayPlugin(config));
             case "countCommitsPerDayAndAuthor" : return Optional.of(new CountCommitsPerDayAndAuthorPlugin(config));
             case "countMergeCommitsPerDayAndAuthor" : return Optional.of(new CountMergeCommitsPerDayAndAuthorPlugin(config));
+
             default : return Optional.empty();
         }
     }
