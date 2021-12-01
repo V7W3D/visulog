@@ -30,6 +30,7 @@ public class Analyzer {
         // for (var pluginName: plugins) pluginName.run();
         // for (var pluginConfig: plugins) pluginConfig.run();
         // Ajout
+        
         // TODO: try running them in parallel (A FAIRE : essayez de les exécuter en parallèle)
         for (var plugin: plugins) plugin.run();
 
