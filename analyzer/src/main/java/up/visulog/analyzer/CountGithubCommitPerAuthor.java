@@ -2,6 +2,7 @@ package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
+import up.visulog.gitrawdata.GithubCommit;
 import up.visulog.gitrawdata.Parsable;
 import up.visulog.gitrawdata.Parsing;
 
@@ -10,20 +11,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import org.json.JSONException;
+
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Parsing;
 
-public class CountGithubCommitPerAuthor implements AnalyzerPlugin {
-    private final Configuration configuration;
-    private Result result;
+public class CountGithubCommitPerAuthor extends AnalyzerGitLogPlugin {
+    
 
     public CountGithubCommitPerAuthor(Configuration generalConfiguration)
     {
-        this.configuration = generalConfiguration;
-
+        if(configuration==null)
+            configuration = generalConfiguration;
     }
 
-    static Result processLog(List<Parsable> gitLog) {
+    protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
         // for (var parsable : gitLog) {
         //     Commit commit = (Commit) parsable;
@@ -51,6 +53,17 @@ public class CountGithubCommitPerAuthor implements AnalyzerPlugin {
             }
         }
         System.out.println("pValue = " + pValue);
+        // System.out.println("pValue coupé = " + pValue.substring(7,pValue.length()));
+        String param = pValue.substring(7,pValue.length());
+        try {
+            List<GithubCommit> commits = GithubCommit.getCommitsFromURL(param);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         // result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
         
     }
