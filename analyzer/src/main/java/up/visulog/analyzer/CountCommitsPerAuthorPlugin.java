@@ -5,9 +5,12 @@ import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
 import up.visulog.gitrawdata.Parsing;
 
+<<<<<<< HEAD
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+=======
+>>>>>>> CanvasJSIntegration
 import java.util.*;
 
 public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
@@ -33,8 +36,13 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
     }
 
     @Override
+<<<<<<< HEAD
     public void run() {
         result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
+=======
+    public void run() {        
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+>>>>>>> CanvasJSIntegration
     }
 
     @Override
@@ -68,6 +76,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
+<<<<<<< HEAD
             StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
 
             // Ajout
@@ -198,13 +207,13 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
         //Ajout
             int total  = 0;
+=======
+            StringBuilder head = new StringBuilder();
+>>>>>>> CanvasJSIntegration
             for (var item : commitsPerAuthor.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
-                total = total + item.getValue();
+                head.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            html.append("</ul></div>");
-            html.append("Total commits : " + total);
-            return html.toString();
+            return head.toString();
         }
     }
 }

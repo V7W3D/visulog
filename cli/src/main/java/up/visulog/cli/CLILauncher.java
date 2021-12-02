@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import java.nio.file.FileSystems;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class CLILauncher {
@@ -43,10 +44,26 @@ public class CLILauncher {
                             // Let's just trivially do this, before the TODO is fixed:
                             switch(pValue) {
                                 case "countCommits" : 
-                                    plugins.put("countCommits", new PluginConfig(){});
+                                    plugins.put("countCommits", new PluginConfig(){
+
+                                        @Override
+                                        public Map<String, String> config() {
+                                            Map<String, String> map = new HashMap<String, String>();
+                                            map.put("command", "git");
+                                            map.put("param1", "log");
+                                            return map;
+                                        }});
                                     break;
                                 case "countMergeCommits" : 
-                                    plugins.put("countMergeCommits", new PluginConfig(){});
+                                    plugins.put("countMergeCommits", new PluginConfig(){
+
+                                        @Override
+                                        public Map<String, String> config() {
+                                            Map<String, String> map = new HashMap<String, String>();
+                                            map.put("command", "git");
+                                            map.put("param1", "log");
+                                            return map;
+                                        }});
                                     break;
                             }
                             break;

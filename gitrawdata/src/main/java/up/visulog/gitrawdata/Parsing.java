@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Scanner;
 
 public class Parsing {
@@ -18,6 +19,11 @@ public class Parsing {
             command.add(sc.next());
         }
         sc.close();
+=======
+
+public class Parsing {
+    public static List<Parsable> parseLogFromCommand(Path gitPath, ArrayList<String> command) {
+>>>>>>> CanvasJSIntegration
         ProcessBuilder builder =
                 new ProcessBuilder(command).directory(gitPath.toFile());
         Process process;

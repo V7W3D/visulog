@@ -32,7 +32,11 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
     @Override
     public void run() {
+<<<<<<< HEAD
         result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
+=======
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits")));
+>>>>>>> CanvasJSIntegration
     }
 
     @Override
@@ -55,12 +59,11 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Merge commits per author: <ul>");
+            StringBuilder head = new StringBuilder();
             for (var item : mergeCommitsPerAuthor.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+                head.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            html.append("</ul></div>");
-            return html.toString();
+            return head.toString();
         }
 
         @Override
