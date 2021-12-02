@@ -76,24 +76,6 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             System.out.println(" ");
             System.out.println("Liste des personnes qui ont faits des commits :"+getResultAsString());
 
-
-            /*try{
-                Desktop d = Desktop.getDesktop();
-                d.browse(new URI("file:///home/khalifa/Documents/L3/PROJET/visulog/analyzer/build/reports/tests/test/index.html"));
-            }catch (URISyntaxException e){
-
-            }catch (IOException e){
-
-            }*/
-
-             //Ajout
-
-            Set<String> da = commitsdate.keySet();
-
-            for (String data : da) {
-                //System.out.println(String.format(data));
-            }
-
             // nombre totale de commits branche principale et branche intermediaire acceder par un checkout
             int mbTotalcommits = 0;
             for (var item : getCommitsPerAuthor().entrySet()) {

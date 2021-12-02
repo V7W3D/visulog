@@ -39,6 +39,7 @@ public class AnalyzerResult {
             FileWriter writer = new FileWriter("../results.html");
             writer.write("<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>");
             writer.close();
+
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
