@@ -34,13 +34,48 @@ public class AnalyzerResult {
         }
     }
     public String toHTML() {
-        CreateFile();
+        //CreateFile();
         try {
             FileWriter writer = new FileWriter("../results.html");
-            writer.write("<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>");
+           writer.write("<html>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>");
             writer.close();
 
             System.out.println("Successfully wrote to the file.");
+
+            FileWriter GrapheHTML = new FileWriter("../Graphedonnees.html");
+            GrapheHTML.write("<!DOCTYPE HTML>\n" +
+                    "<html>\n" +
+                    "<head>\n" +
+                    "    <script type=\"text/javascript\">\n" +
+                    "  window.onload = function () {\n" +
+                    "    var chart = new CanvasJS.Chart(\"chartContainer\",\n" +
+                    "    {\n" +
+                    "      title: {\n" +
+                    "        text: \"Graphe commits par personne\"\n" +
+                    "      },\n" +
+                    "      data: [\n" +
+                    "      {\n" +
+                    "        type: \"column\",\n" +
+                    "        dataPoints: [\n" +
+                    "\n" +subResults.stream().map(AnalyzerPlugin.Result::getHTMLCommitAuth).reduce("", (acc, cur) -> acc + cur) +
+                    "        ]\n" +
+                    "      }\n" +
+                    "      ]\n" +
+                    "    });\n" +
+                    "\n" +
+                    "    chart.render();\n" +
+                    "  }\n" +
+                    "  </script>\n" +
+                    "    <script type=\"text/javascript\" src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "<div id=\"chartContainer\" style=\"height: 300px; width: 100%;\">\n" +
+                    "</div>\n" +
+                    "</body>\n" +
+                    "</html>");
+            GrapheHTML.close();
+
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

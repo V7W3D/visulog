@@ -50,7 +50,7 @@ public class Commit {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(Day.replaceEn(dayString));
+         sb.append(Day.replaceEn(dayString));
         sb.append(" the");
         sb.append(" "+Day.addAfterDay(day));
         sb.append(" of");

@@ -5,3 +5,17 @@ build/
 bin/
 .gradle/
 .idea
+gitrawdata/build/tmp/compileJava/source-classes-mapping.txt
+
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+	.gradle/buildOutputCleanup/cache.properties
+	analyzer/build/classes/java/main/up/visulog/analyzer/Analyzer.class
+	analyzer/build/classes/java/main/up/visulog/analyzer/AnalyzerPlugin$Result.class
+	analyzer/build/classes/java/main/up/visulog/analyzer/AnalyzerResult.class
+	analyzer/build/classes/java/main/up/visulog/analyzer/CountCommitsPerAuthorPlugin$Result.class
+	analyzer/build/classes/java/main/up/visulog/analyzer/CountCommitsPerAuthorPlugin.class
+	analyzer/build/libs/analyzer.jar
+	analyzer/build/tmp/compileJava/source-classes-mapping.txt
+	cli/build/classes/java/main/up/visulog/cli/CLILauncher.class
+	config/build/libs/config.jar
+	gitrawdata/build/libs/gitrawdata.jar

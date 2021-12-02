@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
+public class CountCommitParjours implements AnalyzerPlugin {
     private final Configuration configuration;
     private Result result;
     public static int nbcommits=0;
 
-    public CountCommitsPerAuthorPlugin(Configuration generalConfiguration) {
+    public CountCommitParjours(Configuration generalConfiguration) {
         this.configuration = generalConfiguration;
     }
 
@@ -21,12 +21,11 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         for (var commit : gitLog) {
 
             var nb = result.commitsPerAuthor.getOrDefault(commit.author, 0);
-
             result.commitsPerAuthor.put(commit.author, nb + 1);
 
             // lister les dates
-            /*var nb1 = result.commitsdate.getOrDefault(commit.date, 0);
-            result.commitsdate.put(commit.date, nb + 1);*/
+            var nb1 = result.commitsdate.getOrDefault(commit.date, 0);
+            result.commitsdate.put(commit.date, nb + 1);
         }
 
 
@@ -76,8 +75,23 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         @Override
         public String getResultAsHtmlDiv() {
             StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+            // Ajout
+            System.out.println("Page html");
+            System.out.println(" ");
+            System.out.println("Liste des personnes qui ont faits des commits :"+getResultAsString());
 
+            Set<String> da = commitsdate.keySet();
+            // nombre totale de commits branche principale et branche intermediaire acceder par un checkout
+            System.out.println(" ");
+            System.out.println("**Commit(s) par personnes: ");
+            int mbTotalcommits = 0;
+            for (var item : getCommitsPerAuthor().entrySet()) {
+                mbTotalcommits += item.getValue();
+                System.out.println(item.getKey() + ": " + "" + item.getValue() + " commit(s)");
 
+            }
+            System.out.println(" ");
+            System.out.println("**Le nombre total de commits est: " + mbTotalcommits);
             //System.out.println(" ");
             //Thu Aug 27 00:35:19 2020 +0200
             LocalDateTime ldt = LocalDateTime.now();
@@ -103,6 +117,8 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             }
             System.out.println("Total commit(s) jour : "+mbTotalcommitsjour);
             System.out.println(" ");
+
+
 
             // Enregidtrement des dates de commits et le nombre de commits pour chaque date dans un fichier
             File fildc = new File("/home/khalifa/Documents/L3/Donnees.txt");
@@ -141,15 +157,15 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
                 //
 
 
-                        for (Map.Entry<String, Integer> entry: commitsdate.entrySet()) {
-                            if (entry.getKey().contains(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH).format(ldt))) {
-                                bfcomdeuM.write(entry.getKey() + " : " + entry.getValue()+" commit(s)");
-                                bfcomdeuM.newLine();
-                                bfcomdeuMdate.write(entry.getKey());
-                                bfcomdeuMdate.newLine();
+                for (Map.Entry<String, Integer> entry: commitsdate.entrySet()) {
+                    if (entry.getKey().contains(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH).format(ldt))) {
+                        bfcomdeuM.write(entry.getKey() + " : " + entry.getValue()+" commit(s)");
+                        bfcomdeuM.newLine();
+                        bfcomdeuMdate.write(entry.getKey());
+                        bfcomdeuMdate.newLine();
 
-                            }
-                        }
+                    }
+                }
 
                 bfcomdeuM.flush();
                 bfcomdeuM.flush();
@@ -167,30 +183,14 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
                 }
             }
 
-        //Ajout
-            int total  = 0;
-            for (var item : commitsPerAuthor.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
-                total = total + item.getValue();
-            }
-            html.append("</ul></div>");
-            html.append("Total commits : " + total);
-
             return html.toString();
         }
-
-
-
         @Override
         public String getHTMLCommitAuth() {
-            StringBuilder getCommitAuth= new StringBuilder();
-            for (var item : commitsPerAuthor.entrySet()) {
-                char g='"';
-                getCommitAuth.append("{ y: ").append(item.getValue()).append(", label: ").append(g).append(item.getKey()).append(g+"},");
-            }
-            return getCommitAuth.toString();
-        }
 
+
+            return "";
+        }
 
     }
 }

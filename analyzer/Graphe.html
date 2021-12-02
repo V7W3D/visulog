@@ -1,56 +1,39 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title: {
+        text: "Custom Labels on X Axis "
+      },
+      data: [
+      {
+        type: "column",
+        dataPoints: [
+
+        { y: 71, label: "cat 1"},
+        { y: 55, label: "cat 2"},
+        { y: 50, label: "cat 3"},
+        { y: 65, label: "cat 4"},
+        { y: 95, label: "cat 5"},
+        { y: 68, label: "cat 6"},
+        { y: 28, label: "cat 7"},
+        { y: 34, label: "uiojklh;moklfkhjklmvkl;d,.kdf;gldf,.mcat 8"},
+        { y: 14, label: "cat 9"}
+        ]
+      }
+      ]
+    });
+
+    chart.render();
+  }
+  </script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-<h2>Branch Wise Employee</h2>
-<div id="chart_div" style="height:400px;width:450px"></div>
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Branch Name', 'Total Employee'],
-            ['Delhi', 1000],
-            ['Mumbai', 900],
-            ['Pune', 700],
-            ['Chenai', 855]
-        ]);
-		var options = {
-			chart: {
-				title: 'Employee List ',
-			}
-        };
-		var chart = new google.charts.Bar(document.getElementById('chart_div'));
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-        chart.draw(data, options);
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-        function selectHandler(e) {
-             var selection = chart.getSelection();
-             var district=data.getFormattedValue(selection[0].row,0);
-             var url="http://google.com";
-             window.location.href =url;
-            var message = '';
-            for(var i = 0; i < selection.length; i++) {
-                var item = selection[i];
-                if (item.row != null && item.column != null) {
-                    var str = data.toJSON(item.row, item.column);
-                    message += str;
-                } else if (item.row != null) {
-                    var str = data.getFormattedValue(item.row, 0);
-                    message += '{row:' + item.row + ', column:none}; value (col 0) = ' + str + '\n';
-                } else if (item.column != null) {
-                    var str = data.getFormattedValue(0, item.column);
-                     message += '{row:none, column:' + item.column + '}; value (row 0) = ' + str + '\n';
-                }
-            }
-            if (message == '') {
-                message = 'nothing';
-            }
-
-        }
-    }
-</script>
+<div id="chartContainer" style="height: 300px; width: 100%;">
+</div>
 </body>
 </html>

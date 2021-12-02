@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title: {
+        text: "Graphe commits par personne"
+      },
+      data: [
+      {
+        type: "column",
+        dataPoints: [
+
+{ y: 1, label: "SIDI AHMED Ahmed <sidiahmedahmed2001@gmail.com>"},{ y: 7, label: "khalifa <khalifadione36@gmail.com>"},{ y: 2, label: "Xavier Denis <xldenis@gmail.com>"},{ y: 4, label: "kouehema <kankoe-ange-herman.koue-hemazro@etu.u-paris.fr>"},{ y: 4, label: "TRAN henri bergson <yuukath@gmail.com>"},{ y: 1, label: "KOUE-HEMAZRO KANKOE ANGE HERMAN <kouehema@informatique.univ-paris-diderot.fr>"},{ y: 1, label: "Mouloud Amara <mouloudamara2001@gmail.com>"},{ y: 4, label: "SIDI AHMED ahmed <sidiahmedahmed2001@gmail.com>"},{ y: 2, label: "DIONE khalifa ababacar <khalifadione36@gmail.com>"},{ y: 12, label: "Aldric Degorre <adegorre@irif.fr>"},{ y: 1, label: "Colin Gonzalez <colin@nomadic-labs.com>"},{ y: 1, label: "AMARA mouloud <mouloudamara2001@gmail.com>"},{ y: 7, label: "LE NINIVEN adrien <adrien.leniniven@gmail.com>"},        ]
+      }
+      ]
+    });
+
+    chart.render();
+  }
+  </script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;">
+</div>
+</body>
+</html>
