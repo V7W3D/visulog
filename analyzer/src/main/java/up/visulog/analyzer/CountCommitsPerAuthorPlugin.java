@@ -68,24 +68,13 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
-
+            StringBuilder head = new StringBuilder();
             // Ajout
             System.out.println("Page html");
             System.out.println(" ");
             System.out.println("Liste des personnes qui ont faits des commits :"+getResultAsString());
 
-
-            /*try{
-                Desktop d = Desktop.getDesktop();
-                d.browse(new URI("file:///home/khalifa/Documents/L3/PROJET/visulog/analyzer/build/reports/tests/test/index.html"));
-            }catch (URISyntaxException e){
-
-            }catch (IOException e){
-
-            }*/
-
-             //Ajout
+            //Ajout
 
             // nombre totale de commits branche principale et branche intermediaire acceder par un checkout
             int mbTotalcommits = 0;
@@ -121,17 +110,6 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             }
             System.out.println("Total commit(s) jour : "+mbTotalcommitsjour);
             System.out.println(" ");
-
-
-               /*try{
-                    FileOutputStream file = new FileOutputStream("/home/khalifa/Documents/L3/Donnees.txt");
-                    ObjectOutputStream s = new ObjectOutputStream(file);
-                      s.writeObject(mbTotalcommits);
-                      s.close();
-                      System.out.println("Ajout des donnees reussi\n");
-                }catch (IOException e){
-                    e.printStackTrace();
-                }*/
 
             // Enregidtrement des dates de commits et le nombre de commits pour chaque date dans un fichier
             File fildc = new File("/home/khalifa/Documents/L3/Donnees.txt");
@@ -194,17 +172,14 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
                 } catch (Exception e) {
                 }
             }
-
-
+            
         //Ajout
             int total  = 0;
             for (var item : commitsPerAuthor.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+                head.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
                 total = total + item.getValue();
             }
-            html.append("</ul></div>");
-            html.append("Total commits : " + total);
-            return html.toString();
+            return head.toString();
         }
     }
 }
