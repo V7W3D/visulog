@@ -32,7 +32,7 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
     @Override
     public void run() {
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits")));
     }
 
     @Override
