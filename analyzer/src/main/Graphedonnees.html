@@ -1,59 +1,30 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title: {
+        text: "Graphe commits par personne"
+      },
+      data: [
+      {
+        type: "column",
+        dataPoints: [
+
+{ y: 1, label: "SIDI AHMED Ahmed <sidiahmedahmed2001@gmail.com>"},{ y: 7, label: "khalifa <khalifadione36@gmail.com>"},{ y: 2, label: "Xavier Denis <xldenis@gmail.com>"},{ y: 4, label: "kouehema <kankoe-ange-herman.koue-hemazro@etu.u-paris.fr>"},{ y: 4, label: "TRAN henri bergson <yuukath@gmail.com>"},{ y: 1, label: "KOUE-HEMAZRO KANKOE ANGE HERMAN <kouehema@informatique.univ-paris-diderot.fr>"},{ y: 1, label: "Mouloud Amara <mouloudamara2001@gmail.com>"},{ y: 4, label: "SIDI AHMED ahmed <sidiahmedahmed2001@gmail.com>"},{ y: 2, label: "DIONE khalifa ababacar <khalifadione36@gmail.com>"},{ y: 12, label: "Aldric Degorre <adegorre@irif.fr>"},{ y: 1, label: "Colin Gonzalez <colin@nomadic-labs.com>"},{ y: 1, label: "AMARA mouloud <mouloudamara2001@gmail.com>"},{ y: 7, label: "LE NINIVEN adrien <adrien.leniniven@gmail.com>"},        ]
+      }
+      ]
+    });
+
+    chart.render();
+  }
+  </script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-StringBu
-<h2>Branch Wise Employee</h2>
-<h2></h2>
-<div id="chart_div" style="height:400px;width:450px"></div>
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['bar']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-            ['Branch Name', 'Total Employee'],
-            ['Delhi', 1000],
-            ['Mumbai', 900],
-            ['Pune', 700],
-            ['Chenai', 855]
-        ]);
-		var options = {
-			chart: {
-				title: 'Employee List ',
-			}
-        };
-		var chart = new google.charts.Bar(document.getElementById('chart_div'));
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-        chart.draw(data, options);
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-        function selectHandler(e) {
-             var selection = chart.getSelection();
-             var district=data.getFormattedValue(selection[0].row,0);
-             var url="http://google.com";
-             window.location.href =url;
-            var message = '';
-            for(var i = 0; i < selection.length; i++) {
-                var item = selection[i];
-                if (item.row != null && item.column != null) {
-                    var str = data.toJSON(item.row, item.column);
-                    message += str;
-                } else if (item.row != null) {
-                    var str = data.getFormattedValue(item.row, 0);
-                    message += '{row:' + item.row + ', column:none}; value (col 0) = ' + str + '\n';
-                } else if (item.column != null) {
-                    var str = data.getFormattedValue(0, item.column);
-                     message += '{row:none, column:' + item.column + '}; value (row 0) = ' + str + '\n';
-                }
-            }
-            if (message == '') {
-                message = 'nothing';
-            }
-
-        }
-    }
-</script>
+<div id="chartContainer" style="height: 300px; width: 100%;">
+</div>
 </body>
 </html>
