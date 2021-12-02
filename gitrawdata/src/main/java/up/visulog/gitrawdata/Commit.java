@@ -62,7 +62,6 @@ public class Commit implements Parsable{
         Integer.parseInt(day),Integer.parseInt(hour),Integer.parseInt(min),Integer.parseInt(sec));
 
         return sb.toString();
-
     }
 
     public static List<Parsable> parseLog(BufferedReader reader) {

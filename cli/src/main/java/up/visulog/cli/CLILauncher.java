@@ -65,6 +65,33 @@ public class CLILauncher {
                                             return map;
                                         }});
                                     break;
+                                case "countMergeCommitsPerDay" :
+                                    plugins.put("countMergeCommitsPerDay", new PluginConfig(){
+
+                                        @Override
+                                        public Map<String, String> config() {
+                                            // TODO Auto-generated method stub
+                                            return null;
+                                        }});
+                                    break;
+                                case "countCommitsPerDayAndAuthor" :
+                                    plugins.put("countCommitsPerDayAndAuthor", new PluginConfig(){
+
+                                        @Override
+                                        public Map<String, String> config() {
+                                            // TODO Auto-generated method stub
+                                            return null;
+                                        }});
+                                    break;
+                                case "countMergeCommitsPerDayAndAuthor" :
+                                    plugins.put("countMergeCommitsPerDayAndAuthor", new PluginConfig() {
+
+                                        @Override
+                                        public Map<String, String> config() {
+                                            // TODO Auto-generated method stub
+                                            return null;
+                                        }});
+                                    break;
                             }
                             break;
                         case "--loadConfigFile":
