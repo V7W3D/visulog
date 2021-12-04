@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Visulog Statistics</title>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js " integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+<div>
+    <div id="chartContainer0" style="height: 300px; width: 100%;"></div>
+</div>
+<div>
+    <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+</div>
+
+<script>
+const myData0 = [{
+        type: "line",
+        toolTipContent: "<b>{label}</b>: {y} commits",
+        showInLegend: "true",
+        indexLabelFontSize: 16,
+        dataPoints: [{ label: 'TRAN henri bergson <yuukath@gmail.com>', y: 1},{ label: 'KOUE-HEMAZRO KANKOE ANGE HERMAN <kouehema@informatique.univ-paris-diderot.fr>', y: 1},{ label: 'SIDI AHMED ahmed <sidiahmedahmed2001@gmail.com>', y: 2},{ label: 'DIONE khalifa ababacar <khalifadione36@gmail.com>', y: 2},{ label: 'Aldric Degorre <adegorre@irif.fr>', y: 3},{ label: 'Colin Gonzalez <colin@nomadic-labs.com>', y: 1},{ label: 'AMARA mouloud <mouloudamara2001@gmail.com>', y: 1},{ label: 'LE NINIVEN adrien <adrien.leniniven@gmail.com>', y: 3},{ label: 'Xavier Denis <xldenis@gmail.com>', y: 1},]
+}];
+
+const myConfig0 = {
+        theme: "light2",        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+                text: "title"
+        },
+        data : myData0
+};
+
+var myChart0 = new CanvasJS.Chart("chartContainer0", myConfig0);
+const myData1 = [{
+        type: "line",
+        toolTipContent: "<b>{label}</b>: {y} commits",
+        showInLegend: "true",
+        indexLabelFontSize: 16,
+        dataPoints: [{ label: 'SIDI AHMED Ahmed <sidiahmedahmed2001@gmail.com>', y: 1},{ label: 'khalifa <khalifadione36@gmail.com>', y: 6},{ label: 'Xavier Denis <xldenis@gmail.com>', y: 2},{ label: 'kouehema <kankoe-ange-herman.koue-hemazro@etu.u-paris.fr>', y: 4},{ label: 'TRAN henri bergson <yuukath@gmail.com>', y: 4},{ label: 'KOUE-HEMAZRO KANKOE ANGE HERMAN <kouehema@informatique.univ-paris-diderot.fr>', y: 1},{ label: 'SIDI AHMED ahmed <sidiahmedahmed2001@gmail.com>', y: 9},{ label: 'Mouloud Amara <mouloudamara2001@gmail.com>', y: 1},{ label: 'DIONE khalifa ababacar <khalifadione36@gmail.com>', y: 2},{ label: 'Aldric Degorre <adegorre@irif.fr>', y: 12},{ label: 'Colin Gonzalez <colin@nomadic-labs.com>', y: 1},{ label: 'AMARA mouloud <mouloudamara2001@gmail.com>', y: 1},{ label: 'LE NINIVEN adrien <adrien.leniniven@gmail.com>', y: 7},]
+}];
+
+const myConfig1 = {
+        theme: "light2",        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+                text: "title"
+        },
+        data : myData1
+};
+
+var myChart1 = new CanvasJS.Chart("chartContainer1", myConfig1);
+
+window.onload = function() {
+myChart0.render();myChart1.render();
+}
+</script>
+</body>
+</html>
+

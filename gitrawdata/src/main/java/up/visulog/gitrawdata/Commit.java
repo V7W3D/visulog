@@ -43,7 +43,6 @@ public class Commit implements Parsable{
         String hour = time[0];
         String min = time[1];
         String sec = time[2];
-        System.out.println(hour + "h "+ min+"m "+sec+"s" );
 
         StringBuilder sb = new StringBuilder();
 

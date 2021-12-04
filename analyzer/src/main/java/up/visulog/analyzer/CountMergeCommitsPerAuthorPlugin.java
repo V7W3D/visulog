@@ -54,12 +54,12 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
         }
 
         @Override
-        public String getResultAsHtmlDiv() {
-            StringBuilder head = new StringBuilder();
+        public String getResultAsDataPoints() {
+            StringBuilder dataPoints = new StringBuilder();
             for (var item : mergeCommitsPerAuthor.entrySet()) {
-                head.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
+                dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            return head.toString();
+            return dataPoints.toString();
         }
 
         @Override

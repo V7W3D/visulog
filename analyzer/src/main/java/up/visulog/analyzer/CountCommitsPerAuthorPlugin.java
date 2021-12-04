@@ -22,7 +22,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             Commit commit = (Commit) parsable;
             var nb = result.commitsPerAuthor.getOrDefault(commit.author, 0);
             result.commitsPerAuthor.put(commit.author, nb + 1);
-            result.commitsdate.put(commit.date, nb + 1);
+            result.commitsDate.put(commit.date, nb + 1);
         }
 
 
@@ -43,14 +43,14 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
     static class Result implements AnalyzerPlugin.Result {
 
         private final Map<String, Integer> commitsPerAuthor = new HashMap<>();
-        private final Map<String, Integer> commitsdate = new HashMap<>();
+        private final Map<String, Integer> commitsDate = new HashMap<>();
 
         Map<String, Integer> getCommitsPerAuthor() {
             return commitsPerAuthor;
         }
 
         Map<String, Integer> getCommitsPerAuth() {
-            return commitsdate;
+            return commitsDate;
         }
 
         @Override
@@ -60,16 +60,16 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
         @Override
         public String getResultAsStringdate() {
-            return commitsdate.toString();
+            return commitsDate.toString();
         }
 
         @Override
-        public String getResultAsHtmlDiv() {
-            StringBuilder head = new StringBuilder();
+        public String getResultAsDataPoints() {
+            StringBuilder dataPoints = new StringBuilder();
             for (var item : commitsPerAuthor.entrySet()) {
-                head.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
+                dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            return head.toString();
+            return dataPoints.toString();
         }
     }
 }
