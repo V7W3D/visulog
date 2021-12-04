@@ -42,39 +42,29 @@ public class CLILauncher {
                             // TODO: parse argument and make an instance of PluginConfig
 
                             // Let's just trivially do this, before the TODO is fixed:
+                            PluginConfig GitLogPluginConfig = new PluginConfig(){
+                                @Override
+                                public Map<String, String> config() {
+                                    Map<String, String> map = new HashMap<String, String>();
+                                    map.put("command", "git");
+                                    map.put("param1", "log");
+                                    return map;
+                                }
+                            };
+
                             switch(pValue) {
                                 case "countCommits" : 
-                                    plugins.put("countCommits", new PluginConfig(){
-
-                                        @Override
-                                        public Map<String, String> config() {
-                                            Map<String, String> map = new HashMap<String, String>();
-                                            map.put("command", "git");
-                                            map.put("param1", "log");
-                                            return map;
-                                        }});
+                                    plugins.put("countCommits", GitLogPluginConfig);
                                     break;
                                 case "countMergeCommits" : 
-                                    plugins.put("countMergeCommits", new PluginConfig(){
-
-                                        @Override
-                                        public Map<String, String> config() {
-                                            Map<String, String> map = new HashMap<String, String>();
-                                            map.put("command", "git");
-                                            map.put("param1", "log");
-                                            return map;
-                                        }});
+                                    plugins.put("countMergeCommits", GitLogPluginConfig);
                                     break;
-                                    case "countCommitsPerDayAndAuthor" : 
-                                    plugins.put("countCommitsPerDayAndAuthor", new PluginConfig(){
-                                        @Override
-                                        public Map<String, String> config() {
-                                            Map<String, String> map = new HashMap<String, String>();
-                                            map.put("command", "git");
-                                            map.put("param1", "log");
-                                            return map;
-                                        }});
+                                case "countCommitsPerDay" : 
+                                    plugins.put("countCommitsPerDay", GitLogPluginConfig);
                                     break;
+                                case "countMergeCommitsPerDay" : 
+                                    plugins.put("countMergeCommitsPerDay", GitLogPluginConfig);
+                                break;
                             }
                             break;
                         case "--loadConfigFile":

@@ -1,17 +1,16 @@
 package up.visulog.analyzer;
-
+import up.visulog.gitrawdata.Month;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
-import up.visulog.gitrawdata.Month;
 import up.visulog.gitrawdata.Parsable;
 import up.visulog.gitrawdata.Parsing;
 
-public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin{
+public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
     public CountMergeCommitsPerDayPlugin(Configuration generalConfiguration) {
         if(configuration==null)
@@ -20,65 +19,64 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin{
 
     @Override
     public void run() {        
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommitsPerDay")));
     }
-
 
     protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
         for (var parsable : gitLog) {
-            Commit commit=(Commit)parsable;
-            if(commit.mergedFrom != null){
-                String[] date=commit.date.split(" at ");
-                var nb = result.mergeCommitsPerDate.getOrDefault(date[0], 0);
-                result.mergeCommitsPerDate.put(date[0], nb + 1);
+            Commit mergeCommit = (Commit) parsable;
+            if(mergeCommit.mergedFrom != null){
+                String myDate = mergeCommit.date;
+                String day = myDate.split(" ")[0];
+                var nb = result.mergeCommitsPerDay.getOrDefault(day, 0);
+                result.mergeCommitsPerDay.put(day, nb + 1);
             }
         }
         return result;
     }
 
-
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, Integer> mergeCommitsPerDate = new HashMap<>();
+        private final Map<String, Integer> mergeCommitsPerDay = new HashMap<>();
 
-        Map<String, Integer> getMergeCommitsPerDay() {
-            return mergeCommitsPerDate;
+        Map<String, Integer> getCommitsPerDayAndAuthor() {
+            return mergeCommitsPerDay;
         }
 
         @Override
         public String getResultAsString() {
-            return mergeCommitsPerDate.toString();
+            return mergeCommitsPerDay.toString();
         }
 
         @Override
         public String getResultAsDataPoints() {
             StringBuilder dataPoints = new StringBuilder();
-            for (var item : mergeCommitsPerDate.entrySet()) {
+            for (var item : mergeCommitsPerDay.entrySet()) {
                 dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
             return dataPoints.toString();
         }
 
         /*
-        creer une LinkedList qui contient les elements de mergeCommits tries
+        creer une LinkedList qui contient les elements de commits tries
         du plus recent au moins recent en mettant chaque Value apres sa Key
         */
-        public static LinkedList<String> toList(Map <String, Integer> mergeCommits){
-            LinkedList<String> res=new LinkedList<String>();
+        public static LinkedList<Object> toList(Map<String, HashMap<String,Integer>> commits){
+            LinkedList<Object> res=new LinkedList<Object>();
         
             //le trie
-            for(var item : mergeCommits.entrySet()){
+            for(var item : commits.entrySet()){
                 if(res.size()==0){
                     res.add(item.getKey());
-                    res.add(item.getValue().toString());
+                    res.add(item.getValue());
                 }
                 else{
                     int i=0;
-                    while(i<res.size() && !estSuperieur(item.getKey(),res.get(i))){
+                    while(i<res.size() && !estSuperieur(item.getKey(),(String)res.get(i))){
                         i+=2;
                     }
                     res.add(i,item.getKey());
-                    res.add(i+1,item.getValue().toString());
+                    res.add(i+1,item.getValue());
                 }
             }
             return res;
@@ -112,15 +110,8 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin{
         }
 
         @Override
-        public String getResultAsStringdate() {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
-        @Override
         public String getChartName() {
-            // TODO Auto-generated method stub
-            return null;
+            return "Merge Commits Per Day";
         }
     }
 }

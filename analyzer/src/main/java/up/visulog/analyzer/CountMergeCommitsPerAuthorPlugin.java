@@ -56,11 +56,6 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
         }
 
         @Override
-        public String getResultAsStringdate() {
-            return null;
-        }
-
-        @Override
         public String getChartName() {
             return "Merge Commits Per Author";
         }

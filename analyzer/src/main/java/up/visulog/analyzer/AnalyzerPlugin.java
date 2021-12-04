@@ -5,8 +5,6 @@ public interface AnalyzerPlugin {
         String getResultAsString();
         String getResultAsDataPoints();
         String getChartName();
-        // Methode define pour recuperer le nombre de commits par date
-        String getResultAsStringdate();
     }
 
     /**

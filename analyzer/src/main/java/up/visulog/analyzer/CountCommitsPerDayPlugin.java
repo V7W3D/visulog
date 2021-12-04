@@ -1,5 +1,4 @@
 package up.visulog.analyzer;
-
 import up.visulog.gitrawdata.Month;
 import java.util.HashMap;
 import java.util.List;
@@ -11,66 +10,60 @@ import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
 import up.visulog.gitrawdata.Parsing;
 
-public class CountMergeCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
+public class CountCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
-    public CountMergeCommitsPerDayAndAuthorPlugin(Configuration generalConfiguration) {
+    public CountCommitsPerDayPlugin(Configuration generalConfiguration) {
         if(configuration==null)
             configuration = generalConfiguration;
     }
 
     @Override
     public void run() {        
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDay")));
     }
 
-    protected Result processLog(List<Parsable> list) {
+    protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
-        for (var parsable : list) {
-            Commit mergeCommit = (Commit) parsable;
-            if(mergeCommit.mergedFrom != null){
-                String[] date=mergeCommit.date.split(" at ");
-                HashMap<String,Integer> commitPerAuthorDefault=new HashMap<>();
-                commitPerAuthorDefault.put(mergeCommit.author,0);
-                HashMap<String,Integer> map=result.mergeCommitsPerDayAndAuthor.getOrDefault(date[0], commitPerAuthorDefault);
-                var nb=map.getOrDefault(mergeCommit.author,0);
-                map.put(mergeCommit.author,nb+1);
-                result.mergeCommitsPerDayAndAuthor.put(date[0],map);
-            }
+        for (var parsable : gitLog) {
+            Commit commit = (Commit) parsable;
+            String myDate = commit.date;
+            String day = myDate.split(" ")[0];
+            var nb = result.commitsPerDay.getOrDefault(day, 0);
+            result.commitsPerDay.put(day, nb + 1);
         }
         return result;
     }
 
-
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, HashMap<String, Integer>> mergeCommitsPerDayAndAuthor = new HashMap<>();
+        private final Map<String, Integer> commitsPerDay = new HashMap<>();
 
-        Map<String, HashMap<String,Integer>> getMergeCommitsPerDayAndAuthor() {
-            return mergeCommitsPerDayAndAuthor;
+        Map<String, Integer> getCommitsPerDayAndAuthor() {
+            return commitsPerDay;
         }
 
         @Override
         public String getResultAsString() {
-            return mergeCommitsPerDayAndAuthor.toString();
+            return commitsPerDay.toString();
         }
 
         @Override
         public String getResultAsDataPoints() {
             StringBuilder dataPoints = new StringBuilder();
-            for (var item : mergeCommitsPerDayAndAuthor.entrySet()) {
+            for (var item : commitsPerDay.entrySet()) {
                 dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
             return dataPoints.toString();
         }
 
         /*
-        creer une LinkedList qui contient les elements de mergeCommits tries
+        creer une LinkedList qui contient les elements de commits tries
         du plus recent au moins recent en mettant chaque Value apres sa Key
         */
-        public static LinkedList<Object> toList(Map<String, HashMap<String,Integer>> mergeCommits){
+        public static LinkedList<Object> toList(Map<String, HashMap<String,Integer>> commits){
             LinkedList<Object> res=new LinkedList<Object>();
         
             //le trie
-            for(var item : mergeCommits.entrySet()){
+            for(var item : commits.entrySet()){
                 if(res.size()==0){
                     res.add(item.getKey());
                     res.add(item.getValue());
@@ -114,17 +107,9 @@ public class CountMergeCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin
             return true;//on n'aura jamais deux dates egales, donc on n'arrivera pas ici
         }
 
-
-        @Override
-        public String getResultAsStringdate() {
-            // TODO Auto-generated method stub
-            return null;
-        }
-
         @Override
         public String getChartName() {
-            // TODO Auto-generated method stub
-            return null;
+            return "Commits Per Day";
         }
     }
 }
