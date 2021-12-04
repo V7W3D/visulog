@@ -9,6 +9,7 @@ import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Month;
 import up.visulog.gitrawdata.Parsable;
+import up.visulog.gitrawdata.Parsing;
 
 public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin{
 
@@ -16,6 +17,12 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin{
         if(configuration==null)
             configuration = generalConfiguration;
     }
+
+    @Override
+    public void run() {        
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+    }
+
 
     protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
@@ -45,15 +52,11 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin{
 
         @Override
         public String getResultAsDataPoints() {
-            LinkedList<String> mergeCommitsList=toList(mergeCommitsPerDate);
-            StringBuilder html = new StringBuilder("<div>Merge commits per Day: <ul>");
-            int i=0;
-            while(i<mergeCommitsList.size()) {
-                html.append("<li>").append(mergeCommitsList.get(i)).append(": ").append(mergeCommitsList.get(i+1)).append("</li>");
-                i+=2;
+            StringBuilder dataPoints = new StringBuilder();
+            for (var item : mergeCommitsPerDate.entrySet()) {
+                dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            html.append("</ul></div>");
-            return html.toString();
+            return dataPoints.toString();
         }
 
         /*

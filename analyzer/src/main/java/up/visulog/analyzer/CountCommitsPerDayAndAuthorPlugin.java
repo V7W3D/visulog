@@ -16,6 +16,12 @@ public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
             configuration = generalConfiguration;
     }
 
+    @Override
+    public void run() {        
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+    }
+
+
     protected Result processLog(List<Parsable> list) {
         var result = new Result();
         for (var parsable : list) {
@@ -47,19 +53,11 @@ public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getResultAsDataPoints() {
-            LinkedList<Object> commitsList=toList(commitsPerDayAndAuthor);
-            StringBuilder html = new StringBuilder("<div>commits per day and author: <ul>");
-            int i=0;
-            while(i<commitsList.size()){
-                html.append("<li>").append((String)commitsList.get(i)).append(": </li><ul>");
-                for(var commitsPerAuthor : ((HashMap<String,Integer>)(commitsList.get(i+1))).entrySet()){
-                    html.append("<li>").append(commitsPerAuthor.getKey()).append(": ").append(commitsPerAuthor.getValue()).append("</li>");
-                }
-                html.append("</ul>");
-                i+=2;
+            StringBuilder dataPoints = new StringBuilder();
+            for (var item : commitsPerDayAndAuthor.entrySet()) {
+                dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            html.append("</ul></div>");
-            return html.toString();
+            return dataPoints.toString();
         }
 
         /*

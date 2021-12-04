@@ -9,12 +9,18 @@ import java.util.Map;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
+import up.visulog.gitrawdata.Parsing;
 
 public class CountMergeCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
     public CountMergeCommitsPerDayAndAuthorPlugin(Configuration generalConfiguration) {
         if(configuration==null)
             configuration = generalConfiguration;
+    }
+
+    @Override
+    public void run() {        
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
     }
 
     protected Result processLog(List<Parsable> list) {
@@ -49,19 +55,11 @@ public class CountMergeCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin
 
         @Override
         public String getResultAsDataPoints() {
-            LinkedList<Object> mergeCommitsList=toList(mergeCommitsPerDayAndAuthor);
-            StringBuilder html = new StringBuilder("<div>Merge commits per day and author: <ul>");
-            int i=0;
-            while(i<mergeCommitsList.size()){
-                html.append("<li>").append((String)mergeCommitsList.get(i)).append(": </li><ul>");
-                for(var commitsPerAuthor : ((HashMap<String,Integer>)(mergeCommitsList.get(i+1))).entrySet()){
-                    html.append("<li>").append(commitsPerAuthor.getKey()).append(": ").append(commitsPerAuthor.getValue()).append("</li>");
-                }
-                html.append("</ul>");
-                i+=2;
+            StringBuilder dataPoints = new StringBuilder();
+            for (var item : mergeCommitsPerDayAndAuthor.entrySet()) {
+                dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            html.append("</ul></div>");
-            return html.toString();
+            return dataPoints.toString();
         }
 
         /*

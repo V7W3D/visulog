@@ -65,6 +65,16 @@ public class CLILauncher {
                                             return map;
                                         }});
                                     break;
+                                    case "countCommitsPerDayAndAuthor" : 
+                                    plugins.put("countCommitsPerDayAndAuthor", new PluginConfig(){
+                                        @Override
+                                        public Map<String, String> config() {
+                                            Map<String, String> map = new HashMap<String, String>();
+                                            map.put("command", "git");
+                                            map.put("param1", "log");
+                                            return map;
+                                        }});
+                                    break;
                             }
                             break;
                         case "--loadConfigFile":
