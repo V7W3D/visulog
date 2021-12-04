@@ -23,7 +23,6 @@ public class Analyzer {
             var plugin = makePlugin(pluginName, pluginConfig);
             plugin.ifPresent(plugins::add);
         }
-        
         // TODO: try running them in parallel (A FAIRE : essayez de les exécuter en parallèle)
         for (var plugin: plugins) plugin.run();
 
@@ -34,7 +33,7 @@ public class Analyzer {
     // TODO: find a way so that the list of plugins is not hardcoded in this factory
     //(A FAIRE : trouver un moyen pour que la liste des plugins ne soit pas codée en dur dans cette usine)
     private Optional<AnalyzerPlugin> makePlugin(String pluginName, PluginConfig pluginConfig) {
-        switch (pluginName) {
+        switch (pluginName) {//ça c'est du hardcoding
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
             case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
             case "countMergeCommitsPerDay" : return Optional.of(new CountMergeCommitsPerDayPlugin(config));

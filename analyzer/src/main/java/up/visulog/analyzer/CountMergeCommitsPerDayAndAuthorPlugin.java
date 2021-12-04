@@ -48,7 +48,7 @@ public class CountMergeCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin
         }
 
         @Override
-        public String getResultAsHtmlDiv() {
+        public String getResultAsDataPoints() {
             LinkedList<Object> mergeCommitsList=toList(mergeCommitsPerDayAndAuthor);
             StringBuilder html = new StringBuilder("<div>Merge commits per day and author: <ul>");
             int i=0;
@@ -119,6 +119,12 @@ public class CountMergeCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin
 
         @Override
         public String getResultAsStringdate() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public String getChartName() {
             // TODO Auto-generated method stub
             return null;
         }

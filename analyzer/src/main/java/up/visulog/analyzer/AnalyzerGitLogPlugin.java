@@ -13,7 +13,7 @@ public abstract class AnalyzerGitLogPlugin implements AnalyzerPlugin{
     @Override
     public void run() {
         if(listCommits==null)
-            listCommits=Parsing.parseLogFromCommand(configuration.getGitPath(),"git log");
+            listCommits=Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits"));
         
         result = processLog(listCommits);
     }

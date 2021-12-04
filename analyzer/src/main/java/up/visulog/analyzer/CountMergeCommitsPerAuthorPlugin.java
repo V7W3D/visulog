@@ -7,6 +7,7 @@ import java.util.Map;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
+import up.visulog.gitrawdata.Parsing;
 
 public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
 
@@ -27,6 +28,10 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
         return result;
     }
 
+    @Override
+    public void run() {
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits")));
+    }
 
 
     static class Result implements AnalyzerPlugin.Result {
@@ -42,19 +47,22 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
         }
 
         @Override
-        public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Merge commits per author: <ul>");
+        public String getResultAsDataPoints() {
+            StringBuilder dataPoints = new StringBuilder();
             for (var item : mergeCommitsPerAuthor.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+                dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            html.append("</ul></div>");
-            return html.toString();
+            return dataPoints.toString();
         }
 
         @Override
         public String getResultAsStringdate() {
-            // TODO Auto-generated method stub
             return null;
+        }
+
+        @Override
+        public String getChartName() {
+            return "Merge Commits Per Author";
         }
     }
 }
