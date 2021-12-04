@@ -2,6 +2,9 @@ package up.visulog.analyzer;
 
 import java.util.Iterator;
 import java.util.List;
+
+import up.visulog.analyzer.AnalyzerPlugin.Result;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -51,6 +54,7 @@ public class AnalyzerResult {
         StringBuilder charts = new StringBuilder(); 
         StringBuilder rendering = new StringBuilder();
         while(it.hasNext()) {
+            Result result = it.next();
             try {
                 String chartContainer = readFile("../webgen/chartContainer.html", Charset.forName("UTF-8"));
                 chartContainer = chartContainer.replace("chartContainer","chartContainer" + i);
@@ -61,11 +65,12 @@ public class AnalyzerResult {
             }
             try {
                 String chart = readFile("../webgen/chart.js",Charset.forName("UTF-8"));
-                chart = chart.replace("/*data*/",it.next().getResultAsDataPoints());
+                chart = chart.replace("/*data*/",result.getResultAsDataPoints());
                 chart = chart.replace("myData","myData" + i);
                 chart = chart.replace("myConfig","myConfig"+ i);
                 chart = chart.replace("chartContainer","chartContainer" + i);
                 chart = chart.replace("myChart","myChart" + i);
+                chart = chart.replace("/*title*/",result.getChartName());                
                 charts.append(chart);
                 rendering.append("myChart"+i+".render();");
             } catch (IOException e) {

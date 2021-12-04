@@ -71,5 +71,10 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             }
             return dataPoints.toString();
         }
+
+        @Override
+        public String getChartName() {
+            return "Commits Per Author";
+        }
     }
 }

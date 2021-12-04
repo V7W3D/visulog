@@ -16,7 +16,7 @@ public class TestCountCommitsPerAuthorPlugin {
         String[] authors = {"foo", "bar", "baz"};
         var entries = 20;
         for (int i = 0; i < entries; i++) {
-            log.add(new CommitBuilder("").setAuthor(authors[i % 3]).createCommit());
+            log.add(new CommitBuilder("").setAuthor(authors[i % 3]).setDate("Wed Sep 29 20:33:07 2021 +0200").createCommit());
         }
         var res = CountCommitsPerAuthorPlugin.processLog(log);
         assertEquals(authors.length, res.getCommitsPerAuthor().size());

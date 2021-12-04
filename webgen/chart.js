@@ -10,7 +10,7 @@ const myConfig = {
         theme: "light2",        exportEnabled: true,
         animationEnabled: true,
         title: {
-                text: "title"
+                text: "/*title*/"
         },
         data : myData
 };

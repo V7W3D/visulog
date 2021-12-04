@@ -64,8 +64,12 @@ public class CountMergeCommitsPerAuthorPlugin implements AnalyzerPlugin {
 
         @Override
         public String getResultAsStringdate() {
-            // TODO Auto-generated method stub
             return null;
+        }
+
+        @Override
+        public String getChartName() {
+            return "Merge Commits Per Author";
         }
     }
 }

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class TestCommit {
     @Test
     public void testParseCommit() throws IOException, URISyntaxException {
-        var expected = "Commit{id='6304c1acdc1cbdeb8315528781896abc72a021b8', date='Tue Sep 1 12:30:53 2020 +0200', author='Aldric Degorre <adegorre@irif.fr>', description='More gradle configuration (with subprojects)'}";
+        var expected = "Commit{id='6304c1acdc1cbdeb8315528781896abc72a021b8', date='Tuesday the 1st of September 2020 at 12h 30min 53sec', author='Aldric Degorre <adegorre@irif.fr>', description='More gradle configuration (with subprojects)'}";
         var uri = getClass().getClassLoader().getResource("git.log").toURI();
         try (var reader = Files.newBufferedReader(Paths.get(uri))) {
             var commit = Commit.parseCommit(reader);
