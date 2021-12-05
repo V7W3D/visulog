@@ -19,11 +19,9 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
         var result = new Result();
         for (var parsable : gitLog) {
             Commit commit = (Commit) parsable;
-            var nb = result.commitsPerDay.getOrDefault(commit.author, 0);
-            result.commitsPerDay.put(commit.author, nb + 1);
+            var nb = result.commits.getOrDefault(commit.author, 0);
+            result.commits.put(commit.author, nb + 1);
         }
-
-
         return result;
     }
 
@@ -34,21 +32,21 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
 
 
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, Integer> commitsPerDay = new HashMap<>();
+        private final Map<String, Integer> commits = new HashMap<>();
 
         Map<String, Integer> getCommitsPerAuth() {
-            return commitsPerDay;
+            return commits;
         }
 
         @Override
         public String getResultAsString() {
-            return commitsPerDay.toString();
+            return commits.toString();
         }
 
         @Override
         public String getResultAsDataPoints() {
             StringBuilder dataPoints = new StringBuilder();
-            for (var item : commitsPerDay.entrySet()) {
+            for (var item : commits.entrySet()) {
                 dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
             return dataPoints.toString();

@@ -7,6 +7,7 @@ import up.visulog.config.PluginConfig;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -45,11 +46,25 @@ public class CLILauncher {
                             PluginConfig GitLogPluginConfig = new PluginConfig(){
                                 @Override
                                 public Map<String, String> config() {
-                                    Map<String, String> map = new HashMap<String, String>();
-                                    map.put("command", "git");
-                                    map.put("param1", "log");
-                                    return map;
+                                    Map<String, String> conf = new TreeMap<String, String>();
+                                    conf.put("command", "git");
+                                    conf.put("param1", "log");
+                                    return conf;
                                 }
+                            };
+
+                            PluginConfig FilePluginConfig =  new PluginConfig(){
+
+                                @Override
+                                public Map<String, String> config() {
+                                    Map<String, String> conf = new TreeMap<String, String>();
+                                    conf.put("command", "git");
+                                    conf.put("param1", "whatchanged");
+                                    conf.put("param2", "--numstat");
+                                    conf.put("param3", "--pretty=");
+                                    return conf;
+                                }
+
                             };
 
                             switch(pValue) {
@@ -64,6 +79,10 @@ public class CLILauncher {
                                     break;
                                 case "countMergeCommitsPerDay" : 
                                     plugins.put("countMergeCommitsPerDay", GitLogPluginConfig);
+                                break;
+                                case "countLinesAddedPerFile" : plugins.put("countLinesAddedPerFile", FilePluginConfig);
+                                break;
+                                case "countLinesDeletedPerFile" : plugins.put("countLinesDeletedPerFile", FilePluginConfig);
                                 break;
                             }
                             break;

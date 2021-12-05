@@ -23,6 +23,8 @@ public class Parsing {
         switch(command.get(1)) {
             case "log":
                 return Commit.parseLog(reader);
+            case "whatchanged":
+                return File.parseLog(reader);
             default: 
                 return null;
         }
