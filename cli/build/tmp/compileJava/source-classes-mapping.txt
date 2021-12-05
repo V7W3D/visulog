@@ -1,3 +1,4 @@
 up/visulog/cli/CLILauncher.java
  up.visulog.cli.CLILauncher
  up.visulog.cli.CLILauncher$1
+ up.visulog.cli.CLILauncher$2
