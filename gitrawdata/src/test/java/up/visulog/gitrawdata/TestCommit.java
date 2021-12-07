@@ -221,6 +221,16 @@ public class TestCommit {
     }
 
     @Test
+    public void testToutBete()
+    {
+      String s = "rrr";
+      String sm = "rrr";
+      String r = "ssss";
+      System.out.println(s == r);
+    }
+
+
+    @Test
     public void testReadJsonAllCommit() throws JSONException, IOException{
       int page=1;
       int count=0;
