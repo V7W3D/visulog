@@ -57,18 +57,32 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
             return dataPoints.toString();
         }
 
+
+        @Override
+        public String getResultAsHtmlDiv() {
+            LinkedList<String> mergeCommitsList=toList(mergeCommitsPerDay);
+            StringBuilder html = new StringBuilder("<div>Merge commits per Day: <ul>");
+            int i=0;
+            while(i<mergeCommitsList.size()) {
+                html.append("<li>").append(mergeCommitsList.get(i)).append(": ").append(mergeCommitsList.get(i+1)).append("</li>");
+                i+=2;
+            }
+            html.append("</ul></div>");
+            return html.toString();
+        }
+        
         /*
         creer une LinkedList qui contient les elements de commits tries
         du plus recent au moins recent en mettant chaque Value apres sa Key
         */
-        public static LinkedList<Object> toList(Map<String, HashMap<String,Integer>> commits){
-            LinkedList<Object> res=new LinkedList<Object>();
+        public static LinkedList<String> toList(Map<String, Integer> commits){
+            LinkedList<String> res=new LinkedList<String>();
         
             //le trie
             for(var item : commits.entrySet()){
                 if(res.size()==0){
                     res.add(item.getKey());
-                    res.add(item.getValue());
+                    res.add(item.getValue().toString());
                 }
                 else{
                     int i=0;
@@ -76,7 +90,7 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
                         i+=2;
                     }
                     res.add(i,item.getKey());
-                    res.add(i+1,item.getValue());
+                    res.add(i+1,item.getValue().toString());
                 }
             }
             return res;

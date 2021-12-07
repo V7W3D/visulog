@@ -51,6 +51,19 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
             }
             return dataPoints.toString();
         }
+        
+        @Override
+        public String getResultAsHtmlDiv() {
+	    StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+	    int total  = 0;
+            for (var item : commits.entrySet()) {
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+                total = total + item.getValue();
+            }
+            html.append("</ul></div>");
+            html.append("Total commits : " + total);
+            return html.toString();
+        }
 
         @Override
         public String getChartName() {

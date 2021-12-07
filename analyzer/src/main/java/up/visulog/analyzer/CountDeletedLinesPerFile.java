@@ -61,6 +61,11 @@ public class CountDeletedLinesPerFile implements AnalyzerPlugin {
         }
 
         @Override
+        public String getResultAsHtmlDiv() {
+            return "";
+        }
+
+        @Override
         public String getChartName() {
             return "Lines Deleted Per File";
         }

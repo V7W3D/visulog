@@ -56,6 +56,16 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
         }
 
         @Override
+        public String getResultAsHtmlDiv() {
+            StringBuilder html = new StringBuilder("<div>Merge commits per author: <ul>");
+            for (var item : mergeCommitsPerAuthor.entrySet()) {
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+            }
+            html.append("</ul></div>");
+            return html.toString();
+        }
+
+        @Override
         public String getChartName() {
             return "Merge Commits Per Author";
         }

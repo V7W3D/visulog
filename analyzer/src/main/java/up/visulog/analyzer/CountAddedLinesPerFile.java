@@ -61,6 +61,11 @@ public class CountAddedLinesPerFile implements AnalyzerPlugin {
         }
 
         @Override
+        public String getResultAsHtmlDiv() {
+            return "";
+        }
+
+        @Override
         public String getChartName() {
             return "Lines Added Per File";
         }
