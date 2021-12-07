@@ -48,29 +48,27 @@ public class GithubCommit implements Parsable {
 
   public static List<Parsable> getCommitsFromURL(String pValue) throws JSONException, IOException
   {
-    List<Parsable> commits = new ArrayList<Parsable>();
-    int page=1;
-    int count=0;
-    int last=1;
+    List<GithubCommit> commits = new ArrayList<GithubCommit>();
     try {
       JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos"+pValue+"/commits");
     } catch (Exception e) {
       System.out.println("Probleme "+e);
       return commits;
-    }
-    while(last<=10){
-      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/torvalds/linux/commits?page="+page+"&per_page=100");
-      for(int i=0; i<jsonarray.length(); i++){
-        String author = (String) jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name");
-        String id = (String) jsonarray.getJSONObject(0).get("node_id");
-        String description =(String) jsonarray.getJSONObject(0).getJSONObject("commit").get("message");
-        
-        String date = (String)jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date");
-        count++;
-        // System.out.println("donnéees "+author+" "+id+" "+description+" "+" date est "+date);
-        commits.add(new GithubCommit(author, id, description, date));
-      }last++;
-      page++;
+    }int page=1;
+    boolean Empty=false;
+    while(!Empty){
+      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos"+pValue+"/commits?page="+page+"&per_page=100");
+      if(!jsonarray.isEmpty()){
+        for(int i=0; i<jsonarray.length(); i++){
+          String author = (String) jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name");
+          String id = (String) jsonarray.getJSONObject(0).get("node_id");
+          String description =(String) jsonarray.getJSONObject(0).getJSONObject("commit").get("message");         
+          String date = (String)jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date");
+          commits.add(new GithubCommit(author, id, description, date));
+        }page++;
+      }else{
+        Empty=true;
+      }
     }
     return commits;
   }
