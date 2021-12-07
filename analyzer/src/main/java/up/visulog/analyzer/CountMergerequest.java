@@ -72,18 +72,12 @@ public class CountMergerequest implements AnalyzerPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
-            System.out.println("Liste Merge Request :");
+            System.out.println("Liste Merge Request conclue :");
             StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
             for (var item : mergeRequest.entrySet() ){
                 System.out.println("-"+item.getKey()+"       "+item.getValue());
             }
-
-
-            for (var item : commitsPerAuthor.entrySet() ){
-                System.out.println("-"+item.getKey()+"       "+item.getValue());
-            }
-
-
+            
             return html.toString();
 
         }
