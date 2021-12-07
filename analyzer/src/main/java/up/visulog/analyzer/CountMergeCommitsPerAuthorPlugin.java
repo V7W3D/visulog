@@ -30,7 +30,10 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
 
     @Override
     public void run() {
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits")));
+        if(listCommits==null)
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits")));
+        else
+            result = processLog(listCommits);
     }
 
 

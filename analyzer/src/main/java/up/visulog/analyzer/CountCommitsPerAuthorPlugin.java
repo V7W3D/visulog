@@ -26,8 +26,11 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
     }
 
     @Override
-    public void run() {        
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+    public void run() {
+        if(listCommits==null)        
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+        else
+            result = processLog(listCommits);
     }
 
 

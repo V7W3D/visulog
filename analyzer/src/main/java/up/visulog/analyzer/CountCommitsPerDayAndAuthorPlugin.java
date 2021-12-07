@@ -12,15 +12,13 @@ import up.visulog.gitrawdata.Parsing;
 
 
 
-public class CountCommitsPerDayAndAuthorPlugin implements AnalyzerPlugin {
-    private final Configuration configuration;
-    private Result result;
+public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
     public CountCommitsPerDayAndAuthorPlugin(Configuration generalConfiguration) {
-        this.configuration = generalConfiguration;
+        configuration = generalConfiguration;
     }
 
-    static Result processLog(List<Parsable> list) {
+    protected Result processLog(List<Parsable> list) {
         var result = new Result();
         for (var parsable : list) {
             Commit commit = (Commit) parsable;
@@ -37,13 +35,10 @@ public class CountCommitsPerDayAndAuthorPlugin implements AnalyzerPlugin {
 
     @Override
     public void run() {
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDayAndAuthor")));
-    }
-
-    @Override
-    public Result getResult() {
-        if (result == null) run();
-        return result;
+        if(listCommits==null)
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDayAndAuthor")));
+        else
+            result = processLog(listCommits);
     }
 
     static class Result implements AnalyzerPlugin.Result {

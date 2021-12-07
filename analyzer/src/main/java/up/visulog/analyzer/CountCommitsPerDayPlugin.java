@@ -18,8 +18,11 @@ public class CountCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
     }
 
     @Override
-    public void run() {        
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDay")));
+    public void run() {   
+        if(listCommits==null)     
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDay")));
+        else
+            result = processLog(listCommits);
     }
 
     protected Result processLog(List<Parsable> gitLog) {
