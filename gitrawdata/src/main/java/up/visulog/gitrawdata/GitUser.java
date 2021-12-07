@@ -24,7 +24,7 @@ public class GitUser{
     private String twitterUserName;
 
     public GitUserString id, String type, String site_admin, String company, String location, String email, int followers, int following,
-            String hireable, String createdAt, String bio, String twitterUserName) {
+        String hireable, String createdAt, String bio, String twitterUserName) {
         this.id=id;
         this.type=type;
         this.site_admin=site_admin;
@@ -37,7 +37,7 @@ public class GitUser{
         this.createdAt=createdAt;
         this.bio=bio;
         this.twitterUserName=twitterUserName;
-        }
+    }
     public String getId() {
         return id;
     }
