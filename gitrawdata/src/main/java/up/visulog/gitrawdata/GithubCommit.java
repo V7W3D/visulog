@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GithubCommit {
+public class GithubCommit implements Parsable {
   
   public final String id;
   public final String date;
@@ -46,9 +46,9 @@ public class GithubCommit {
     }
   }
 
-  public static List<GithubCommit> getCommitsFromURL(String pValue) throws JSONException, IOException
+  public static List<Parsable> getCommitsFromURL(String pValue) throws JSONException, IOException
   {
-    List<GithubCommit> commits = new ArrayList<GithubCommit>();
+    List<Parsable> commits = new ArrayList<Parsable>();
     int page=1;
     int count=0;
     int last=1;

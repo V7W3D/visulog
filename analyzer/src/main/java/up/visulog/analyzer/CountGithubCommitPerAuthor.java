@@ -27,6 +27,7 @@ public class CountGithubCommitPerAuthor extends AnalyzerGitLogPlugin {
 
     protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
+        System.out.println("Arrivé ici et taille est "+gitLog.size());
         // for (var parsable : gitLog) {
         //     Commit commit = (Commit) parsable;
         //     var nb = result.commitsPerAuthor.getOrDefault(commit.author, 0);
@@ -54,9 +55,10 @@ public class CountGithubCommitPerAuthor extends AnalyzerGitLogPlugin {
         }
         System.out.println("pValue = " + pValue);
         // System.out.println("pValue coupé = " + pValue.substring(7,pValue.length()));
+        List<Parsable> commits = new ArrayList<Parsable>();
         String param = pValue.substring(7,pValue.length());
         try {
-            List<GithubCommit> commits = GithubCommit.getCommitsFromURL(param);
+            commits = GithubCommit.getCommitsFromURL(param);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -64,6 +66,7 @@ public class CountGithubCommitPerAuthor extends AnalyzerGitLogPlugin {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        result = processLog(commits);
         // result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
         
     }
