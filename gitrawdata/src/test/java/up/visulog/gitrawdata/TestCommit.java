@@ -230,6 +230,7 @@ public class TestCommit {
     }
 
 
+    @Test
     public void testReadJsonAllCommit() throws JSONException, IOException{
       int page=1;
       int count=0;

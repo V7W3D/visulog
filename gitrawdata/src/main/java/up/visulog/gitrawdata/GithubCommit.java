@@ -53,23 +53,25 @@ public class GithubCommit {
     int count=0;
     int last=1;
     try {
-      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos"+pValue);
+      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos"+pValue+"/commits");
     } catch (Exception e) {
       System.out.println("Probleme "+e);
       return commits;
     }
-    // while(last<=10){
-    //   JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/torvalds/linux/commits?page="+page+"&per_page=100");
-    //   for(int i=0; i<jsonarray.length();i++){
-    //     // System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name"));
-    //     // System.out.println(jsonarray.getJSONObject(0).get("node_id"));
-    //     System.out.println("- "+jsonarray.getJSONObject(0).getJSONObject("commit").get("message"));
-    //     System.out.println();
-    //     // System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date"));
-    //     count++;
-    //   }last++;
-    //   page++;
-    // }
+    while(last<=10){
+      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/torvalds/linux/commits?page="+page+"&per_page=100");
+      for(int i=0; i<jsonarray.length(); i++){
+        String author = (String) jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name");
+        String id = (String) jsonarray.getJSONObject(0).get("node_id");
+        String description =(String) jsonarray.getJSONObject(0).getJSONObject("commit").get("message");
+        
+        String date = (String)jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date");
+        count++;
+        // System.out.println("donnéees "+author+" "+id+" "+description+" "+" date est "+date);
+        commits.add(new GithubCommit(author, id, description, date));
+      }last++;
+      page++;
+    }
     return commits;
   }
 
