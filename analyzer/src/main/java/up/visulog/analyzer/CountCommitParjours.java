@@ -2,10 +2,13 @@ package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
-import java.io.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class CountCommitParjours implements AnalyzerPlugin {
     private final Configuration configuration;
@@ -24,7 +27,7 @@ public class CountCommitParjours implements AnalyzerPlugin {
             result.commitsPerAuthor.put(commit.author, nb + 1);
 
             // lister les dates
-            var nb1 = result.commitsdate.getOrDefault(commit.date, 0);
+            nb = result.commitsdate.getOrDefault(commit.date, 0);
             result.commitsdate.put(commit.date, nb + 1);
         }
 
@@ -67,7 +70,7 @@ public class CountCommitParjours implements AnalyzerPlugin {
         }
 
         @Override
-        public String getResultMergeRequest() {
+        public String GrapheJavaFxCanvaJs() {
             return null;
         }
 
@@ -75,23 +78,6 @@ public class CountCommitParjours implements AnalyzerPlugin {
         @Override
         public String getResultAsHtmlDiv() {
             StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
-            // Ajout
-            System.out.println("Page html");
-            System.out.println(" ");
-            System.out.println("Liste des personnes qui ont faits des commits :"+getResultAsString());
-
-            Set<String> da = commitsdate.keySet();
-            // nombre totale de commits branche principale et branche intermediaire acceder par un checkout
-            System.out.println(" ");
-            System.out.println("**Commit(s) par personnes: ");
-            int mbTotalcommits = 0;
-            for (var item : getCommitsPerAuthor().entrySet()) {
-                mbTotalcommits += item.getValue();
-                System.out.println(item.getKey() + ": " + "" + item.getValue() + " commit(s)");
-
-            }
-            System.out.println(" ");
-            System.out.println("**Le nombre total de commits est: " + mbTotalcommits);
             //System.out.println(" ");
             //Thu Aug 27 00:35:19 2020 +0200
             LocalDateTime ldt = LocalDateTime.now();
@@ -120,68 +106,7 @@ public class CountCommitParjours implements AnalyzerPlugin {
 
 
 
-            // Enregidtrement des dates de commits et le nombre de commits pour chaque date dans un fichier
-            File fildc = new File("/home/khalifa/Documents/L3/Donnees.txt");
-            File fild = new File("/home/khalifa/Documents/L3/Date.txt");
-            BufferedWriter bfdc = null;
-            try {
-                bfdc = new BufferedWriter(new FileWriter(fildc));
-                //
-                for (Map.Entry<String, Integer> entry: commitsdate.entrySet()) {
-                    bfdc.write(entry.getKey() + " : " + entry.getValue()+" commit(s)");
-                    bfdc.newLine();
-                }
 
-                bfdc.flush();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-
-                try {
-                    //always close the writer
-                    bfdc.close();
-                } catch (Exception e) {
-                }
-            }
-
-
-
-            File filecomdeuM = new File("/home/khalifa/Documents/L3/commits2021.txt");
-            File filecomdeuMdate = new File("/home/khalifa/Documents/L3/Date.txt");
-            BufferedWriter bfcomdeuM= null;
-            BufferedWriter bfcomdeuMdate= null;
-            try {
-                bfcomdeuM = new BufferedWriter(new FileWriter(filecomdeuM));
-                bfcomdeuMdate = new BufferedWriter(new FileWriter(filecomdeuMdate));
-                //
-
-
-                for (Map.Entry<String, Integer> entry: commitsdate.entrySet()) {
-                    if (entry.getKey().contains(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH).format(ldt))) {
-                        bfcomdeuM.write(entry.getKey() + " : " + entry.getValue()+" commit(s)");
-                        bfcomdeuM.newLine();
-                        bfcomdeuMdate.write(entry.getKey());
-                        bfcomdeuMdate.newLine();
-
-                    }
-                }
-
-                bfcomdeuM.flush();
-                bfcomdeuM.flush();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-
-                try {
-                    //always close the writer
-                    bfcomdeuM.close();
-                    bfcomdeuMdate.close();
-
-                } catch (Exception e) {
-                }
-            }
 
             return html.toString();
         }

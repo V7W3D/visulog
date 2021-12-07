@@ -34,14 +34,14 @@ public class AnalyzerResult {
         }
     }
     public String toHTML() {
-        //CreateFile();
+        CreateFile();
         try {
             FileWriter writer = new FileWriter("../results.html");
            writer.write("<html>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) + "</body></html>");
             writer.close();
 
             System.out.println("Successfully wrote to the file.");
-
+            // Graphe countcommits perAuth
             FileWriter GrapheHTML = new FileWriter("../Graphedonnees.html");
             GrapheHTML.write("<!DOCTYPE HTML>\n" +
                     "<html>\n" +
@@ -69,11 +69,48 @@ public class AnalyzerResult {
                     "    <script type=\"text/javascript\" src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script>\n" +
                     "</head>\n" +
                     "<body>\n" +
+                    "<div>Commits par personne: <ul>"+
+                            "<li>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc, cur) -> acc + cur) +"</li>"+
+
                     "<div id=\"chartContainer\" style=\"height: 300px; width: 100%;\">\n" +
                     "</div>\n" +
                     "</body>\n" +
                     "</html>");
             GrapheHTML.close();
+
+            // Graphe count commit day
+            FileWriter comday = new FileWriter("../JavaFXGraphetoCanvasJs.html");
+            comday.write("<!DOCTYPE HTML>\n" +
+                    "<html>\n" +
+                    "<head>\n" +
+                    "    <script type=\"text/javascript\">\n" +
+                    "  window.onload = function () {\n" +
+                    "    var chart = new CanvasJS.Chart(\"chartContainer\",\n" +
+                    "    {\n" +
+                    "      title: {\n" +
+                    "        text: \"Graphe commits par Jours\"\n" +
+                    "      },\n" +
+                    "      data: [\n" +
+                    "      {\n" +
+                    "        type: \"column\",\n" +
+                    "        dataPoints: [\n"+subResults.stream().map(AnalyzerPlugin.Result::GrapheJavaFxCanvaJs).reduce("", (acc, cur) -> acc + cur)  +"      ]\n" +
+                    "      }\n" +
+                    "      ]\n" +
+                    "    });\n" +
+                    "\n" +
+                    "    chart.render();\n" +
+                    "  }\n" +
+                    "  </script>\n" +
+                    "    <script type=\"text/javascript\" src=\"https://canvasjs.com/assets/script/canvasjs.min.js\"></script>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "<div id=\"chartContainer\" style=\"height: 300px; width: 100%;\">\n" +
+                    "</div>\n" +
+                    "</body>\n" +
+                    "</html>");
+            comday.close();
+
+
 
 
         } catch (IOException e) {

@@ -51,8 +51,8 @@ public class CLILauncher {
                                 case "CountCommitParjours" :
                                     plugins.put("CountCommitParjours", new PluginConfig(){});
                                     break;
-                                case "PluginMergeRequest" :
-                                    plugins.put("PluginMergeRequest", new PluginConfig(){});
+                                case "CountMergerequest" :
+                                    plugins.put("CountMergerequest", new PluginConfig(){});
                                     break;
                             }
                             break;

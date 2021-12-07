@@ -43,6 +43,8 @@ public class Analyzer {
         switch (pluginName) {
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
             case "CountCommitParjours" : return Optional.of(new CountCommitParjours(config));
+            case "CountMergerequest" : return Optional.of(new CountMergerequest(config));
+
             default : return Optional.empty();
         }
     }

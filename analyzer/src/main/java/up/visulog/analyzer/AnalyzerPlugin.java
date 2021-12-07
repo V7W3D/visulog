@@ -5,7 +5,7 @@ public interface AnalyzerPlugin {
         String getResultAsString();
         String getResultAsHtmlDiv();
         public String getResultAsStringdate();
-        public String getResultMergeRequest();
+        public String GrapheJavaFxCanvaJs();
         public String getHTMLCommitAuth();
     }
 

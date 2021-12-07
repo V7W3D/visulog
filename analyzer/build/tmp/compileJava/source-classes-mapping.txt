@@ -1,16 +1,16 @@
-up/visulog/analyzer/PluginMergeRequest.java
- up.visulog.analyzer.PluginMergeRequest
- up.visulog.analyzer.PluginMergeRequest$Result
 up/visulog/analyzer/AnalyzerPlugin.java
  up.visulog.analyzer.AnalyzerPlugin
  up.visulog.analyzer.AnalyzerPlugin$Result
-up/visulog/analyzer/Analyzer.java
- up.visulog.analyzer.Analyzer
+up/visulog/analyzer/CountMergerequest.java
+ up.visulog.analyzer.CountMergerequest
+ up.visulog.analyzer.CountMergerequest$Result
+up/visulog/analyzer/AnalyzerResult.java
+ up.visulog.analyzer.AnalyzerResult
 up/visulog/analyzer/CountCommitsPerAuthorPlugin.java
  up.visulog.analyzer.CountCommitsPerAuthorPlugin
  up.visulog.analyzer.CountCommitsPerAuthorPlugin$Result
+up/visulog/analyzer/Analyzer.java
+ up.visulog.analyzer.Analyzer
 up/visulog/analyzer/CountCommitParjours.java
  up.visulog.analyzer.CountCommitParjours
  up.visulog.analyzer.CountCommitParjours$Result
-up/visulog/analyzer/AnalyzerResult.java
- up.visulog.analyzer.AnalyzerResult

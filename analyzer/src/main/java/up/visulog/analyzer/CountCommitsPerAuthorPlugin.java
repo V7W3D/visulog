@@ -21,12 +21,11 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
         for (var commit : gitLog) {
 
             var nb = result.commitsPerAuthor.getOrDefault(commit.author, 0);
-
             result.commitsPerAuthor.put(commit.author, nb + 1);
 
             // lister les dates
-            /*var nb1 = result.commitsdate.getOrDefault(commit.date, 0);
-            result.commitsdate.put(commit.date, nb + 1);*/
+            var nb1 = result.commitsdate.getOrDefault(commit.date, 0);
+            result.commitsdate.put(commit.date, nb + 1);
         }
 
 
@@ -67,15 +66,13 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             return commitsdate.toString();
         }
 
-        @Override
-        public String getResultMergeRequest() {
-            return null;
-        }
+
 
 
         @Override
         public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+           StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+
 
 
             //System.out.println(" ");
@@ -177,8 +174,24 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             html.append("Total commits : " + total);
 
             return html.toString();
+
         }
 
+
+        @Override
+        public String GrapheJavaFxCanvaJs() {
+            LocalDateTime ldt = LocalDateTime.now();
+            StringBuilder comDay= new StringBuilder();
+            for (var item: commitsdate.entrySet()) {
+                char g='"';
+                if (item.getKey().contains(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH).format(ldt))) {
+                    comDay.append("{ y: ").append(item.getValue()).append(", label: ").append(g).append(item.getKey()).append(g+"},");
+
+                }
+            }
+
+            return comDay.toString();
+        }
 
 
         @Override
@@ -186,6 +199,7 @@ public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
             StringBuilder getCommitAuth= new StringBuilder();
             for (var item : commitsPerAuthor.entrySet()) {
                 char g='"';
+
                 getCommitAuth.append("{ y: ").append(item.getValue()).append(", label: ").append(g).append(item.getKey()).append(g+"},");
             }
             return getCommitAuth.toString();
