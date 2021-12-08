@@ -48,7 +48,7 @@ public class GithubCommit implements Parsable {
 
   public static List<Parsable> getCommitsFromURL(String pValue) throws JSONException, IOException
   {
-    List<GithubCommit> commits = new ArrayList<GithubCommit>();
+    List<Parsable> commits = new ArrayList<Parsable>();
     try {
       JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos"+pValue+"/commits");
     } catch (Exception e) {
