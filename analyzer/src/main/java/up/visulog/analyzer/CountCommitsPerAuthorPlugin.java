@@ -11,8 +11,7 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
     public static int nbcommits=0;
 
     public CountCommitsPerAuthorPlugin(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        super(generalConfiguration);
     }
 
     protected Result processLog(List<Parsable> gitLog) {
@@ -24,12 +23,13 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
         }
         return result;
     }
-
     @Override
-    public void run() {        
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+    public void run() {
+        if(listCommits==null)        
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+        else
+            result = processLog(listCommits);
     }
-
 
     static class Result implements AnalyzerPlugin.Result {
         private final Map<String, Integer> commits = new HashMap<>();
@@ -50,6 +50,19 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
                 dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
             return dataPoints.toString();
+        }
+        
+        @Override
+        public String getResultAsHtmlDiv() {
+	    StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
+	    int total  = 0;
+            for (var item : commits.entrySet()) {
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+                total = total + item.getValue();
+            }
+            html.append("</ul></div>");
+            html.append("Total commits : " + total);
+            return html.toString();
         }
 
         @Override

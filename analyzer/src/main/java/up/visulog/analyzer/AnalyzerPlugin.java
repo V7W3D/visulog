@@ -4,6 +4,7 @@ public interface AnalyzerPlugin {
     interface Result {
         String getResultAsString();
         String getResultAsDataPoints();
+        String getResultAsHtmlDiv();
         String getChartName();
     }
 

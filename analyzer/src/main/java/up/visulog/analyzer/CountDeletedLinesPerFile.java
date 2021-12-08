@@ -14,8 +14,7 @@ public class CountDeletedLinesPerFile implements AnalyzerPlugin {
     private Result result;
 
     public CountDeletedLinesPerFile(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        configuration = generalConfiguration;
     }
 
     protected Result processLog(List<Parsable> gitLog) {
@@ -58,6 +57,16 @@ public class CountDeletedLinesPerFile implements AnalyzerPlugin {
                 dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
             return dataPoints.toString();
+        }
+
+        @Override
+        public String getResultAsHtmlDiv() {
+            StringBuilder html = new StringBuilder("<div>Lines Deleted Per File :<ul>");
+            for (var item : linesDeletedPerFile.entrySet()) {
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+            }
+            html.append("</ul></div>");
+            return html.toString();
         }
 
         @Override

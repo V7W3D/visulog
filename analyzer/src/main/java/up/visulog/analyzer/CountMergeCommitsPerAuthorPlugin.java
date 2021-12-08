@@ -3,17 +3,15 @@ package up.visulog.analyzer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import up.visulog.gitrawdata.*;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
-import up.visulog.gitrawdata.Parsing;
 
 public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
 
     public CountMergeCommitsPerAuthorPlugin(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        super(generalConfiguration);
     }
 
     protected Result processLog(List<Parsable> list) {
@@ -27,12 +25,13 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
         }
         return result;
     }
-
     @Override
     public void run() {
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits")));
+        if(listCommits==null)        
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits")));
+        else
+            result = processLog(listCommits);
     }
-
 
     static class Result implements AnalyzerPlugin.Result {
         private final Map<String, Integer> mergeCommitsPerAuthor = new HashMap<>();
@@ -53,6 +52,16 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
                 dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
             return dataPoints.toString();
+        }
+
+        @Override
+        public String getResultAsHtmlDiv() {
+            StringBuilder html = new StringBuilder("<div>Merge commits per author: <ul>");
+            for (var item : mergeCommitsPerAuthor.entrySet()) {
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+            }
+            html.append("</ul></div>");
+            return html.toString();
         }
 
         @Override

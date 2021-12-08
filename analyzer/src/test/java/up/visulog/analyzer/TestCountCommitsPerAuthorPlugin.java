@@ -58,7 +58,7 @@ public class TestCountCommitsPerAuthorPlugin {
         list.add(commit02);
         list.add(commit03);
         Configuration config=new Configuration(Paths.get("."), new HashMap<String,PluginConfig>());
-        CountCommitsPerDayAndAuthorPlugin.Result result=new CountCommitsPerDayAndAuthorPlugin(config).processLog(list);
+        CountCommitsPerDateAndAuthorPlugin.Result result=new CountCommitsPerDateAndAuthorPlugin(config).processLog(list);
         for(var res : result.getCommitsPerDayAndAuthor().entrySet()){
             System.out.println(res.getKey());
             for(var com : res.getValue().entrySet()){
@@ -100,7 +100,7 @@ public class TestCountCommitsPerAuthorPlugin {
         list.add(commit03);
 
         Configuration config=new Configuration(Paths.get("."), new HashMap<String,PluginConfig>());
-        CountMergeCommitsPerDayAndAuthorPlugin.Result result=new CountMergeCommitsPerDayAndAuthorPlugin(config).processLog(list);
+        CountMergeCommitsPerDateAndAuthorPlugin.Result result=new CountMergeCommitsPerDateAndAuthorPlugin(config).processLog(list);
         for(var res : result.getMergeCommitsPerDayAndAuthor().entrySet()){
             System.out.println(res.getKey());
             for(var com : res.getValue().entrySet()){

@@ -1,5 +1,6 @@
 package up.visulog.gitrawdata;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Day {
@@ -35,6 +36,17 @@ public class Day {
         "8", "th",
         "9", "th"
     );
+
+    public static HashMap<Integer, String> dayTrie = new HashMap<>();
+    static{
+        dayTrie.put(0,"Monday");
+        dayTrie.put(1,"Tuesday");
+        dayTrie.put(2,"Wednesday");
+        dayTrie.put(3,"Thursday");
+        dayTrie.put(4,"Friday");
+        dayTrie.put(5,"Saturday");
+        dayTrie.put(6,"Sunday");
+    }
 
 
     //Return the full day of the simplified day in French
