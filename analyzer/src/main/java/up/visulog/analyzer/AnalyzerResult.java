@@ -29,9 +29,9 @@ public class AnalyzerResult {
     public String toString() {
         return subResults.stream().map(AnalyzerPlugin.Result::getResultAsString).reduce("", (acc, cur) -> acc + "\n" + cur);
     }
-    public static void CreateFile(){
+    public static void createFile(String name){
         try {
-            File fic = new File("../webgen/results.html");
+            File fic = new File(name);
             if (fic.createNewFile()) {
                 System.out.println("File created: " + fic.getName());
             } else {
@@ -47,8 +47,8 @@ public class AnalyzerResult {
         return new String(encoded, encoding);
     }
 
-    public String toHTML() {
-        CreateFile();
+    public String toHTMLGraph() {
+        createFile("../webgen/resultsGraph.html");
         int i = 0;
         StringBuilder chartContainers = new StringBuilder();
         StringBuilder charts = new StringBuilder(); 
@@ -89,13 +89,26 @@ public class AnalyzerResult {
             e1.printStackTrace();
         }
         try {
-            FileWriter writer = new FileWriter("../webgen/results.html");
+            FileWriter writer = new FileWriter("../webgen/resultsGraph.html");
             writer.write(squelette);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Successfully creating the html file of the results.";
+        return "Successfully creating the html file of graphs of the results.";
     }
 
+    public String toHTML(){
+        createFile("../results.html");
+        try{
+            FileWriter writer=new FileWriter("../results.html");
+            writer.write("<html><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc,cur) ->acc+cur)+"<body><html>");
+            writer.close();
+            System.out.println("Successfully wrote to the file");
+        }catch(IOException e){
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }
+        return "Successfully creating the html file of the results.";
+    }
 }

@@ -8,14 +8,13 @@ import java.util.Map;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
-import up.visulog.gitrawdata.Parsing;
-
 
 
 public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
     public CountCommitsPerDayAndAuthorPlugin(Configuration generalConfiguration) {
-        configuration = generalConfiguration;
+        if(configuration==null)
+            configuration = generalConfiguration;
     }
 
     protected Result processLog(List<Parsable> list) {
@@ -33,13 +32,6 @@ public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
         return result;
     }
 
-    @Override
-    public void run() {
-        if(listCommits==null)
-            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDayAndAuthor")));
-        else
-            result = processLog(listCommits);
-    }
 
     static class Result implements AnalyzerPlugin.Result {
         private final Map<String, HashMap<String, Integer>> commitsPerDayAndAuthor = new HashMap<>();
@@ -53,7 +45,7 @@ public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
             return commitsPerDayAndAuthor.toString();
         }
 
-     
+        @SuppressWarnings("unchecked")
         public String getResultAsHtmlDiv() {
             LinkedList<Object> commitsList=toList(commitsPerDayAndAuthor);
             StringBuilder html = new StringBuilder("<div>commits per day and author: <ul>");

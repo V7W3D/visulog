@@ -23,6 +23,7 @@ public class CLILauncher {
         if (config.isPresent()) {
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
+            results.toHTMLGraph();
             results.toHTML();
             //System.out.println(results.toHTML());
         } else displayHelpAndExit();
@@ -79,16 +80,17 @@ public class CLILauncher {
                                     break;
                                 case "countMergeCommitsPerDay" : 
                                     plugins.put("countMergeCommitsPerDay", GitLogPluginConfig);
-                                break;
+                                    break;
                                 case "countCommitsPerDayAndAuthor" :
                                     plugins.put("countCommitsPerDayAndAuthor", GitLogPluginConfig);
                                     break;
                                 case "countMergeCommitsPerDayAndAuthor" :
                                     plugins.put("countMergeCommitsPerDayAndAuthor", GitLogPluginConfig);
+                                    break;
                                 case "countLinesAddedPerFile" : plugins.put("countLinesAddedPerFile", FilePluginConfig);
-                                break;
+                                    break;
                                 case "countLinesDeletedPerFile" : plugins.put("countLinesDeletedPerFile", FilePluginConfig);
-                                break;
+                                    break;
                             }
                             break;
                         case "--loadConfigFile":
