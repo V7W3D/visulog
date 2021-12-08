@@ -13,6 +13,9 @@ import java.util.List;
 
 public class GithubCommit implements Parsable {
   
+  // Limite les call de REST API
+  public static final int limit=2;
+
   public final String id;
   public final String date;
   public final String author;
@@ -55,8 +58,8 @@ public class GithubCommit implements Parsable {
       System.out.println("Probleme "+e);
       return commits;
     }int page=1;
-    boolean Empty=false;
-    while(!Empty){
+    int count=0;
+    while(count<limit){
       JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos"+pValue+"/commits?page="+page+"&per_page=100");
       if(!jsonarray.isEmpty()){
         for(int i=0; i<jsonarray.length(); i++){
@@ -66,8 +69,7 @@ public class GithubCommit implements Parsable {
           String date = (String)jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date");
           commits.add(new GithubCommit(author, id, description, date));
         }page++;
-      }else{
-        Empty=true;
+        count++;
       }
     }
     return commits;
