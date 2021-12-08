@@ -80,6 +80,11 @@ public class CLILauncher {
                                 case "countMergeCommitsPerDay" : 
                                     plugins.put("countMergeCommitsPerDay", GitLogPluginConfig);
                                 break;
+                                case "countCommitsPerDayAndAuthor" :
+                                    plugins.put("countCommitsPerDayAndAuthor", GitLogPluginConfig);
+                                    break;
+                                case "countMergeCommitsPerDayAndAuthor" :
+                                    plugins.put("countMergeCommitsPerDayAndAuthor", GitLogPluginConfig);
                                 case "countLinesAddedPerFile" : plugins.put("countLinesAddedPerFile", FilePluginConfig);
                                 break;
                                 case "countLinesDeletedPerFile" : plugins.put("countLinesDeletedPerFile", FilePluginConfig);

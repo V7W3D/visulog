@@ -38,6 +38,8 @@ public class Analyzer {
             case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
             case "countMergeCommitsPerDay" : return Optional.of(new CountMergeCommitsPerDayPlugin(config));
             case "countCommitsPerDay" : return Optional.of(new CountCommitsPerDayPlugin(config));
+            case "countCommitsPerDayAndAuthor" : return Optional.of(new CountCommitsPerDayAndAuthorPlugin(config));
+            case "countMergeCommitsPerDayAndAuthor" : return Optional.of(new CountMergeCommitsPerDayAndAuthorPlugin(config));
             case "countLinesAddedPerFile" : return Optional.of(new CountAddedLinesPerFile(config));
             case "countLinesDeletedPerFile" : return Optional.of(new CountDeletedLinesPerFile(config));
             default : return Optional.empty();
