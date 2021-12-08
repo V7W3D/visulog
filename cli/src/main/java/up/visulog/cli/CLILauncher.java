@@ -18,13 +18,17 @@ import java.util.Optional;
 
 public class CLILauncher {
 
+    private static boolean textDisplay=true;//pas d'affichage en texte si false
+    private static boolean graphDisplay=true;//pas d'affichage en graph si true
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent()) {
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-            results.toHTMLGraph();
-            results.toHTML();
+            if(graphDisplay)
+                results.toHTMLGraph();
+            if(textDisplay)
+                results.toHTML();
             //System.out.println(results.toHTML());
         } else displayHelpAndExit();
     }
@@ -143,8 +147,20 @@ public class CLILauncher {
                                 e.printStackTrace();
                             }
                             break;
+                        case "--graphDisplay" :
+                            if(pValue.equals("true"))
+                                graphDisplay=true;
+                            else
+                                graphDisplay=false;
+                            break;
+                        case "--textDisplay" :
+                            if(pValue.equals("true"))
+                                textDisplay=true;
+                            else
+                                textDisplay=false;
+                            break;
                         default:
-                            return Optional.empty();
+                        return Optional.empty();
                     }
                 }
             } else {

@@ -1,3 +1,4 @@
+package up.visulog.gitrawdata;
 public class GitUser{
     private final String id;
 
@@ -23,7 +24,7 @@ public class GitUser{
 
     private String twitterUserName;
 
-    public GitUserString id, String type, String site_admin, String company, String location, String email, int followers, int following,
+    public GitUser(String id, String type, String site_admin, String company, String location, String email, int followers, int following,
         String hireable, String createdAt, String bio, String twitterUserName) {
         this.id=id;
         this.type=type;
@@ -111,5 +112,5 @@ public class GitUser{
         twitterUserName=s;
     }
 
-    
+   
 }
