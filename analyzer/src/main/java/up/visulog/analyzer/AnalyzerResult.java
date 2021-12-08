@@ -55,28 +55,30 @@ public class AnalyzerResult {
         StringBuilder rendering = new StringBuilder();
         while(it.hasNext()) {
             Result result = it.next();
-            try {
-                String chartContainer = readFile("../webgen/chartContainer.html", Charset.forName("UTF-8"));
-                chartContainer = chartContainer.replace("chartContainer","chartContainer" + i);
-                chartContainers.append(chartContainer);
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+            if(! (result instanceof CountCommitsPerDateAndAuthorPlugin.Result || result instanceof CountCommitsPerDatePlugin.Result || result instanceof CountMergeCommitsPerDateAndAuthorPlugin.Result || result instanceof CountMergeCommitsPerDatePlugin.Result)){
+                try {
+                    String chartContainer = readFile("../webgen/chartContainer.html", Charset.forName("UTF-8"));
+                    chartContainer = chartContainer.replace("chartContainer","chartContainer" + i);
+                    chartContainers.append(chartContainer);
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
+                try {
+                    String chart = readFile("../webgen/chart.js",Charset.forName("UTF-8"));
+                    chart = chart.replace("/*data*/",result.getResultAsDataPoints());
+                    chart = chart.replace("myData","myData" + i);
+                    chart = chart.replace("myConfig","myConfig"+ i);
+                    chart = chart.replace("chartContainer","chartContainer" + i);
+                    chart = chart.replace("myChart","myChart" + i);
+                    chart = chart.replace("/*title*/",result.getChartName());                
+                    charts.append(chart);
+                    rendering.append("myChart"+i+".render();");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                i++;
             }
-            try {
-                String chart = readFile("../webgen/chart.js",Charset.forName("UTF-8"));
-                chart = chart.replace("/*data*/",result.getResultAsDataPoints());
-                chart = chart.replace("myData","myData" + i);
-                chart = chart.replace("myConfig","myConfig"+ i);
-                chart = chart.replace("chartContainer","chartContainer" + i);
-                chart = chart.replace("myChart","myChart" + i);
-                chart = chart.replace("/*title*/",result.getChartName());                
-                charts.append(chart);
-                rendering.append("myChart"+i+".render();");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            i++;
         }
         
         String squelette = null;

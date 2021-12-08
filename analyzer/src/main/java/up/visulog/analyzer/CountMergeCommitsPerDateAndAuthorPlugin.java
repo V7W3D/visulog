@@ -133,7 +133,7 @@ public class CountMergeCommitsPerDateAndAuthorPlugin extends AnalyzerGitLogPlugi
 
         @Override
         public String getChartName() {
-            return "";
+            return "Merge Commits per Date And Author";
         }
     }
 }

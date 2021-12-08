@@ -130,7 +130,7 @@ public class CountCommitsPerDateAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getChartName() {
-            return "";
+            return "Commits per date and author";
         }
     }
 }
