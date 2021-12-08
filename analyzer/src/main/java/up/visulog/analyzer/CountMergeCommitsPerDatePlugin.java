@@ -51,7 +51,15 @@ public class CountMergeCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getResultAsDataPoints() {
-            return "";
+            //avec trie des dates
+            LinkedList<String> mergeCommitsList=toList(mergeCommitsPerDate);
+            StringBuilder dataPoints = new StringBuilder();
+            int i=0;
+            while(i<mergeCommitsList.size()){
+                dataPoints.append("{ label: '").append(mergeCommitsList.get(i)).append("', y: ").append(mergeCommitsList.get(i+1)).append("},");
+                i+=2;
+            }
+            return dataPoints.toString();
         }
 
 

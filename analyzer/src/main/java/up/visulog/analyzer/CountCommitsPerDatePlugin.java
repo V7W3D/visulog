@@ -49,7 +49,15 @@ public class CountCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getResultAsDataPoints() {
-            return "";
+             //avec trie des dates
+             LinkedList<String> commitsList=toList(commitsPerDate);
+             StringBuilder dataPoints = new StringBuilder();
+             int i=0;
+             while(i<commitsList.size()){
+                 dataPoints.append("{ label: '").append(commitsList.get(i)).append("', y: ").append(commitsList.get(i+1)).append("},");
+                 i+=2;
+             }
+             return dataPoints.toString();
         }
 
 
