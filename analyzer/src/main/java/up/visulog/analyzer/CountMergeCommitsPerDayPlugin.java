@@ -59,7 +59,14 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
-            return "";
+            //affcihage avec trie des jours
+            StringBuilder html = new StringBuilder("<div>Merge commits per day: <ul>");
+            for(int i=0;i<7;i++){
+                if(mergeCommitsPerDay.get(Day.dayTrie.get(i))!=null)
+                    html.append("<li>").append(Day.dayTrie.get(i)).append(": ").append(mergeCommitsPerDay.get(Day.dayTrie.get(i))).append("</li>");
+            }
+            html.append("</ul></div>");
+            return html.toString();
         }
         
         @Override

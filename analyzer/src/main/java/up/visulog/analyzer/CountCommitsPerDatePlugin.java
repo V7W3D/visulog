@@ -55,11 +55,11 @@ public class CountCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
-            LinkedList<String> mergeCommitsList=toList(commitsPerDate);
+            LinkedList<String> commitsList=toList(commitsPerDate);
             StringBuilder html = new StringBuilder("<div>Commits per date: <ul>");
             int i=0;
-            while(i<mergeCommitsList.size()){
-                html.append("<li>").append(mergeCommitsList.get(i)).append(": ").append(mergeCommitsList.get(i+1)).append("</li>");
+            while(i<commitsList.size()){
+                html.append("<li>").append(commitsList.get(i)).append(": ").append(commitsList.get(i+1)).append("</li>");
                 i+=2;
             }
             html.append("</ul></div>");

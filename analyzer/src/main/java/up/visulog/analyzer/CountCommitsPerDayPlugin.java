@@ -55,7 +55,14 @@ public class CountCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
-            return "";
+            //affcihage avec trie des jours
+            StringBuilder html = new StringBuilder("<div>Commits per day: <ul>");
+            for(int i=0;i<7;i++){
+                if(commitsPerDay.get(Day.dayTrie.get(i))!=null)
+                    html.append("<li>").append(Day.dayTrie.get(i)).append(": ").append(commitsPerDay.get(Day.dayTrie.get(i))).append("</li>");
+            }
+            html.append("</ul></div>");
+            return html.toString();
         }
 
         @Override

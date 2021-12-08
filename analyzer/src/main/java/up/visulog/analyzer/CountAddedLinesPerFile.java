@@ -61,7 +61,12 @@ public class CountAddedLinesPerFile implements AnalyzerPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
-            return "";
+            StringBuilder html = new StringBuilder("<div>Lines Added Per File :<ul>");
+            for (var item : linesAddedPerFile.entrySet()) {
+                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+            }
+            html.append("</ul></div>");
+            return html.toString();
         }
 
         @Override

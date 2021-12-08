@@ -56,7 +56,7 @@ public class CountCommitsPerDateAndAuthorPlugin extends AnalyzerGitLogPlugin {
         @SuppressWarnings("unchecked")
         public String getResultAsHtmlDiv() {
             LinkedList<Object> commitsList=toList(commitsPerDateAndAuthor);
-            StringBuilder html = new StringBuilder("<div>commits per date and author: <ul>");
+            StringBuilder html = new StringBuilder("<div>Commits per date and author: <ul>");
             int i=0;
             while(i<commitsList.size()){
                 html.append("<li>").append((String)commitsList.get(i)).append(": </li><ul>");
