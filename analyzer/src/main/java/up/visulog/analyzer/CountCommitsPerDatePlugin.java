@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
+import up.visulog.gitrawdata.*;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Month;
@@ -16,6 +16,13 @@ public class CountCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
             configuration = generalConfiguration;
     }
 
+    @Override
+    public void run() {
+        if(listCommits==null)        
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDate")));
+        else
+            result = processLog(listCommits);
+    }
 
     protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();

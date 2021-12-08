@@ -2,7 +2,7 @@ package up.visulog.analyzer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import up.visulog.gitrawdata.*;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
@@ -26,6 +26,13 @@ public class CountCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
         return result;
     }
 
+    @Override
+    public void run() {
+        if(listCommits==null)        
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDay")));
+        else
+            result = processLog(listCommits);
+    }
     static class Result implements AnalyzerPlugin.Result {
         private final Map<String, Integer> commitsPerDay = new HashMap<>();
 

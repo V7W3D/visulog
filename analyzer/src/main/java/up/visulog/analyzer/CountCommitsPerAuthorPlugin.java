@@ -3,6 +3,7 @@ package up.visulog.analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
+import up.visulog.gitrawdata.Parsing;
 
 import java.util.*;
 
@@ -22,6 +23,13 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
             result.commits.put(commit.author, nb + 1);
         }
         return result;
+    }
+    @Override
+    public void run() {
+        if(listCommits==null)        
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
+        else
+            result = processLog(listCommits);
     }
 
     static class Result implements AnalyzerPlugin.Result {
