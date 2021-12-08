@@ -1,5 +1,4 @@
 package up.visulog.analyzer;
-
 import up.visulog.gitrawdata.Month;
 import java.util.HashMap;
 import java.util.List;
@@ -11,51 +10,49 @@ import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
 
 
+public class CountCommitsPerDateAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
-public class CountMergeCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
-
-    public CountMergeCommitsPerDayAndAuthorPlugin(Configuration generalConfiguration) {
-        configuration = generalConfiguration;
+    public CountCommitsPerDateAndAuthorPlugin(Configuration generalConfiguration) {
+        if(configuration==null)
+            configuration = generalConfiguration;
     }
 
     protected Result processLog(List<Parsable> list) {
         var result = new Result();
         for (var parsable : list) {
-            Commit mergeCommit = (Commit) parsable;
-            if(mergeCommit.mergedFrom != null){
-                String[] date=mergeCommit.date.split(" at ");
-                HashMap<String,Integer> commitPerAuthorDefault=new HashMap<>();
-                commitPerAuthorDefault.put(mergeCommit.author,0);
-                HashMap<String,Integer> map=result.mergeCommitsPerDayAndAuthor.getOrDefault(date[0], commitPerAuthorDefault);
-                var nb=map.getOrDefault(mergeCommit.author,0);
-                map.put(mergeCommit.author,nb+1);
-                result.mergeCommitsPerDayAndAuthor.put(date[0],map);
-            }
+            Commit commit = (Commit) parsable;
+            String[] date=commit.date.split(" at ");
+            HashMap<String,Integer> commitPerAuthorDefault=new HashMap<>();
+            commitPerAuthorDefault.put(commit.author,0);
+            HashMap<String,Integer> map=result.commitsPerDateAndAuthor.getOrDefault(date[0], commitPerAuthorDefault);
+            var nb=map.getOrDefault(commit.author,0);
+            map.put(commit.author,nb+1);
+            result.commitsPerDateAndAuthor.put(date[0],map);
         }
         return result;
     }
 
 
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, HashMap<String, Integer>> mergeCommitsPerDayAndAuthor = new HashMap<>();
+        private final Map<String, HashMap<String, Integer>> commitsPerDateAndAuthor = new HashMap<>();
 
-        Map<String, HashMap<String,Integer>> getMergeCommitsPerDayAndAuthor() {
-            return mergeCommitsPerDayAndAuthor;
+        Map<String, HashMap<String,Integer>> getCommitsPerDateAndAuthor() {
+            return commitsPerDateAndAuthor;
         }
 
         @Override
         public String getResultAsString() {
-            return mergeCommitsPerDayAndAuthor.toString();
+            return commitsPerDateAndAuthor.toString();
         }
 
         @SuppressWarnings("unchecked")
         public String getResultAsHtmlDiv() {
-            LinkedList<Object> mergeCommitsList=toList(mergeCommitsPerDayAndAuthor);
-            StringBuilder html = new StringBuilder("<div>Merge commits per day and author: <ul>");
+            LinkedList<Object> commitsList=toList(commitsPerDateAndAuthor);
+            StringBuilder html = new StringBuilder("<div>commits per date and author: <ul>");
             int i=0;
-            while(i<mergeCommitsList.size()){
-                html.append("<li>").append((String)mergeCommitsList.get(i)).append(": </li><ul>");
-                for(var commitsPerAuthor : ((HashMap<String,Integer>)(mergeCommitsList.get(i+1))).entrySet()){
+            while(i<commitsList.size()){
+                html.append("<li>").append((String)commitsList.get(i)).append(": </li><ul>");
+                for(var commitsPerAuthor : ((HashMap<String,Integer>)(commitsList.get(i+1))).entrySet()){
                     html.append("<li>").append(commitsPerAuthor.getKey()).append(": ").append(commitsPerAuthor.getValue()).append("</li>");
                 }
                 html.append("</ul>");
@@ -70,15 +67,16 @@ public class CountMergeCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin
             return "";
         }
 
+
         /*
-        creer une LinkedList qui contient les elements de mergeCommits tries
+        creer une LinkedList qui contient les elements de commits tries
         du plus recent au moins recent en mettant chaque Value apres sa Key
         */
-        public static LinkedList<Object> toList(Map<String, HashMap<String,Integer>> mergeCommits){
+        public static LinkedList<Object> toList(Map<String, HashMap<String,Integer>> commits){
             LinkedList<Object> res=new LinkedList<Object>();
         
             //le trie
-            for(var item : mergeCommits.entrySet()){
+            for(var item : commits.entrySet()){
                 if(res.size()==0){
                     res.add(item.getKey());
                     res.add(item.getValue());

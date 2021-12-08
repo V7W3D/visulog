@@ -1,65 +1,45 @@
 package up.visulog.analyzer;
-import up.visulog.gitrawdata.Month;
 import java.util.HashMap;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
+import up.visulog.gitrawdata.Month;
 import up.visulog.gitrawdata.Parsable;
 
+public class CountMergeCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
 
-public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
-
-    public CountCommitsPerDayAndAuthorPlugin(Configuration generalConfiguration) {
+    public CountMergeCommitsPerDatePlugin(Configuration generalConfiguration) {
         if(configuration==null)
             configuration = generalConfiguration;
     }
 
-    protected Result processLog(List<Parsable> list) {
+
+    protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
-        for (var parsable : list) {
-            Commit commit = (Commit) parsable;
-            String[] date=commit.date.split(" at ");
-            HashMap<String,Integer> commitPerAuthorDefault=new HashMap<>();
-            commitPerAuthorDefault.put(commit.author,0);
-            HashMap<String,Integer> map=result.commitsPerDayAndAuthor.getOrDefault(date[0], commitPerAuthorDefault);
-            var nb=map.getOrDefault(commit.author,0);
-            map.put(commit.author,nb+1);
-            result.commitsPerDayAndAuthor.put(date[0],map);
+        for (var parsable : gitLog) {
+            Commit mergeCommit = (Commit) parsable;
+            if(mergeCommit.mergedFrom != null){
+                String[] date=mergeCommit.date.split(" at ");
+                var nb=result.mergeCommitsPerDate.getOrDefault(date[0],0);
+                result.mergeCommitsPerDate.put(date[0], nb+1);
+            }
         }
         return result;
     }
 
-
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, HashMap<String, Integer>> commitsPerDayAndAuthor = new HashMap<>();
+        private final Map<String, Integer> mergeCommitsPerDate = new HashMap<>();
 
-        Map<String, HashMap<String,Integer>> getCommitsPerDayAndAuthor() {
-            return commitsPerDayAndAuthor;
+        Map<String, Integer> getCommitsPerDateAndAuthor() {
+            return mergeCommitsPerDate;
         }
 
         @Override
         public String getResultAsString() {
-            return commitsPerDayAndAuthor.toString();
-        }
-
-        @SuppressWarnings("unchecked")
-        public String getResultAsHtmlDiv() {
-            LinkedList<Object> commitsList=toList(commitsPerDayAndAuthor);
-            StringBuilder html = new StringBuilder("<div>commits per day and author: <ul>");
-            int i=0;
-            while(i<commitsList.size()){
-                html.append("<li>").append((String)commitsList.get(i)).append(": </li><ul>");
-                for(var commitsPerAuthor : ((HashMap<String,Integer>)(commitsList.get(i+1))).entrySet()){
-                    html.append("<li>").append(commitsPerAuthor.getKey()).append(": ").append(commitsPerAuthor.getValue()).append("</li>");
-                }
-                html.append("</ul>");
-                i+=2;
-            }
-            html.append("</ul></div>");
-            return html.toString();
+            return mergeCommitsPerDate.toString();
         }
 
         @Override
@@ -68,18 +48,31 @@ public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
         }
 
 
-        /*
-        creer une LinkedList qui contient les elements de commits tries
+        @Override
+        public String getResultAsHtmlDiv() {
+            LinkedList<String> mergeCommitsList=toList(mergeCommitsPerDate);
+            StringBuilder html = new StringBuilder("<div>Merge commits per date: <ul>");
+            int i=0;
+            while(i<mergeCommitsList.size()){
+                html.append("<li>").append(mergeCommitsList.get(i)).append(": ").append(mergeCommitsList.get(i+1)).append("</li>");
+                i+=2;
+            }
+            html.append("</ul></div>");
+            return html.toString();
+        }
+
+         /*
+        creer une LinkedList qui contient les elements de mergeCommits tries
         du plus recent au moins recent en mettant chaque Value apres sa Key
         */
-        public static LinkedList<Object> toList(Map<String, HashMap<String,Integer>> commits){
-            LinkedList<Object> res=new LinkedList<Object>();
+        public static LinkedList<String> toList(Map<String,Integer> mergeCommits){
+            LinkedList<String> res=new LinkedList<String>();
         
             //le trie
-            for(var item : commits.entrySet()){
+            for(var item : mergeCommits.entrySet()){
                 if(res.size()==0){
                     res.add(item.getKey());
-                    res.add(item.getValue());
+                    res.add(item.getValue().toString());
                 }
                 else{
                     int i=0;
@@ -87,7 +80,7 @@ public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
                         i+=2;
                     }
                     res.add(i,item.getKey());
-                    res.add(i+1,item.getValue());
+                    res.add(i+1,item.getValue().toString());
                 }
             }
             return res;
@@ -120,9 +113,10 @@ public class CountCommitsPerDayAndAuthorPlugin extends AnalyzerGitLogPlugin {
             return true;//on n'aura jamais deux dates egales, donc on n'arrivera pas ici
         }
 
+        
         @Override
         public String getChartName() {
-            return "";
+            return "Merge Commits Per Date";
         }
     }
 }

@@ -1,17 +1,17 @@
 package up.visulog.analyzer;
-import up.visulog.gitrawdata.Month;
 import java.util.HashMap;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
+import up.visulog.gitrawdata.Month;
 import up.visulog.gitrawdata.Parsable;
 
-public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
+public class CountCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
 
-    public CountMergeCommitsPerDatePlugin(Configuration generalConfiguration) {
+    public CountCommitsPerDatePlugin(Configuration generalConfiguration) {
         if(configuration==null)
             configuration = generalConfiguration;
     }
@@ -21,25 +21,24 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
         var result = new Result();
         for (var parsable : gitLog) {
             Commit mergeCommit = (Commit) parsable;
-            if(mergeCommit.mergedFrom != null){
-                String date[]=commit.date.split(" at ");
-                var nb= results.mergeCommitsPerDate.getOrDefault(date[0], 0);
-                result.mergeCommitsPerDate(date[0], nb+1);
-            }
+           
+            String[] date=mergeCommit.date.split(" at ");
+            var nb=result.commitsPerDate.getOrDefault(date[0],0);
+            result.commitsPerDate.put(date[0], nb+1);
         }
         return result;
     }
 
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, Integer> mergeCommitsPerDate = new HashMap<>();
+        private final Map<String, Integer> commitsPerDate = new HashMap<>();
 
-        Map<String, Integer> getCommitsPerDateAndAuthor() {
-            return mergeCommitsPerDate;
+        Map<String, Integer> getCommitsPerDate() {
+            return commitsPerDate;
         }
 
         @Override
         public String getResultAsString() {
-            return mergeCommitsPerDate.toString();
+            return commitsPerDate.toString();
         }
 
         @Override
@@ -50,26 +49,26 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getResultAsHtmlDiv() {
-            LinkedList<String> mergeCommitsList=toList(mergeCommitsPerDate);
-            StringBuilder html = new StringBuilder("<div>Merge commits per Day: <ul>");
+            LinkedList<String> mergeCommitsList=toList(commitsPerDate);
+            StringBuilder html = new StringBuilder("<div>Commits per date: <ul>");
             int i=0;
-            while(i<mergeCommitsList.size()) {
+            while(i<mergeCommitsList.size()){
                 html.append("<li>").append(mergeCommitsList.get(i)).append(": ").append(mergeCommitsList.get(i+1)).append("</li>");
                 i+=2;
             }
             html.append("</ul></div>");
             return html.toString();
         }
-        
-        /*
-        creer une LinkedList qui contient les elements de commits tries
+
+         /*
+        creer une LinkedList qui contient les elements de mergeCommits tries
         du plus recent au moins recent en mettant chaque Value apres sa Key
         */
-        public static LinkedList<String> toList(Map<String, Integer> commits){
+        public static LinkedList<String> toList(Map<String,Integer> mergeCommits){
             LinkedList<String> res=new LinkedList<String>();
         
             //le trie
-            for(var item : commits.entrySet()){
+            for(var item : mergeCommits.entrySet()){
                 if(res.size()==0){
                     res.add(item.getKey());
                     res.add(item.getValue().toString());
@@ -113,9 +112,11 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
             return true;//on n'aura jamais deux dates egales, donc on n'arrivera pas ici
         }
 
+        
         @Override
         public String getChartName() {
-            return "Merge Commits Per Date";
+            return "Commits Per Date";
         }
     }
 }
+
