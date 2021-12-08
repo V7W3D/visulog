@@ -10,8 +10,7 @@ import up.visulog.gitrawdata.Parsable;
 public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
     public CountMergeCommitsPerDayPlugin(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        super(generalConfiguration);
     }
 
 

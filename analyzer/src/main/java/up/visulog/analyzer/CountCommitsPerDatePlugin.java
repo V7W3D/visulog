@@ -12,8 +12,7 @@ import up.visulog.gitrawdata.Parsable;
 public class CountCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
 
     public CountCommitsPerDatePlugin(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        super(generalConfiguration);
     }
 
     @Override

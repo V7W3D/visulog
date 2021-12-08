@@ -14,8 +14,7 @@ public class CountDeletedLinesPerFile implements AnalyzerPlugin {
     private Result result;
 
     public CountDeletedLinesPerFile(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        configuration = generalConfiguration;
     }
 
     protected Result processLog(List<Parsable> gitLog) {

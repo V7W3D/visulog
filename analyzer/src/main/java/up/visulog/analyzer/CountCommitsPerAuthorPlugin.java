@@ -11,8 +11,7 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
     public static int nbcommits=0;
 
     public CountCommitsPerAuthorPlugin(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        super(generalConfiguration);
     }
 
     protected Result processLog(List<Parsable> gitLog) {

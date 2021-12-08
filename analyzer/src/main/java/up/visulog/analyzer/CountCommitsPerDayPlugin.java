@@ -10,8 +10,7 @@ import up.visulog.gitrawdata.Parsable;
 public class CountCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
     public CountCommitsPerDayPlugin(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        super(generalConfiguration);
     }
 
     protected Result processLog(List<Parsable> gitLog) {

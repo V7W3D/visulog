@@ -14,7 +14,6 @@ public class CountAddedLinesPerFile implements AnalyzerPlugin {
     private Result result;
 
     public CountAddedLinesPerFile(Configuration generalConfiguration) {
-        if(configuration==null)
             configuration = generalConfiguration;
     }
 

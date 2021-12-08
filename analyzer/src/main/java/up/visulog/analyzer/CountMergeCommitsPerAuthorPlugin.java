@@ -11,8 +11,7 @@ import up.visulog.gitrawdata.Parsable;
 public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
 
     public CountMergeCommitsPerAuthorPlugin(Configuration generalConfiguration) {
-        if(configuration==null)
-            configuration = generalConfiguration;
+        super(generalConfiguration);
     }
 
     protected Result processLog(List<Parsable> list) {
@@ -29,7 +28,7 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
     @Override
     public void run() {
         if(listCommits==null)        
-            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommitsPerAuthor")));
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommits")));
         else
             result = processLog(listCommits);
     }

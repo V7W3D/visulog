@@ -16,7 +16,7 @@ import up.visulog.gitrawdata.Parsable;
 public class CountMergeCommitsPerDateAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
     public CountMergeCommitsPerDateAndAuthorPlugin(Configuration generalConfiguration) {
-        configuration = generalConfiguration;
+        super(generalConfiguration);
     }
 
     protected Result processLog(List<Parsable> list) {
