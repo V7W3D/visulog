@@ -5,63 +5,58 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 
+import up.visulog.gitrawdata.*;
+
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
-import up.visulog.gitrawdata.Parsing;
 
 
+public class CountCommitsPerDateAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
-public class CountCommitsPerDayAndAuthorPlugin implements AnalyzerPlugin {
-    private final Configuration configuration;
-    private Result result;
-
-    public CountCommitsPerDayAndAuthorPlugin(Configuration generalConfiguration) {
-        this.configuration = generalConfiguration;
+    public CountCommitsPerDateAndAuthorPlugin(Configuration generalConfiguration) {
+        super(generalConfiguration);
     }
 
-    static Result processLog(List<Parsable> list) {
+    protected Result processLog(List<Parsable> list) {
         var result = new Result();
         for (var parsable : list) {
             Commit commit = (Commit) parsable;
             String[] date=commit.date.split(" at ");
             HashMap<String,Integer> commitPerAuthorDefault=new HashMap<>();
             commitPerAuthorDefault.put(commit.author,0);
-            HashMap<String,Integer> map=result.commitsPerDayAndAuthor.getOrDefault(date[0], commitPerAuthorDefault);
+            HashMap<String,Integer> map=result.commitsPerDateAndAuthor.getOrDefault(date[0], commitPerAuthorDefault);
             var nb=map.getOrDefault(commit.author,0);
             map.put(commit.author,nb+1);
-            result.commitsPerDayAndAuthor.put(date[0],map);
+            result.commitsPerDateAndAuthor.put(date[0],map);
         }
         return result;
     }
 
     @Override
     public void run() {
-        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),"git log"));
-    }
-
-    @Override
-    public Result getResult() {
-        if (result == null) run();
-        return result;
+        if(listCommits==null)        
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDateAndAuthor")));
+        else
+            result = processLog(listCommits);
     }
 
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, HashMap<String, Integer>> commitsPerDayAndAuthor = new HashMap<>();
+        private final Map<String, HashMap<String, Integer>> commitsPerDateAndAuthor = new HashMap<>();
 
-        Map<String, HashMap<String,Integer>> getCommitsPerDayAndAuthor() {
-            return commitsPerDayAndAuthor;
+        Map<String, HashMap<String,Integer>> getCommitsPerDateAndAuthor() {
+            return commitsPerDateAndAuthor;
         }
 
         @Override
         public String getResultAsString() {
-            return commitsPerDayAndAuthor.toString();
+            return commitsPerDateAndAuthor.toString();
         }
 
-        @Override
+        @SuppressWarnings("unchecked")
         public String getResultAsHtmlDiv() {
-            LinkedList<Object> commitsList=toList(commitsPerDayAndAuthor);
-            StringBuilder html = new StringBuilder("<div>commits per day and author: <ul>");
+            LinkedList<Object> commitsList=toList(commitsPerDateAndAuthor);
+            StringBuilder html = new StringBuilder("<div>Commits per date and author: <ul>");
             int i=0;
             while(i<commitsList.size()){
                 html.append("<li>").append((String)commitsList.get(i)).append(": </li><ul>");
@@ -74,6 +69,12 @@ public class CountCommitsPerDayAndAuthorPlugin implements AnalyzerPlugin {
             html.append("</ul></div>");
             return html.toString();
         }
+
+        @Override
+        public String getResultAsDataPoints() {
+            return "";
+        }
+
 
         /*
         creer une LinkedList qui contient les elements de commits tries
@@ -127,11 +128,9 @@ public class CountCommitsPerDayAndAuthorPlugin implements AnalyzerPlugin {
             return true;//on n'aura jamais deux dates egales, donc on n'arrivera pas ici
         }
 
-
         @Override
-        public String getResultAsStringdate() {
-            // TODO Auto-generated method stub
-            return null;
+        public String getChartName() {
+            return "Commits per date and author";
         }
     }
 }

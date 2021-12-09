@@ -3,9 +3,9 @@ package up.visulog.analyzer;
 public interface AnalyzerPlugin {
     interface Result {
         String getResultAsString();
+        String getResultAsDataPoints();
         String getResultAsHtmlDiv();
-        // Methode define pour recuperer le nombre de commits par date
-        String getResultAsStringdate();
+        String getChartName();
     }
 
     /**

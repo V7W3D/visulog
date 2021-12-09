@@ -31,7 +31,7 @@ public class Commit implements Parsable{
     public String buildDateEnglish(String date)
     {
 
-        // This is an example of date "Wed Sep 29 20:33:07 2021 +0200"
+        // This is an example of date "Wed Sep 29 20:33:07 2021 +0200" 
         //and this is an exemple of what we want to get "Saturday the 13th of April, 2019 at 20h 33min 07sec"
         String[] parts = date.split(" ");
 

@@ -7,23 +7,20 @@ import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
 import up.visulog.gitrawdata.Parsable;
 
-public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
+public class CountCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
-    public CountMergeCommitsPerDayPlugin(Configuration generalConfiguration) {
+    public CountCommitsPerDayPlugin(Configuration generalConfiguration) {
         super(generalConfiguration);
     }
-
 
     protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
         for (var parsable : gitLog) {
-            Commit mergeCommit = (Commit) parsable;
-            if(mergeCommit.mergedFrom != null){
-                String myDate = mergeCommit.date;
-                String day = myDate.split(" ")[0];
-                var nb = result.mergeCommitsPerDay.getOrDefault(day, 0);
-                result.mergeCommitsPerDay.put(day, nb + 1);
-            }
+            Commit commit = (Commit) parsable;
+            String myDate = commit.date;
+            String day = myDate.split(" ")[0];
+            var nb = result.commitsPerDay.getOrDefault(day, 0);
+            result.commitsPerDay.put(day, nb + 1);
         }
         return result;
     }
@@ -31,47 +28,46 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
     @Override
     public void run() {
         if(listCommits==null)        
-            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommitsPerDay")));
+            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDay")));
         else
             result = processLog(listCommits);
     }
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, Integer> mergeCommitsPerDay = new HashMap<>();
+        private final Map<String, Integer> commitsPerDay = new HashMap<>();
 
         Map<String, Integer> getCommitsPerDayAndAuthor() {
-            return mergeCommitsPerDay;
+            return commitsPerDay;
         }
 
         @Override
         public String getResultAsString() {
-            return mergeCommitsPerDay.toString();
+            return commitsPerDay.toString();
         }
 
         @Override
         public String getResultAsDataPoints() {
             StringBuilder dataPoints = new StringBuilder();
-            for (var item : mergeCommitsPerDay.entrySet()) {
+            for (var item : commitsPerDay.entrySet()) {
                 dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
             return dataPoints.toString();
         }
 
-
         @Override
         public String getResultAsHtmlDiv() {
             //affcihage avec trie des jours
-            StringBuilder html = new StringBuilder("<div>Merge commits per day: <ul>");
+            StringBuilder html = new StringBuilder("<div>Commits per day: <ul>");
             for(int i=0;i<7;i++){
-                if(mergeCommitsPerDay.get(Day.dayTrie.get(i))!=null)
-                    html.append("<li>").append(Day.dayTrie.get(i)).append(": ").append(mergeCommitsPerDay.get(Day.dayTrie.get(i))).append("</li>");
+                if(commitsPerDay.get(Day.dayTrie.get(i))!=null)
+                    html.append("<li>").append(Day.dayTrie.get(i)).append(": ").append(commitsPerDay.get(Day.dayTrie.get(i))).append("</li>");
             }
             html.append("</ul></div>");
             return html.toString();
         }
-        
+
         @Override
         public String getChartName() {
-            return "Merge Commits Per Day";
+            return "Commits Per Day";
         }
     }
 }

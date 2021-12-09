@@ -7,21 +7,28 @@ import up.visulog.config.PluginConfig;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import java.nio.file.FileSystems;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class CLILauncher {
 
+    private static boolean textDisplay=true;//pas d'affichage en texte si false
+    private static boolean graphDisplay=true;//pas d'affichage en graph si true
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent()) {
             var analyzer = new Analyzer(config.get());
             var results = analyzer.computeResults();
-            results.toHTML();
+            if(graphDisplay)
+                results.toHTMLGraph();
+            if(textDisplay)
+                results.toHTML();
             //System.out.println(results.toHTML());
         } else displayHelpAndExit();
     }
@@ -41,21 +48,58 @@ public class CLILauncher {
                             // TODO: parse argument and make an instance of PluginConfig
 
                             // Let's just trivially do this, before the TODO is fixed:
+                            PluginConfig GitLogPluginConfig = new PluginConfig(){
+                                @Override
+                                public Map<String, String> config() {
+                                    Map<String, String> conf = new TreeMap<String, String>();
+                                    conf.put("command", "git");
+                                    conf.put("param1", "log");
+                                    return conf;
+                                }
+                            };
+
+                            PluginConfig FilePluginConfig =  new PluginConfig(){
+
+                                @Override
+                                public Map<String, String> config() {
+                                    Map<String, String> conf = new TreeMap<String, String>();
+                                    conf.put("command", "git");
+                                    conf.put("param1", "whatchanged");
+                                    conf.put("param2", "--numstat");
+                                    conf.put("param3", "--pretty=");
+                                    return conf;
+                                }
+
+                            };
+
                             switch(pValue) {
                                 case "countCommits" : 
-                                    plugins.put("countCommits", new PluginConfig(){});
+                                    plugins.put("countCommits", GitLogPluginConfig);
                                     break;
                                 case "countMergeCommits" : 
-                                    plugins.put("countMergeCommits", new PluginConfig(){});
+                                    plugins.put("countMergeCommits", GitLogPluginConfig);
                                     break;
-                                case "countMergeCommitsPerDay" :
-                                    plugins.put("countMergeCommitsPerDay", new PluginConfig(){});
+                                case "countCommitsPerDay" : 
+                                    plugins.put("countCommitsPerDay", GitLogPluginConfig);
                                     break;
-                                case "countCommitsPerDayAndAuthor" :
-                                    plugins.put("countCommitsPerDayAndAuthor", new PluginConfig(){});
+                                case "countMergeCommitsPerDay" : 
+                                    plugins.put("countMergeCommitsPerDay", GitLogPluginConfig);
                                     break;
-                                case "countMergeCommitsPerDayAndAuthor" :
-                                    plugins.put("countMergeCommitsPerDayAndAuthor", new PluginConfig() {});
+                                case "countCommitsPerDate" :
+                                    plugins.put("countCommitsPerDate", GitLogPluginConfig);
+                                    break;
+                                case "countMergeCommitsPerDate" :
+                                    plugins.put("countMergeCommitsPerDate", GitLogPluginConfig);
+                                    break;
+                                case "countCommitsPerDateAndAuthor" :
+                                    plugins.put("countCommitsPerDateAndAuthor", GitLogPluginConfig);
+                                    break;
+                                case "countMergeCommitsPerDateAndAuthor" :
+                                    plugins.put("countMergeCommitsPerDateAndAuthor", GitLogPluginConfig);
+                                    break;
+                                case "countLinesAddedPerFile" : plugins.put("countLinesAddedPerFile", FilePluginConfig);
+                                    break;
+                                case "countLinesDeletedPerFile" : plugins.put("countLinesDeletedPerFile", FilePluginConfig);
                                     break;
                             }
                             break;
@@ -103,8 +147,20 @@ public class CLILauncher {
                                 e.printStackTrace();
                             }
                             break;
+                        case "--graphDisplay" :
+                            if(pValue.equals("true"))
+                                graphDisplay=true;
+                            else
+                                graphDisplay=false;
+                            break;
+                        case "--textDisplay" :
+                            if(pValue.equals("true"))
+                                textDisplay=true;
+                            else
+                                textDisplay=false;
+                            break;
                         default:
-                            return Optional.empty();
+                        return Optional.empty();
                     }
                 }
             } else {

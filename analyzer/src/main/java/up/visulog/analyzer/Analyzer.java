@@ -23,11 +23,6 @@ public class Analyzer {
             var plugin = makePlugin(pluginName, pluginConfig);
             plugin.ifPresent(plugins::add);
         }
-        // run all the plugins (exécuter tous les plugins)
-         // Ajout
-        for (var pluginName: plugins) pluginName.run();
-        for (var pluginConfig: plugins) pluginConfig.run();
-        // Ajout
         // TODO: try running them in parallel (A FAIRE : essayez de les exécuter en parallèle)
         for (var plugin: plugins) plugin.run();
 
@@ -38,12 +33,17 @@ public class Analyzer {
     // TODO: find a way so that the list of plugins is not hardcoded in this factory
     //(A FAIRE : trouver un moyen pour que la liste des plugins ne soit pas codée en dur dans cette usine)
     private Optional<AnalyzerPlugin> makePlugin(String pluginName, PluginConfig pluginConfig) {
-        switch (pluginName) {
+        switch (pluginName) {//ça c'est du hardcoding
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
             case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
             case "countMergeCommitsPerDay" : return Optional.of(new CountMergeCommitsPerDayPlugin(config));
-            case "countCommitsPerDayAndAuthor" : return Optional.of(new CountCommitsPerDayAndAuthorPlugin(config));
-            case "countMergeCommitsPerDayAndAuthor" : return Optional.of(new CountMergeCommitsPerDayAndAuthorPlugin(config));
+            case "countCommitsPerDay" : return Optional.of(new CountCommitsPerDayPlugin(config));
+            case "countMergeCommitsPerDate" : return Optional.of(new CountMergeCommitsPerDatePlugin(config));
+            case "countCommitsPerDate" : return Optional.of(new CountCommitsPerDatePlugin(config));
+            case "countCommitsPerDateAndAuthor" : return Optional.of(new CountCommitsPerDateAndAuthorPlugin(config));
+            case "countMergeCommitsPerDateAndAuthor" : return Optional.of(new CountMergeCommitsPerDateAndAuthorPlugin(config));
+            case "countLinesAddedPerFile" : return Optional.of(new CountAddedLinesPerFile(config));
+            case "countLinesDeletedPerFile" : return Optional.of(new CountDeletedLinesPerFile(config));
             default : return Optional.empty();
         }
     }
