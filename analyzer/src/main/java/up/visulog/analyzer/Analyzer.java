@@ -3,10 +3,13 @@ package up.visulog.analyzer;
 import up.visulog.config.Configuration;
 import up.visulog.config.PluginConfig;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.json.JSONException;
 
 public class Analyzer {
     private final Configuration config;
@@ -24,10 +27,30 @@ public class Analyzer {
             plugin.ifPresent(plugins::add);
         }
         // TODO: try running them in parallel (A FAIRE : essayez de les exécuter en parallèle)
-        for (var plugin: plugins) plugin.run();
+        for (var plugin: plugins)
+            try {
+                plugin.run();
+            } catch (JSONException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
 
         // store the results together in an AnalyzerResult instance and return it
-        return new AnalyzerResult(plugins.stream().map(AnalyzerPlugin::getResult).collect(Collectors.toList()));
+        return new AnalyzerResult(plugins.stream().map(t -> {
+            try {
+                return t.getResult();
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+        }).collect(Collectors.toList()));
     }
 
     // TODO: find a way so that the list of plugins is not hardcoded in this factory
@@ -44,6 +67,7 @@ public class Analyzer {
             case "countMergeCommitsPerDateAndAuthor" : return Optional.of(new CountMergeCommitsPerDateAndAuthorPlugin(config));
             case "countLinesAddedPerFile" : return Optional.of(new CountAddedLinesPerFile(config));
             case "countLinesDeletedPerFile" : return Optional.of(new CountDeletedLinesPerFile(config));
+            case "commits/" : return Optional.of(new CountGithubCommitPerAuthor(config));
             default : return Optional.empty();
         }
     }

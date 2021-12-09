@@ -210,16 +210,43 @@ public class TestCommit {
     public void testReadJsonCommit() throws JSONException, IOException
     {
       int count=0;
-      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/torvalds/linux/commits");
+      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/torvalds/linux/commits?page=1&per_page=1000");
       for(int i=0; i<jsonarray.length();i++){
-        // System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name"));
+        System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name"));
         // System.out.println(jsonarray.getJSONObject(0).get("node_id"));
-        //System.out.println(jsonarray.getJSONObject(0).getJSONObject("commit").get("message"));
+        // System.out.println(jsonarray.getJSONObject(0).getJSONObject("commit").get("message"));
         // System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date"));
         count++;
       }System.out.println(count);
     }
 
-}
+    @Test
+    public void testToutBete()
+    {
+      String s = "rrr";
+      String sm = "rrr";
+      String r = "ssss";
+      System.out.println(s == r);
+    }
 
+
+    @Test
+    public void testReadJsonAllCommit() throws JSONException, IOException{
+      int page=1;
+      int count=0;
+      int last=1;
+      while(last<=1){
+        JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/torvalds/linux/commits?page="+page+"&per_page=100");
+        for(int i=0; i<jsonarray.length();i++){
+          // System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name"));
+          // System.out.println(jsonarray.getJSONObject(0).get("node_id"));
+          //System.out.println("- "+jsonarray.getJSONObject(0).getJSONObject("commit").get("message"));
+          //System.out.println();
+          System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date"));
+          count++;
+        }last++;
+        page++;
+      }System.out.println(count);
+    }
+}
 
