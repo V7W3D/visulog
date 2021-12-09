@@ -10,6 +10,8 @@ up/visulog/gitrawdata/GitUser.java
  up.visulog.gitrawdata.GitUser
 up/visulog/gitrawdata/CommitBuilder.java
  up.visulog.gitrawdata.CommitBuilder
+up/visulog/gitrawdata/GithubCommit.java
+ up.visulog.gitrawdata.GithubCommit
 up/visulog/gitrawdata/FileBuilder.java
  up.visulog.gitrawdata.FileBuilder
 up/visulog/gitrawdata/Day.java

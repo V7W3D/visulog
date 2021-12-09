@@ -120,6 +120,23 @@ public class CLILauncher {
                                 e.printStackTrace();
                             }
                             break;
+                        case "--githubProjects":
+                            if(pValue.length() < 8)
+                                return Optional.empty();
+                            PluginConfig githubPluginConfig =  new PluginConfig(){
+                                @Override
+                                public Map<String, String> config() {
+                                    return null;
+                                }
+                            };
+                            
+                            if(pValue.substring(0,8).equals("commits/")){
+                                    plugins.put("commits/", githubPluginConfig);
+                            }
+                            else if(pValue.substring(0,7).equals("githubIssues/")){
+                                    plugins.put("issues/", githubPluginConfig);
+                            }
+                            break;
                         case "--justSaveConfigFile":
                             // TODO (save command line options to a file instead of running the analysis)
                             try {
