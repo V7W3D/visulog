@@ -89,7 +89,7 @@ public class GithubCommit implements Parsable {
           String author = (String) jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name");
           String id = (String) jsonarray.getJSONObject(0).get("node_id");
           String description =(String) jsonarray.getJSONObject(0).getJSONObject("commit").get("message");         
-          String date = (String)jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date");
+          String date = toGitLogDate((String)jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date"));
           CommitBuilder commitBuilder=new CommitBuilder(id);
           commitBuilder.setAuthor(author);
           commitBuilder.setDate(date);
@@ -101,6 +101,10 @@ public class GithubCommit implements Parsable {
       }
     }
     return commits;
+  }
+
+  public static String toGitLogDate(String date){
+    return "";
   }
 
   
