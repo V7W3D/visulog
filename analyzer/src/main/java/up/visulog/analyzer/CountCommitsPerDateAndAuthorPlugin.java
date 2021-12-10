@@ -35,10 +35,14 @@ public class CountCommitsPerDateAndAuthorPlugin extends AnalyzerGitLogPlugin {
 
     @Override
     public void run() {
-        if(listCommits==null)        
-            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDateAndAuthor")));
-        else
-            result = processLog(listCommits);
+        if(!configuration.githubOrNormal()){
+            if(listCommits==null)        
+                result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDateAndAuthor")));
+            else
+                result = processLog(listCommits);
+        }else{
+            result=processLog(GithubCommit.getGithubCommits(configuration.getUrlProject()));
+        }
     }
 
     static class Result implements AnalyzerPlugin.Result {

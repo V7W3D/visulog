@@ -27,10 +27,14 @@ public class CountCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
     @Override
     public void run() {
-        if(listCommits==null)        
-            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDay")));
-        else
-            result = processLog(listCommits);
+        if(!configuration.githubOrNormal()){
+            if(listCommits==null)        
+                result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDay")));
+            else
+                result = processLog(listCommits);
+        }else{
+            result=processLog(GithubCommit.getGithubCommits(configuration.getUrlProject()));
+        }
     }
     static class Result implements AnalyzerPlugin.Result {
         private final Map<String, Integer> commitsPerDay = new HashMap<>();

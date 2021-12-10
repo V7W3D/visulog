@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GithubCommit implements Parsable {
+  private static List<Parsable> listCommits;
   
   // Limite les call de REST API
   public static final int limit=2;
 
-  public final String id;
+  /*public final String id;
   public final String date;
   public final String author;
   public final String description;
@@ -24,9 +25,10 @@ public class GithubCommit implements Parsable {
   public GithubCommit(String id, String author, String date, String description) {
     this.id = id;
     this.author = author;
+    System.out.println(author);
     this.date = date;
     this.description = description;
-  }
+  }*/
 
   private static String readAll(Reader rd) throws IOException {
     StringBuilder sb = new StringBuilder();
@@ -49,6 +51,27 @@ public class GithubCommit implements Parsable {
     }
   }
 
+  public static List<Parsable> getGithubCommits(String url){
+    if(listCommits==null)
+      githubCommits(url);
+    return listCommits;
+  }
+
+  public static void githubCommits(String url){
+    // System.out.println(configuration.getPluginConfigs().size());
+    List<Parsable> commits = new ArrayList<Parsable>();
+    try {
+        commits = GithubCommit.getCommitsFromURL(url);
+    } catch (JSONException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    listCommits=commits;
+}
+
   public static List<Parsable> getCommitsFromURL(String pValue) throws JSONException, IOException
   {
     List<Parsable> commits = new ArrayList<Parsable>();
@@ -67,7 +90,12 @@ public class GithubCommit implements Parsable {
           String id = (String) jsonarray.getJSONObject(0).get("node_id");
           String description =(String) jsonarray.getJSONObject(0).getJSONObject("commit").get("message");         
           String date = (String)jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date");
-          commits.add(new GithubCommit(author, id, description, date));
+          CommitBuilder commitBuilder=new CommitBuilder(id);
+          commitBuilder.setAuthor(author);
+          commitBuilder.setDate(date);
+          commitBuilder.setDescription(description);
+          commitBuilder.setMergedFrom(null);
+          commits.add(commitBuilder.createCommit());
         }page++;
         count++;
       }

@@ -31,10 +31,10 @@ public class CountMergeCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
 
     @Override
     public void run() {
-        if(listCommits==null)        
-            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommitsPerDate")));
-        else
-            result = processLog(listCommits);
+            if(listCommits==null)        
+                result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommitsPerDate")));
+            else
+                result = processLog(listCommits);
     }
 
     static class Result implements AnalyzerPlugin.Result {

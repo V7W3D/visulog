@@ -15,14 +15,6 @@ public class CountCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
         super(generalConfiguration);
     }
 
-    @Override
-    public void run() {
-        if(listCommits==null)        
-            result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDate")));
-        else
-            result = processLog(listCommits);
-    }
-
     protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
         for (var parsable : gitLog) {
@@ -33,6 +25,18 @@ public class CountCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
             result.commitsPerDate.put(date[0], nb+1);
         }
         return result;
+    }
+
+    @Override
+    public void run() {
+        if(!configuration.githubOrNormal()){
+            if(listCommits==null)        
+                result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommitsPerDate")));
+            else
+                result = processLog(listCommits);
+        }else{
+            result=processLog(GithubCommit.getGithubCommits(configuration.getUrlProject()));
+        } 
     }
 
     static class Result implements AnalyzerPlugin.Result {

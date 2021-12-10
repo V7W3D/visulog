@@ -21,7 +21,8 @@ public class Commit implements Parsable{
     public Commit(String id, String author, String date, String description, String mergedFrom) {
         this.id = id;
         this.author = author;
-        this.date = buildDateEnglish(date);
+        //this.date = buildDateEnglish(date);
+        this.date = date;
         this.description = description;
         this.mergedFrom = mergedFrom;
 
