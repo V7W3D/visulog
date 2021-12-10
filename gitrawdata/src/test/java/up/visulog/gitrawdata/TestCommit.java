@@ -7,14 +7,15 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-
 
 
 import java.io.BufferedReader;
@@ -243,6 +244,47 @@ public class TestCommit {
           //System.out.println("- "+jsonarray.getJSONObject(0).getJSONObject("commit").get("message"));
           //System.out.println();
           System.out.println(jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("date"));
+          count++;
+        }last++;
+        page++;
+      }System.out.println(count);
+    }
+    
+    @Test
+    public void ConvertDatetoNormal() throws ParseException{
+      String date = "2019-07-14T18:30:00.000Z";
+      SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+      SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+      Date parsedDate = inputFormat.parse(date);
+      String formattedDate = outputFormat.format(parsedDate);
+      System.out.println(formattedDate);
+    }
+
+
+    @Test
+    public void testReadJsonAllIssues() throws JSONException, IOException{
+      int page=1;
+      int count=0;
+      int last=0;
+      while(last<=1){
+        JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/facebook/react/issues?page="+page+"&per_page=100");
+        for(int i=0; i<jsonarray.length();i++){
+          System.out.println("----------------------------------");
+          System.out.println("- "+jsonarray.getJSONObject(i).get("title"));
+          System.out.println("date de création: "+(jsonarray.getJSONObject(i).get("created_at")));
+          System.out.println("Etat: "+jsonarray.getJSONObject(i).get("state"));
+
+          if(jsonarray.getJSONObject(i).get("assignee")!=null){
+            System.out.print("Utilisateur(s) assigné(s): ");
+            JSONArray assignees = jsonarray.getJSONObject(i).getJSONArray("assignees");
+            for(int j=0;j<assignees.length();j++){
+              System.out.print(assignees.getJSONObject(j).get("login")+" ");
+            }
+          }
+
+          System.out.println();
+          System.out.println(jsonarray.getJSONObject(i).get("body"));
+          System.out.println("----------------------------------");
           count++;
         }last++;
         page++;
