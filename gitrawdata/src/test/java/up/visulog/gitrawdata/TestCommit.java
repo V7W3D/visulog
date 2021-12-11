@@ -290,5 +290,11 @@ public class TestCommit {
         page++;
       }System.out.println(count);
     }
+
+    @Test
+    public void testToGitLogDate(){
+      System.out.println(GithubCommit.toGitLogDate("2001-07-06T18:30:00.000Z"));
+      //System.out.println(Calendar.WEDNESDAY);
+    }
 }
 

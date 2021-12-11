@@ -9,7 +9,11 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.sound.midi.SysexMessage;
 
 public class GithubCommit implements Parsable {
   private static List<Parsable> listCommits;
@@ -103,8 +107,31 @@ public class GithubCommit implements Parsable {
     return commits;
   }
 
+  /*
+  Exemple entrée: "2019-07-14T18:30:00.000Z"
+  sortie: day Jul 14 18:30:00 2019 +0100
+  */
   public static String toGitLogDate(String date){
-    return "";
+    String[] parts=date.split("T");
+    String[] dateParse=parts[0].split("-");
+    Calendar calendarDate = Calendar.getInstance();
+    String heure=parts[1].substring(0, 8);
+    
+    //obtenir le jour correspondant à la date
+    calendarDate = new GregorianCalendar(Integer.parseInt(dateParse[0]),Integer.parseInt(dateParse[1])-1,
+        Integer.parseInt(dateParse[2]));
+    int dayOfWeek=calendarDate.get(Calendar.DAY_OF_WEEK);
+    
+    StringBuilder builder = new StringBuilder();
+    
+    builder.append(Day.convertIntToDay(dayOfWeek));
+    builder.append(" " + Month.convertIntToMonth(Integer.parseInt(dateParse[1])));
+    builder.append(" " + Integer.parseInt(dateParse[2]));
+    builder.append(" " + heure);
+    builder.append(" " + dateParse[0]);
+    builder.append(" " + "+0100");
+    
+    return builder.toString();
   }
 
   
