@@ -51,6 +51,22 @@ public class Month {
         monthToInt.put("Dec", 11);
     }
 
+    private static HashMap<Integer, String> intToMonth = new HashMap<>();
+    static{
+        intToMonth.put(1, "Jan");
+        intToMonth.put(2, "Feb");
+        intToMonth.put(3, "Mar");
+        intToMonth.put(4, "Apr");
+        intToMonth.put(5, "May");
+        intToMonth.put(6, "Jun");
+        intToMonth.put(7, "Jul");
+        intToMonth.put(8, "Aug");
+        intToMonth.put(9, "Sep");
+        intToMonth.put(10, "Oct");
+        intToMonth.put(11, "Nov");
+        intToMonth.put(12, "Dec");
+    }
+
 
     //Return the full month of the simplified month in French
     static String replaceFr(String s)
@@ -68,6 +84,10 @@ public class Month {
     static int convertMonth(String s)
     {
         return monthToInt.get(s);
+    }
+
+    static String convertIntToMonth(int i){
+        return intToMonth.get(i);
     }
 
     //renvoie 1 si month1 est superieur a month 2

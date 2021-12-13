@@ -30,10 +30,11 @@ public class CountMergeCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
 
     @Override
     public void run() {
+        
         if(listCommits==null)        
             result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countMergeCommitsPerDay")));
         else
-            result = processLog(listCommits);
+            result = processLog(listCommits);   
     }
     static class Result implements AnalyzerPlugin.Result {
         private final Map<String, Integer> mergeCommitsPerDay = new HashMap<>();

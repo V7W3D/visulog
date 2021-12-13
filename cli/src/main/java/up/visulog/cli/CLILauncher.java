@@ -20,6 +20,8 @@ public class CLILauncher {
 
     private static boolean textDisplay=true;//pas d'affichage en texte si false
     private static boolean graphDisplay=true;//pas d'affichage en graph si true
+    private static boolean githubProjects=false;//avoir le projet github si true
+    private static String urlProject=null;//l'url du project github
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent()) {
@@ -97,9 +99,11 @@ public class CLILauncher {
                                 case "countMergeCommitsPerDateAndAuthor" :
                                     plugins.put("countMergeCommitsPerDateAndAuthor", GitLogPluginConfig);
                                     break;
-                                case "countLinesAddedPerFile" : plugins.put("countLinesAddedPerFile", FilePluginConfig);
+                                case "countLinesAddedPerFile" :
+                                    plugins.put("countLinesAddedPerFile", FilePluginConfig);
                                     break;
-                                case "countLinesDeletedPerFile" : plugins.put("countLinesDeletedPerFile", FilePluginConfig);
+                                case "countLinesDeletedPerFile" : 
+                                    plugins.put("countLinesDeletedPerFile", FilePluginConfig);
                                     break;
                             }
                             break;
@@ -121,21 +125,9 @@ public class CLILauncher {
                             }
                             break;
                         case "--githubProjects":
-                            if(pValue.length() < 8)
-                                return Optional.empty();
-                            PluginConfig githubPluginConfig =  new PluginConfig(){
-                                @Override
-                                public Map<String, String> config() {
-                                    return null;
-                                }
-                            };
                             
-                            if(pValue.substring(0,8).equals("commits/")){
-                                    plugins.put("commits/", githubPluginConfig);
-                            }
-                            else if(pValue.substring(0,7).equals("githubIssues/")){
-                                    plugins.put("issues/", githubPluginConfig);
-                            }
+                            githubProjects=true;
+                            urlProject= pValue;
                             break;
                         case "--justSaveConfigFile":
                             // TODO (save command line options to a file instead of running the analysis)
@@ -184,9 +176,8 @@ public class CLILauncher {
                 gitPath = FileSystems.getDefault().getPath(arg);
             }
         }
-        return Optional.of(new Configuration(gitPath, plugins));
+        return Optional.of(new Configuration(gitPath, plugins,githubProjects,urlProject));
     }
-
     private static void displayHelpAndExit() {
         System.out.println("Wrong command...");
         //TODO: print the list of options and their syntax

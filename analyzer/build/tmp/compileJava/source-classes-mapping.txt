@@ -1,5 +1,5 @@
-up/visulog/analyzer/AnalyzerGitLogPlugin.java
- up.visulog.analyzer.AnalyzerGitLogPlugin
+up/visulog/analyzer/Analyzer.java
+ up.visulog.analyzer.Analyzer
 up/visulog/analyzer/CountAddedLinesPerFile.java
  up.visulog.analyzer.CountAddedLinesPerFile
  up.visulog.analyzer.CountAddedLinesPerFile$Result
@@ -11,9 +11,6 @@ up/visulog/analyzer/CountCommitsPerDatePlugin.java
  up.visulog.analyzer.CountCommitsPerDatePlugin$Result
 up/visulog/analyzer/AnalyzerResult.java
  up.visulog.analyzer.AnalyzerResult
-up/visulog/analyzer/CountGithubCommitPerAuthor.java
- up.visulog.analyzer.CountGithubCommitPerAuthor
- up.visulog.analyzer.CountGithubCommitPerAuthor$Result
 up/visulog/analyzer/AnalyzerPlugin.java
  up.visulog.analyzer.AnalyzerPlugin
  up.visulog.analyzer.AnalyzerPlugin$Result
@@ -38,5 +35,5 @@ up/visulog/analyzer/CountCommitsPerDayPlugin.java
 up/visulog/analyzer/CountDeletedLinesPerFile.java
  up.visulog.analyzer.CountDeletedLinesPerFile
  up.visulog.analyzer.CountDeletedLinesPerFile$Result
-up/visulog/analyzer/Analyzer.java
- up.visulog.analyzer.Analyzer
+up/visulog/analyzer/AnalyzerGitLogPlugin.java
+ up.visulog.analyzer.AnalyzerGitLogPlugin

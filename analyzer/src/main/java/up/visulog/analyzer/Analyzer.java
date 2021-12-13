@@ -67,7 +67,6 @@ public class Analyzer {
             case "countMergeCommitsPerDateAndAuthor" : return Optional.of(new CountMergeCommitsPerDateAndAuthorPlugin(config));
             case "countLinesAddedPerFile" : return Optional.of(new CountAddedLinesPerFile(config));
             case "countLinesDeletedPerFile" : return Optional.of(new CountDeletedLinesPerFile(config));
-            case "commits/" : return Optional.of(new CountGithubCommitPerAuthor(config));
             default : return Optional.empty();
         }
     }

@@ -6,13 +6,16 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Configuration {
-
+    private boolean githubProjects;
+    private String urlProject;
     private final Path gitPath;
     private final Map<String, PluginConfig> plugins;
 
-    public Configuration(Path gitPath, Map<String, PluginConfig> plugins) {
+    public Configuration(Path gitPath, Map<String, PluginConfig> plugins, boolean githubProjects, String url) {
         this.gitPath = gitPath;
         this.plugins = Map.copyOf(plugins);
+        this.githubProjects=githubProjects;
+        urlProject=url;
     }
 
     public Path getGitPath() {
@@ -21,6 +24,14 @@ public class Configuration {
 
     public Map<String, PluginConfig> getPluginConfigs() {
         return plugins;
+    }
+
+    public boolean githubOrNormal(){
+        return githubProjects;
+    }
+
+    public String getUrlProject(){
+        return urlProject;
     }
 
     public ArrayList<String> buildCommand(String pluginName){

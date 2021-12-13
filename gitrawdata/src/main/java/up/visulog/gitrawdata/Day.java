@@ -48,6 +48,16 @@ public class Day {
         dayTrie.put(6,"Sunday");
     }
 
+    private static Map<Integer, String> intToDay = Map.of(
+        1, "Sun",    
+        2, "Mon",
+        3, "Tue",
+        4, "Wed",
+        5, "Thu",
+        6, "Fri",
+        7, "Sat"          
+    );
+
 
     //Return the full day of the simplified day in French
     static String replaceFr(String s)
@@ -65,6 +75,10 @@ public class Day {
     static String addAfterDay(String s)
     {
         return s+afterDay.get(s.substring(s.length()-1));
+    }
+
+    static String convertIntToDay(int i){
+        return intToDay.get(i);
     }
     
 }

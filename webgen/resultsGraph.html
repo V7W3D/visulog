@@ -18,14 +18,14 @@ const myData0 = [{
         toolTipContent: "<b>{label}</b>: {y} commits",
         showInLegend: "true",
         indexLabelFontSize: 16,
-        dataPoints: []
+        dataPoints: [{ label: 'Monday', y: 35},{ label: 'Thursday', y: 44},{ label: 'Friday', y: 42},{ label: 'Sunday', y: 14},{ label: 'Wednesday', y: 21},{ label: 'Tuesday', y: 32},{ label: 'Saturday', y: 12},]
 }];
 
 const myConfig0 = {
         theme: "light2",        exportEnabled: true,
         animationEnabled: true,
         title: {
-                text: ""
+                text: "Commits Per Day"
         },
         data : myData0
 };
