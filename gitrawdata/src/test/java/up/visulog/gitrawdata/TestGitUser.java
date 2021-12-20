@@ -57,27 +57,28 @@ public class TestGitUser {
     public void testGetUser() throws JSONException, IOException
     {
       try{
-        JSONObject json = readJsonFromUrl("https://api.github.com/users/totoook");
+        JSONObject json = readJsonFromUrl("https://api.github.com/users/torvalds");
 
       }catch (Exception e){
         System.out.println(e);
         return;
 
       }
-      JSONObject json = readJsonFromUrl("https://api.github.com/users/totoook");
-      String id;
-      String type;
-      String site_admin;
-      String company;
-      String location;
-      String email;
+      JSONObject json = readJsonFromUrl("https://api.github.com/users/torvalds");
+      int  id = (Integer)json.get("id");
+      String type = (String)json.get("type");
+      boolean site_admin = (boolean)json.get("site_admin");
+      String company = json.get("company") == null ? "" : (String)json.get("company");
+      String name = json.get("name") == null ? "" : (String)json.get("name");
+      String location = json.get("location") == null ? "" : (String)json.get("location");
+      String email = json.get("email") == null ? "" : (String)json.get("email");
       int followers;
       int following;
       String hireable;
       String createdAt;
       String bio;
       String twitterUserName;
-      System.out.println(json.toString());
+      System.out.println(json.get("location"));
 
     }
 

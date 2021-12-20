@@ -1,12 +1,15 @@
 package up.visulog.gitrawdata;
 public class GitUser{
-    private final String id;
+    private int id;
 
     private String type;
 
-    private String site_admin;
+    private boolean site_admin;
 
     private String company;
+
+    private String name;
+
 
     private String location;
 
@@ -16,15 +19,19 @@ public class GitUser{
 
     private int following;
 
-    private String hireable;
 
-    private final String createdAt;
+    private String createdAt;
 
-    public String bio;
+    private int public_repos;
+
 
     private String twitterUserName;
 
-    public GitUser(String id, String type, String site_admin, String company, String location, String email, int followers, int following,
+    public GitUser(){
+
+    }
+
+    public GitUser(int id, String type, boolean site_admin,int public_repos, String company,String name, String location, String email, int followers, int following,
         String hireable, String createdAt, String bio, String twitterUserName) {
         this.id=id;
         this.type=type;
@@ -34,27 +41,27 @@ public class GitUser{
         this.email=email;
         this.followers=followers;
         this.following=following;
-        this.hireable=hireable;
+        this.public_repos=public_repos;
         this.createdAt=createdAt;
-        this.bio=bio;
         this.twitterUserName=twitterUserName;
+        this.name=name;
     }
-    public String getId() {
+    public int getId() {
         return id;
     }
-    /*public void setId(int s) {
+    public void setId(int s) {
         this.id=s;
-    }*/
+    }
     public String getType() {
         return type;
     }
     public void setType(String s) {
         this.type=s;
     }
-    public String getSite_admin() {
+    public boolean getSite_admin() {
         return site_admin;
     }
-    public void setSite_admin(String s) {
+    public void setSite_admin(boolean s) {
         site_admin=s;
     }
     public String getCompany() {
@@ -87,24 +94,12 @@ public class GitUser{
     public void setFollowing(int f) {
         following=f;
     }
-    public String getHireable() {
-        return hireable;
-    }
-    public void sethireable(String h) {
-        hireable=h;
-    }
+    
     public String getCreatedAt() {
         return createdAt;
     }
-    /*public void setCreatedAt(String c) {
-        createdAt=c;
-    }*/
-    public String getBio() {
-        return bio;
-    }
-    public void setBio(String b) {
-        bio=b;
-    }
+
+
     public String getTwitteruserName() {
         return twitterUserName;
     }
