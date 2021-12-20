@@ -1,12 +1,23 @@
 package up.visulog.gitrawdata;
-public class GitUser{
-    private final String id;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.Charset;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class GitUser implements Parsable{
+    private int id;
 
     private String type;
 
-    private String site_admin;
+    private boolean site_admin;
 
     private String company;
+
+    private String name;
+
 
     private String location;
 
@@ -16,16 +27,21 @@ public class GitUser{
 
     private int following;
 
-    private String hireable;
 
-    private final String createdAt;
+    private String createdAt;
+    private String updatedAt;
 
-    public String bio;
+    private int public_repos;
+
 
     private String twitterUserName;
 
-    public GitUser(String id, String type, String site_admin, String company, String location, String email, int followers, int following,
-        String hireable, String createdAt, String bio, String twitterUserName) {
+    public GitUser(){
+
+    }
+
+    public GitUser(int id, String type, boolean site_admin,int public_repos, String company,String name, String location, String email, int followers, int following,
+         String createdAt,String updatedAt, String twitterUserName) {
         this.id=id;
         this.type=type;
         this.site_admin=site_admin;
@@ -34,27 +50,28 @@ public class GitUser{
         this.email=email;
         this.followers=followers;
         this.following=following;
-        this.hireable=hireable;
+        this.public_repos=public_repos;
         this.createdAt=createdAt;
-        this.bio=bio;
         this.twitterUserName=twitterUserName;
+        this.name=name;
+        this.updatedAt=updatedAt;
     }
-    public String getId() {
+    public int getId() {
         return id;
     }
-    /*public void setId(int s) {
+    public void setId(int s) {
         this.id=s;
-    }*/
+    }
     public String getType() {
         return type;
     }
     public void setType(String s) {
         this.type=s;
     }
-    public String getSite_admin() {
+    public boolean getSite_admin() {
         return site_admin;
     }
-    public void setSite_admin(String s) {
+    public void setSite_admin(boolean s) {
         site_admin=s;
     }
     public String getCompany() {
@@ -87,30 +104,49 @@ public class GitUser{
     public void setFollowing(int f) {
         following=f;
     }
-    public String getHireable() {
-        return hireable;
-    }
-    public void sethireable(String h) {
-        hireable=h;
-    }
+    
     public String getCreatedAt() {
         return createdAt;
     }
-    /*public void setCreatedAt(String c) {
-        createdAt=c;
-    }*/
-    public String getBio() {
-        return bio;
-    }
-    public void setBio(String b) {
-        bio=b;
-    }
+
+
     public String getTwitteruserName() {
         return twitterUserName;
     }
     public void setTwitterUserName(String s) {
         twitterUserName=s;
     }
+
+    @Override
+    public String toString() {
+        return "GitUser [company=" + company + ", createdAt=" + createdAt + ", email=" + email + ", followers="
+                + followers + ", following=" + following + ", id=" + id + ", location=" + location + ", name=" + name
+                + ", public_repos=" + public_repos + ", site_admin=" + site_admin + ", twitterUserName="
+                + twitterUserName + ", type=" + type + ", updatedAt=" + updatedAt + "]";
+    }
+
+    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+          BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+          String jsonText = readAll(rd);
+          JSONObject json = new JSONObject(jsonText);
+          return json;
+        } finally {
+          is.close();
+        }
+    }
+
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+          sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
+
 
    
 }
