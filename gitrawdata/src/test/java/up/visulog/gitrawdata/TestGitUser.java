@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -54,7 +55,7 @@ public class TestGitUser {
     }
 
     @Test
-    public void testGetUser() throws JSONException, IOException
+    public void testGitUser() throws JSONException, IOException
     {
       try{
         JSONObject json = readJsonFromUrl("https://api.github.com/users/torvalds");
@@ -68,17 +69,18 @@ public class TestGitUser {
       int  id = (Integer)json.get("id");
       String type = (String)json.get("type");
       boolean site_admin = (boolean)json.get("site_admin");
-      String company = json.get("company") == null ? "" : (String)json.get("company");
-      String name = json.get("name") == null ? "" : (String)json.get("name");
-      String location = json.get("location") == null ? "" : (String)json.get("location");
-      String email = json.get("email") == null ? "" : (String)json.get("email");
-      int followers;
-      int following;
-      String hireable;
-      String createdAt;
-      String bio;
-      String twitterUserName;
-      System.out.println(json.get("location"));
+      String company = json.isNull("company") ? "" : (String)json.get("company");
+      String name = json.isNull("name") ? "" : (String)json.get("name");
+      String location = json.isNull("location") ? "" : (String)json.get("location");
+      String email = json.isNull("email") ? "" : (String)json.get("email");
+      int followers = (int)json.get("followers");
+      int following = (int)json.get("following");
+      String createdAt = (String) json.get("created_at");
+      String updatedAt = (String) json.get("updated_at");
+      int public_repos = (int)json.get("public_repos");
+      String twitterUserName = json.isNull("twitter_user_name") ? "" : (String)json.get("twitter_user_name");
+      GitUser g = new GitUser(id,type,site_admin,public_repos,company,name,location,email,followers,following,createdAt,updatedAt,twitterUserName);
+      System.out.println(g);
 
     }
 

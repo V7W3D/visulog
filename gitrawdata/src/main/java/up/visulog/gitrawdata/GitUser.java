@@ -21,6 +21,7 @@ public class GitUser{
 
 
     private String createdAt;
+    private String updatedAt;
 
     private int public_repos;
 
@@ -32,7 +33,7 @@ public class GitUser{
     }
 
     public GitUser(int id, String type, boolean site_admin,int public_repos, String company,String name, String location, String email, int followers, int following,
-        String hireable, String createdAt, String bio, String twitterUserName) {
+         String createdAt,String updatedAt, String twitterUserName) {
         this.id=id;
         this.type=type;
         this.site_admin=site_admin;
@@ -45,6 +46,7 @@ public class GitUser{
         this.createdAt=createdAt;
         this.twitterUserName=twitterUserName;
         this.name=name;
+        this.updatedAt=updatedAt;
     }
     public int getId() {
         return id;
@@ -105,6 +107,14 @@ public class GitUser{
     }
     public void setTwitterUserName(String s) {
         twitterUserName=s;
+    }
+
+    @Override
+    public String toString() {
+        return "GitUser [company=" + company + ", createdAt=" + createdAt + ", email=" + email + ", followers="
+                + followers + ", following=" + following + ", id=" + id + ", location=" + location + ", name=" + name
+                + ", public_repos=" + public_repos + ", site_admin=" + site_admin + ", twitterUserName="
+                + twitterUserName + ", type=" + type + ", updatedAt=" + updatedAt + "]";
     }
 
    
