@@ -84,5 +84,36 @@ public class TestGitUser {
 
     }
 
+    public Parsable getGitUser() throws JSONException, IOException
+    {
+      Parsable user;
+      try{
+        JSONObject json = readJsonFromUrl("https://api.github.com/users/torvalds");
+
+      }catch (Exception e){
+        System.out.println(e);
+        return null;
+
+      }
+      JSONObject json = readJsonFromUrl("https://api.github.com/users/torvalds");
+      int  id = (Integer)json.get("id");
+      String type = (String)json.get("type");
+      boolean site_admin = (boolean)json.get("site_admin");
+      String company = json.isNull("company") ? "" : (String)json.get("company");
+      String name = json.isNull("name") ? "" : (String)json.get("name");
+      String location = json.isNull("location") ? "" : (String)json.get("location");
+      String email = json.isNull("email") ? "" : (String)json.get("email");
+      int followers = (int)json.get("followers");
+      int following = (int)json.get("following");
+      String createdAt = (String) json.get("created_at");
+      String updatedAt = (String) json.get("updated_at");
+      int public_repos = (int)json.get("public_repos");
+      String twitterUserName = json.isNull("twitter_user_name") ? "" : (String)json.get("twitter_user_name");
+      user = new GitUser(id,type,site_admin,public_repos,company,name,location,email,followers,following,createdAt,updatedAt,twitterUserName);
+      // System.out.println(user);
+      return user;
+
+    }
+
     
 }
