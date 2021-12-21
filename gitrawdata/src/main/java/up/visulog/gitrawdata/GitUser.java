@@ -3,38 +3,28 @@ package up.visulog.gitrawdata;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GitUser implements Parsable{
-    private int id;
-
-    private String type;
-
-    private boolean site_admin;
-
-    private String company;
-
-    private String name;
-
-
-    private String location;
-
-    private String email;
-
-    private int followers;
-
-    private int following;
-
-
-    private String createdAt;
-    private String updatedAt;
-
-    private int public_repos;
-
-
-    private String twitterUserName;
+    public int id;
+    public String type;
+    public boolean site_admin;
+    public String company;
+    public String name;
+    public String location;
+    public String email;
+    public int followers;
+    public int following;
+    public String createdAt;
+    public String updatedAt;
+    public int public_repos;
+    public String twitterUserName;
 
     public GitUser(){
 
@@ -51,72 +41,45 @@ public class GitUser implements Parsable{
         this.followers=followers;
         this.following=following;
         this.public_repos=public_repos;
-        this.createdAt=createdAt;
+        this.createdAt=buildDateEnglish(createdAt);
         this.twitterUserName=twitterUserName;
         this.name=name;
-        this.updatedAt=updatedAt;
-    }
-    public int getId() {
-        return id;
-    }
-    public void setId(int s) {
-        this.id=s;
-    }
-    public String getType() {
-        return type;
-    }
-    public void setType(String s) {
-        this.type=s;
-    }
-    public boolean getSite_admin() {
-        return site_admin;
-    }
-    public void setSite_admin(boolean s) {
-        site_admin=s;
-    }
-    public String getCompany() {
-        return company;
-    }
-    public void setCompany(String s) {
-        company=s;
-    }
-    public String getLocation() {
-        return location;
-    }
-    public void setLocation(String l) {
-        location=l;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String e) {
-        email=e;
-    }
-    public int getFollowers() {
-        return followers;
-    }
-    public void setFollowers(int f) {
-        followers=f;
-    }
-    public int getFollowing() {
-        return following;
-    }
-    public void setFollowing(int f) {
-        following=f;
-    }
-    
-    public String getCreatedAt() {
-        return createdAt;
+        this.updatedAt=buildDateEnglish(updatedAt);
     }
 
+    //Return a better date format
+    public String buildDateEnglish(String date)
+    {
 
-    public String getTwitteruserName() {
-        return twitterUserName;
-    }
-    public void setTwitterUserName(String s) {
-        twitterUserName=s;
-    }
+        // This is an example of date "Wed Sep 29 20:33:07 2021 +0200" 
+        //and this is an exemple of what we want to get "Saturday the 13th of April, 2019 at 20h 33min 07sec"
+        String[] parts = date.split(" ");
 
+        String dayString = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        String year = parts[4];
+        String[] time = parts[3].split(":");
+        String hour = time[0];
+        String min = time[1];
+        String sec = time[2];
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(Day.replaceEn(dayString));
+        sb.append(" the");
+        sb.append(" "+Day.addAfterDay(day));
+        sb.append(" of");
+        sb.append(" "+Month.replaceEn(month));
+        sb.append(" "+year);
+        sb.append(" at");
+        sb.append(" "+hour+"h");
+        sb.append(" "+min+"min");
+        sb.append(" "+sec+"sec");
+
+        return sb.toString();
+    }
+  
     @Override
     public String toString() {
         return "GitUser [company=" + company + ", createdAt=" + createdAt + ", email=" + email + ", followers="
@@ -146,6 +109,52 @@ public class GitUser implements Parsable{
         return sb.toString();
     }
 
+    public static List<Parsable> getGitUsers(Set<String> pValues){
+        LinkedList<Parsable> res=new LinkedList<>();
+        for(String s : pValues){
+            Optional<Parsable> user=getGitUser(s);
+            if(user.isPresent())
+                res.add(user.get());
+        }
+        return res;
+    }
+
+    public static Optional<Parsable> getGitUser(String pValue) throws JSONException
+    {
+      JSONObject json;
+      try{
+        json = readJsonFromUrl("https://api.github.com/users/" + pValue);
+
+        int  id = (Integer)json.get("id");
+        GitUserBuilder builder=new GitUserBuilder(id);
+        builder.setType((String)json.get("type"));
+        builder.setSiteAdmin((boolean)json.get("site_admin"));
+        String company= json.isNull("company") ? "" : (String)json.get("company");
+        builder.setCompany(company);
+        String name = json.isNull("name") ? "" : (String)json.get("name");
+        builder.setname(name);
+        String location = json.isNull("location") ? "" : (String)json.get("location");
+        builder.setLocation(location);
+        String email = json.isNull("email") ? "" : (String)json.get("email");
+        builder.setEmail(email);
+        int followers = (int)json.get("followers");
+        builder.setFollowers(followers);
+        int following = (int)json.get("following");
+        builder.setFollowing(following);
+        String createdAt = GithubCommit.toGitLogDate((String) json.get("created_at"));
+        builder.setCreatedAt(createdAt);
+        String updatedAt = GithubCommit.toGitLogDate((String) json.get("updated_at"));
+        builder.setUptatedAt(updatedAt);
+        int public_repos = (int)json.get("public_repos");
+        builder.setPublicRepos(public_repos);
+        String twitterUserName = json.isNull("twitter_user_name") ? "" : (String)json.get("twitter_user_name");
+        builder.setTwitterUserName(twitterUserName);
+        return Optional.of(builder.creategitUser());
+      }catch (Exception e){
+        System.out.println(e);
+        return Optional.empty();
+      }
+    }
 
 
    

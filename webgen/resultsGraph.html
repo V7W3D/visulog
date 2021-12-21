@@ -8,32 +8,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js " integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-<div>
-    <div id="chartContainer0" style="height: 300px; width: 100%;"></div>
-</div>
 
 <script>
-const myData0 = [{
-        type: "line",
-        toolTipContent: "<b>{label}</b>: {y} commits",
-        showInLegend: "true",
-        indexLabelFontSize: 16,
-        dataPoints: [{ label: 'Monday', y: 35},{ label: 'Thursday', y: 44},{ label: 'Friday', y: 42},{ label: 'Sunday', y: 14},{ label: 'Wednesday', y: 21},{ label: 'Tuesday', y: 32},{ label: 'Saturday', y: 12},]
-}];
-
-const myConfig0 = {
-        theme: "light2",        exportEnabled: true,
-        animationEnabled: true,
-        title: {
-                text: "Commits Per Day"
-        },
-        data : myData0
-};
-
-var myChart0 = new CanvasJS.Chart("chartContainer0", myConfig0);
 
 window.onload = function() {
-myChart0.render();
+
 }
 </script>
 </body>
