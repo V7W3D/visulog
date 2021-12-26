@@ -1,16 +1,33 @@
+<<<<<<< HEAD
 up/visulog/analyzer/Analyzer.java
  up.visulog.analyzer.Analyzer
 up/visulog/analyzer/CountCommitsPerDatePlugin.java
  up.visulog.analyzer.CountCommitsPerDatePlugin
  up.visulog.analyzer.CountCommitsPerDatePlugin$Result
+=======
+up/visulog/analyzer/CountCommitsPerDayPlugin.java
+ up.visulog.analyzer.CountCommitsPerDayPlugin
+ up.visulog.analyzer.CountCommitsPerDayPlugin$Result
+>>>>>>> 6d8e5f0cb63201efb99af5f5780742ba1addb9b0
 up/visulog/analyzer/CountAddedLinesPerFile.java
  up.visulog.analyzer.CountAddedLinesPerFile
  up.visulog.analyzer.CountAddedLinesPerFile$Result
 up/visulog/analyzer/CountCommitsPerAuthorPlugin.java
  up.visulog.analyzer.CountCommitsPerAuthorPlugin
  up.visulog.analyzer.CountCommitsPerAuthorPlugin$Result
+<<<<<<< HEAD
 up/visulog/analyzer/AnalyzerResult.java
  up.visulog.analyzer.AnalyzerResult
+=======
+up/visulog/analyzer/CountCommitsPerDatePlugin.java
+ up.visulog.analyzer.CountCommitsPerDatePlugin
+ up.visulog.analyzer.CountCommitsPerDatePlugin$Result
+up/visulog/analyzer/CountDeletedLinesPerFile.java
+ up.visulog.analyzer.CountDeletedLinesPerFile
+ up.visulog.analyzer.CountDeletedLinesPerFile$Result
+up/visulog/analyzer/AnalyzerGitLogPlugin.java
+ up.visulog.analyzer.AnalyzerGitLogPlugin
+>>>>>>> 6d8e5f0cb63201efb99af5f5780742ba1addb9b0
 up/visulog/analyzer/AnalyzerPlugin.java
  up.visulog.analyzer.AnalyzerPlugin
  up.visulog.analyzer.AnalyzerPlugin$Result
@@ -29,6 +46,7 @@ up/visulog/analyzer/CountMergeCommitsPerDatePlugin.java
 up/visulog/analyzer/CountCommitsPerDateAndAuthorPlugin.java
  up.visulog.analyzer.CountCommitsPerDateAndAuthorPlugin
  up.visulog.analyzer.CountCommitsPerDateAndAuthorPlugin$Result
+<<<<<<< HEAD
 up/visulog/analyzer/CountCommitsPerDayPlugin.java
  up.visulog.analyzer.CountCommitsPerDayPlugin
  up.visulog.analyzer.CountCommitsPerDayPlugin$Result
@@ -37,3 +55,12 @@ up/visulog/analyzer/AnalyzerGitLogPlugin.java
 up/visulog/analyzer/CountDeletedLinesPerFile.java
  up.visulog.analyzer.CountDeletedLinesPerFile
  up.visulog.analyzer.CountDeletedLinesPerFile$Result
+=======
+up/visulog/analyzer/Analyzer.java
+ up.visulog.analyzer.Analyzer
+up/visulog/analyzer/AnalyzerResult.java
+ up.visulog.analyzer.AnalyzerResult
+up/visulog/analyzer/GithubUserPlugin.java
+ up.visulog.analyzer.GithubUserPlugin
+ up.visulog.analyzer.GithubUserPlugin$Result
+>>>>>>> 6d8e5f0cb63201efb99af5f5780742ba1addb9b0

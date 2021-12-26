@@ -2,6 +2,7 @@ package up.visulog.cli;
 
 import up.visulog.analyzer.Analyzer;
 import up.visulog.config.Configuration;
+import up.visulog.config.GithubUserPluginConfig;
 import up.visulog.config.PluginConfig;
 
 import java.io.File;
@@ -19,9 +20,10 @@ import java.util.Optional;
 public class CLILauncher {
 
     private static boolean textDisplay=true;//pas d'affichage en texte si false
-    private static boolean graphDisplay=true;//pas d'affichage en graph si true
+    private static boolean graphDisplay=true;//pas d'affichage en graph si false
     private static boolean githubProjects=false;//avoir le projet github si true
     private static String urlProject=null;//l'url du project github
+    private static GithubUserPluginConfig configGitUser=new GithubUserPluginConfig();//pour le plugin githubUser
     public static void main(String[] args) {
         var config = makeConfigFromCommandLineArgs(args);
         if (config.isPresent()) {
@@ -125,10 +127,13 @@ public class CLILauncher {
                             }
                             break;
                         case "--githubProjects":
-                            
                             githubProjects=true;
                             urlProject= pValue;
                             break;
+                        case "--githubUser" :
+                            configGitUser.addUser(pValue);
+                            plugins.put("githubUser", configGitUser);
+                            break; 
                         case "--justSaveConfigFile":
                             // TODO (save command line options to a file instead of running the analysis)
                             try {

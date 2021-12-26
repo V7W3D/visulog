@@ -2,3 +2,8 @@ up/visulog/config/PluginConfig.java
  up.visulog.config.PluginConfig
 up/visulog/config/Configuration.java
  up.visulog.config.Configuration
+<<<<<<< HEAD
+=======
+up/visulog/config/GithubUserPluginConfig.java
+ up.visulog.config.GithubUserPluginConfig
+>>>>>>> 6d8e5f0cb63201efb99af5f5780742ba1addb9b0
