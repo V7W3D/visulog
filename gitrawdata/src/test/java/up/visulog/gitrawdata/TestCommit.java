@@ -195,16 +195,16 @@ public class TestCommit {
       }
 
     public static JSONArray readJsonCommitsFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-          BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-          String jsonText = readAll(rd);
-          JSONArray json = new JSONArray(jsonText);
-          return json;
-        } finally {
+      InputStream is = new URL(url).openStream();
+      try {
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+        String jsonText = readAll(rd);
+        JSONArray json = new JSONArray(jsonText);
+        return json;
+      } finally {
           is.close();
-        }
       }
+    }
 
     
     @Test
@@ -266,15 +266,16 @@ public class TestCommit {
       int page=1;
       int count=0;
       int last=0;
-      while(last<=1){
+      while(last<=0){
         JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/facebook/react/issues?page="+page+"&per_page=100");
         for(int i=0; i<jsonarray.length();i++){
           System.out.println("----------------------------------");
           System.out.println("- "+jsonarray.getJSONObject(i).get("title"));
+          System.out.println("number: "+(jsonarray.getJSONObject(i).get("number")));
           System.out.println("date de création: "+(jsonarray.getJSONObject(i).get("created_at")));
           System.out.println("Etat: "+jsonarray.getJSONObject(i).get("state"));
 
-          if(jsonarray.getJSONObject(i).get("assignee")!=null){
+          if(!jsonarray.getJSONObject(i).get("assignee").equals("null")){
             System.out.print("Utilisateur(s) assigné(s): ");
             JSONArray assignees = jsonarray.getJSONObject(i).getJSONArray("assignees");
             for(int j=0;j<assignees.length();j++){
