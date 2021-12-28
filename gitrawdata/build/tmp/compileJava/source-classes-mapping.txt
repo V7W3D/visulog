@@ -1,22 +1,24 @@
+up/visulog/gitrawdata/GithubIssues.java
+ up.visulog.gitrawdata.GithubIssues
 up/visulog/gitrawdata/Month.java
  up.visulog.gitrawdata.Month
 up/visulog/gitrawdata/Parsing.java
  up.visulog.gitrawdata.Parsing
-up/visulog/gitrawdata/Commit.java
- up.visulog.gitrawdata.Commit
 up/visulog/gitrawdata/Parsable.java
  up.visulog.gitrawdata.Parsable
-up/visulog/gitrawdata/File.java
- up.visulog.gitrawdata.File
+up/visulog/gitrawdata/Commit.java
+ up.visulog.gitrawdata.Commit
+up/visulog/gitrawdata/GitUser.java
+ up.visulog.gitrawdata.GitUser
 up/visulog/gitrawdata/CommitBuilder.java
  up.visulog.gitrawdata.CommitBuilder
-up/visulog/gitrawdata/Day.java
- up.visulog.gitrawdata.Day
+up/visulog/gitrawdata/GitUserBuilder.java
+ up.visulog.gitrawdata.GitUserBuilder
 up/visulog/gitrawdata/GithubCommit.java
  up.visulog.gitrawdata.GithubCommit
 up/visulog/gitrawdata/FileBuilder.java
  up.visulog.gitrawdata.FileBuilder
-up/visulog/gitrawdata/GitUser.java
- up.visulog.gitrawdata.GitUser
-up/visulog/gitrawdata/GitUserBuilder.java
- up.visulog.gitrawdata.GitUserBuilder
+up/visulog/gitrawdata/Day.java
+ up.visulog.gitrawdata.Day
+up/visulog/gitrawdata/File.java
+ up.visulog.gitrawdata.File

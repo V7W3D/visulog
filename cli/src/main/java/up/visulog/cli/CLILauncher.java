@@ -173,6 +173,62 @@ public class CLILauncher {
                             else
                                 textDisplay=false;
                             break;
+                            case "--help" :
+                            if(pValue.equals("all")){
+                                System.out.println("All the commands available are :");
+                            System.out.println("\n[--addPlugin] : this command will run the analysis of the argument's plugin. \n    Syntaxe : --addPlugin=[Argument]\n    Example : --addPlugin=countCommits");
+                            System.out.println("\n    =countCommits will count the number of commits of each member of the git and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            System.out.println("\n    =countMergeCommits will count the number of merge commits of each member and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            System.out.println("\n    =countCommitsPerDay will count the number of commits of each member per day and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            System.out.println("\n    =countMergeCommitsPerDay will count the number of merge commits of each member per day and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a atext.");
+                            System.out.println("\n    =countCommitsPerDate will count the number of commits per date of and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            System.out.println("\n    =countMergeCommitsPerDate will count the number of merge commits per date and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            System.out.println("\n    =countCommitsPerDateAndAuthor will count the number of commits of each member per date and will create an html page called 'visulog/results.html' with the results as a text.");
+                            System.out.println("\n    =countMergeCommitsPerDateAndAuthor will count the number of merge commits of each member per date and will create an html page called 'visulog/results.html' with the results as a text.");
+                            System.out.println("\n    =countLinesAddedPerFile will count the number of lines added in a file since the start and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            System.out.println("\n    =countLinesDeletedPerFile will count the number of lines deleted per file since the start and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            System.out.println("\n\n\n[--loadConfigFile] : this command will read the arguments/options of a file and execute them. \n    Syntaxe : --loadConfigFile=../[file name.txt]\n    Example : --loadConfigFile='../config.txt'");
+                            System.out.println("\n\n\n[--justSaveConfigFile] : this command will create a file with a name and with a command starting by -- that will be saved in that file.\n    Syntaxe : [--plugin=argument] --justSaveConfigFile='../[name of the file.txt]'\n    Example : --addPlugin=countCommits --justSaveConfigFile='../config.txt'");
+                            System.out.println("\n\n\n[--graphDisplay] : this command will change the boolean that will get the results or not as a graph to display in 'webgen/resultsGraph.html'. \n    Syntaxe : --graphDisplay=[true/false]\n    Example : --graphDisplay=true");
+                            System.out.println("\n\n\n[--textDisplay] : this command will change the boolean that will get the results or not as a text to display in 'visulog/results.html'. \n    Syntaxe : --textDisplay=[true/false]\n    Example : --textDisplay=true");
+                            System.out.println("\n\n\n[--githubUser] : this command will get all the informations about a gituser and show the result as a text. \n    Syntaxe : --githubUser=[Username]\n    Example : --githubUser=torvalds");
+                            System.out.println("\n\n\n[--githubProjects] : this command will get all the informations about a github and will allow us to get the stats with --addPlugin. \n    Syntaxe : --githubProjects=[Username/ProjectName]\n    Example : --githubUser=torvalds/linux");
+                            }
+                            
+                            if(pValue.equals("addPlugin")){
+                                System.out.println("[--addPlugin] : this command will run the analysis of the argument's plugin. \n    Syntaxe : --addPlugin=[Argument]\n    Example : --addPlugin=countCommits");
+                                System.out.println("\n    =countCommits will count the number of commits of each member of the git and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                                System.out.println("\n    =countMergeCommits will count the number of merge commits of each member and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                                System.out.println("\n    =countCommitsPerDay will count the number of commits of each member per day and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                                System.out.println("\n    =countMergeCommitsPerDay will count the number of merge commits of each member per day and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a atext.");
+                                System.out.println("\n    =countCommitsPerDate will count the number of commits per date of and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                                System.out.println("\n    =countMergeCommitsPerDate will count the number of merge commits per date and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                                System.out.println("\n    =countCommitsPerDateAndAuthor will count the number of commits of each member per date and will create an html page called 'visulog/results.html' with the results as a text.");
+                                System.out.println("\n    =countMergeCommitsPerDateAndAuthor will count the number of merge commits of each member per date and will create an html page called 'visulog/results.html' with the results as a text.");
+                                System.out.println("\n    =countLinesAddedPerFile will count the number of lines added in a file since the start and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                                System.out.println("\n    =countLinesDeletedPerFile will count the number of lines deleted per file since the start and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            }
+                            if(pValue.equals("loadConfigFile")){
+                                System.out.println("\n[--loadConfigFile] : this command will read the arguments/options of a file and execute them. \n    Syntaxe : --loadConfigFile=../[file name.txt]\n    Example : --loadConfigFile='../config.txt'");
+                            }
+
+                            if(pValue.equals("justSaveConfigFile")){
+                                System.out.println("\n[--justSaveConfigFile] : this command will create a file with a name and with a command starting by -- that will be saved in that file.\n    Syntaxe : [--plugin=argument] --justSaveConfigFile='../[name of the file.txt]'\n    Example : --addPlugin=countCommits --justSaveConfigFile='../config.txt'");
+
+                            }
+                            if(pValue.equals("graphDisplay")){
+                                System.out.println("\n[--graphDisplay] : this command will change the boolean that will get the results or not as a graph to display in 'webgen/resultsGraph.html'. \n    Syntaxe : --graphDisplay=[true/false]\n    Example : --graphDisplay=true");
+                            }
+                            if(pValue.equals("textDisplay")){
+                                System.out.println("\n[--textDisplay] : this command will change the boolean that will get the results or not as a text to display in 'visulog/results.html'. \n    Syntaxe : --textDisplay=[true/false]\n    Example : --textDisplay=true");
+                            }
+                            if(pValue.equals("githubUser")){
+                                System.out.println("\n[--githubUser] : this command will get all the informations about a gituser and show the result as a text. \n    Syntaxe : --githubUser=[Username]\n    Example : --githubUser=torvalds");
+                            }
+                            if(pValue.equals("githubProjects")){
+                                System.out.println("\n[--githubProjects] : this command will get all the informations about a github and will allow us to get the stats with --addPlugin. \n    Syntaxe : --githubProjects=[Username/ProjectName]\n    Example : --githubUser=torvalds/linux");
+                            }
+                            break; 
                         default:
                         return Optional.empty();
                     }
