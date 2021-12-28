@@ -5,6 +5,7 @@ up/visulog/gitrawdata/Parsing.java
 up/visulog/gitrawdata/Parsable.java
  up.visulog.gitrawdata.Parsable
 <<<<<<< HEAD
+<<<<<<< HEAD
 up/visulog/gitrawdata/Commit.java
  up.visulog.gitrawdata.Commit
 up/visulog/gitrawdata/GitUser.java
@@ -13,6 +14,10 @@ up/visulog/gitrawdata/GitUser.java
 up/visulog/gitrawdata/File.java
  up.visulog.gitrawdata.File
 >>>>>>> 6d8e5f0cb63201efb99af5f5780742ba1addb9b0
+=======
+up/visulog/gitrawdata/File.java
+ up.visulog.gitrawdata.File
+>>>>>>> 84caf24038a24160f63665b27e4e1b8cad6cdb56
 up/visulog/gitrawdata/CommitBuilder.java
  up.visulog.gitrawdata.CommitBuilder
 up/visulog/gitrawdata/Day.java

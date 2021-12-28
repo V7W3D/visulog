@@ -13,8 +13,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.sound.midi.SysexMessage;
-
 public class GithubCommit implements Parsable {
   private static List<Parsable> listCommits;
   
