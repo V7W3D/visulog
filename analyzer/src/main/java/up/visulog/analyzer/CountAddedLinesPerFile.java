@@ -65,7 +65,7 @@ public class CountAddedLinesPerFile implements AnalyzerPlugin {
             for (var item : linesAddedPerFile.entrySet()) {
                 html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
             }
-            html.append("</ul></div>");
+            html.append("</ul></div><br>");
             return html.toString();
         }
 

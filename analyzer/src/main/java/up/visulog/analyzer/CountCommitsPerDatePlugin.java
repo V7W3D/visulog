@@ -74,7 +74,7 @@ public class CountCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
                 html.append("<li>").append(commitsList.get(i)).append(": ").append(commitsList.get(i+1)).append("</li>");
                 i+=2;
             }
-            html.append("</ul></div>");
+            html.append("</ul></div><br>");
             return html.toString();
         }
 

@@ -66,8 +66,8 @@ public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
                 html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
                 total = total + item.getValue();
             }
-            html.append("</ul></div>");
-            html.append("Total commits : " + total);
+            html.append("<br>Total commits : " + total);
+            html.append("</ul></div><br>");
             return html.toString();
         }
 

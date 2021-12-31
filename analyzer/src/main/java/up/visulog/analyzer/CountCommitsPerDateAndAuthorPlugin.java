@@ -70,7 +70,7 @@ public class CountCommitsPerDateAndAuthorPlugin extends AnalyzerGitLogPlugin {
                 html.append("</ul>");
                 i+=2;
             }
-            html.append("</ul></div>");
+            html.append("</ul></div><br>");
             return html.toString();
         }
 
