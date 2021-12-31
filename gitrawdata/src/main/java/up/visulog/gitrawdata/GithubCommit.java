@@ -78,14 +78,14 @@ public class GithubCommit implements Parsable {
   {
     List<Parsable> commits = new ArrayList<Parsable>();
     try {
-      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos"+pValue+"/commits");
+      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/"+pValue+"/commits");
     } catch (Exception e) {
       System.out.println("Probleme "+e);
       return commits;
     }int page=1;
     int count=0;
     while(count<limit){
-      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos"+pValue+"/commits?page="+page+"&per_page=100");
+      JSONArray jsonarray = readJsonCommitsFromUrl("https://api.github.com/repos/"+pValue+"/commits?page="+page+"&per_page=100");
       if(!jsonarray.isEmpty()){
         for(int i=0; i<jsonarray.length(); i++){
           String author = (String) jsonarray.getJSONObject(i).getJSONObject("commit").getJSONObject("author").get("name");

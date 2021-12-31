@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(31, 31, 31);
+    color: white;
+    margin-top: 3%;
+    font-size: larger;
+}
+div{
+    text-align: left;
+    border: 2px solid rgb(255, 255, 255);
+    width: fit-content;
+    margin-left: 40%;
+    padding: 20px;
+    border-radius: 25px 10px;
+    outline: rgb(255, 0, 0) solid 1px;
+}
+ul{
+    margin-left: 3%;
+    list-style-position: inside;
+}
+p {
+    font-size: 25;
+    margin-left: 4.5%;
+    color: rgb(184, 236, 243);
+    text-decoration: underline;
+}

@@ -68,7 +68,7 @@ public class GithubUserPlugin implements AnalyzerPlugin{
                 html.append("<li>").append("Created at: ").append(user.createdAt).append("</li>");
                 html.append("<li>").append("Updated at: ").append(user.updatedAt).append("</li>");
                 html.append("<li>").append("Twiter user name: ").append(user.twitterUserName).append("</li>");
-                html.append("</ul></div>");
+                html.append("</ul></div><br>");
             }
             return html.toString();
         }

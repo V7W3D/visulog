@@ -65,7 +65,7 @@ public class CountCommitsPerDayPlugin extends AnalyzerGitLogPlugin {
                 if(commitsPerDay.get(Day.dayTrie.get(i))!=null)
                     html.append("<li>").append(Day.dayTrie.get(i)).append(": ").append(commitsPerDay.get(Day.dayTrie.get(i))).append("</li>");
             }
-            html.append("</ul></div>");
+            html.append("</ul></div><br>");
             return html.toString();
         }
 

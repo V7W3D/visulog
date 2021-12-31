@@ -72,7 +72,7 @@ public class CountMergeCommitsPerDatePlugin extends AnalyzerGitLogPlugin {
                 html.append("<li>").append(mergeCommitsList.get(i)).append(": ").append(mergeCommitsList.get(i+1)).append("</li>");
                 i+=2;
             }
-            html.append("</ul></div>");
+            html.append("</ul></div><br>");
             return html.toString();
         }
 

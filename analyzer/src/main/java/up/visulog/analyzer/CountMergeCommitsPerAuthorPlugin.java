@@ -60,7 +60,7 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
             for (var item : mergeCommitsPerAuthor.entrySet()) {
                 html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
             }
-            html.append("</ul></div>");
+            html.append("</ul></div><br>");
             return html.toString();
         }
 
