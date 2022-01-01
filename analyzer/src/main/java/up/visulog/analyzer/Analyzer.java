@@ -68,6 +68,7 @@ public class Analyzer {
             case "countLinesAddedPerFile" : return Optional.of(new CountAddedLinesPerFile(config));
             case "countLinesDeletedPerFile" : return Optional.of(new CountDeletedLinesPerFile(config));
             case "githubUser" : return Optional.of(new GithubUserPlugin(pluginConfig));
+            case "githubIssues" : return Optional.of(new GithubIssuesPlugin(config));
             default : return Optional.empty();
         }
     }

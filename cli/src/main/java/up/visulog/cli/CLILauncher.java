@@ -134,6 +134,16 @@ public class CLILauncher {
                             configGitUser.addUser(pValue);
                             plugins.put("githubUser", configGitUser);
                             break; 
+                        case "--githubIssues" :
+                            PluginConfig githubIssuesConfig= new PluginConfig(){
+                                @Override
+                                public Map<String, String> config() {
+                                    return null;
+                                }
+                            };
+                            urlProject=pValue;
+                            plugins.put("githubIssues", githubIssuesConfig);
+                            break;
                         case "--justSaveConfigFile":
                             // TODO (save command line options to a file instead of running the analysis)
                             try {
