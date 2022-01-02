@@ -55,7 +55,7 @@ public class GithubIssuesPlugin implements AnalyzerPlugin{
         public String getResultAsHtmlDiv() {
             StringBuilder html = new StringBuilder(); 
             for(GithubIssues issue : issues){
-                html.append("<div> issues :<ul>"); 
+                html.append("<div> issue :<ul>"); 
                 html.append("<li>").append("Number: ").append(issue.number).append("</li>");
                 html.append("<li>").append("Title: ").append(issue.title).append("</li>");
                 

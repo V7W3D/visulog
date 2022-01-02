@@ -10,8 +10,9 @@ up/visulog/analyzer/CountCommitsPerAuthorPlugin.java
 up/visulog/analyzer/CountCommitsPerDatePlugin.java
  up.visulog.analyzer.CountCommitsPerDatePlugin
  up.visulog.analyzer.CountCommitsPerDatePlugin$Result
-up/visulog/analyzer/AnalyzerResult.java
- up.visulog.analyzer.AnalyzerResult
+up/visulog/analyzer/GithubIssuesPlugin.java
+ up.visulog.analyzer.GithubIssuesPlugin
+ up.visulog.analyzer.GithubIssuesPlugin$Result
 up/visulog/analyzer/GithubUserPlugin.java
  up.visulog.analyzer.GithubUserPlugin
  up.visulog.analyzer.GithubUserPlugin$Result
@@ -40,6 +41,5 @@ up/visulog/analyzer/CountCommitsPerDayPlugin.java
  up.visulog.analyzer.CountCommitsPerDayPlugin$Result
 up/visulog/analyzer/Analyzer.java
  up.visulog.analyzer.Analyzer
-up/visulog/analyzer/GithubIssuesPlugin.java
- up.visulog.analyzer.GithubIssuesPlugin
- up.visulog.analyzer.GithubIssuesPlugin$Result
+up/visulog/analyzer/AnalyzerResult.java
+ up.visulog.analyzer.AnalyzerResult
