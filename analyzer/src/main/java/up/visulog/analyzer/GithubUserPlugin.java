@@ -1,7 +1,6 @@
 package up.visulog.analyzer;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 import up.visulog.config.PluginConfig;
 import up.visulog.gitrawdata.GitUser;

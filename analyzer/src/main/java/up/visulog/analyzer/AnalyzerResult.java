@@ -55,7 +55,7 @@ public class AnalyzerResult {
         StringBuilder rendering = new StringBuilder();
         while(it.hasNext()) {
             Result result = it.next();
-            if(! (result instanceof CountCommitsPerDateAndAuthorPlugin.Result || result instanceof CountMergeCommitsPerDateAndAuthorPlugin.Result || result instanceof GithubUserPlugin.Result)){
+            if(! (result instanceof CountCommitsPerDateAndAuthorPlugin.Result || result instanceof CountMergeCommitsPerDateAndAuthorPlugin.Result || result instanceof GithubUserPlugin.Result || result instanceof GithubIssuesPlugin.Result)){
                 try {
                     String chartContainer = readFile("../webgen/chartContainer.html", Charset.forName("UTF-8"));
                     chartContainer = chartContainer.replace("chartContainer","chartContainer" + i);
