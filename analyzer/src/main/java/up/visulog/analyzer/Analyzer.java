@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 public class Analyzer {
     private final Configuration config;
 
-    private AnalyzerResult result;
-
     public Analyzer(Configuration config) {
         this.config = config;
     }
@@ -25,8 +23,7 @@ public class Analyzer {
             var plugin = makePlugin(pluginName, pluginConfig);
             plugin.ifPresent(plugins::add);
         }
-        // run all the plugins
-        // TODO: try running them in parallel
+        // TODO: try running them in parallel (A FAIRE : essayez de les exécuter en parallèle)
         for (var plugin: plugins) plugin.run();
 
         // store the results together in an AnalyzerResult instance and return it
@@ -34,9 +31,15 @@ public class Analyzer {
     }
 
     // TODO: find a way so that the list of plugins is not hardcoded in this factory
+    //(A FAIRE : trouver un moyen pour que la liste des plugins ne soit pas codée en dur dans cette usine)
     private Optional<AnalyzerPlugin> makePlugin(String pluginName, PluginConfig pluginConfig) {
-        switch (pluginName) {
+        switch (pluginName) {//ça c'est du hardcoding
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
+            case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
+            case "countMergeCommitsPerDay" : return Optional.of(new CountMergeCommitsPerDayPlugin(config));
+            case "countCommitsPerDay" : return Optional.of(new CountCommitsPerDayPlugin(config));
+            case "countLinesAddedPerFile" : return Optional.of(new CountAddedLinesPerFile(config));
+            case "countLinesDeletedPerFile" : return Optional.of(new CountDeletedLinesPerFile(config));
             default : return Optional.empty();
         }
     }

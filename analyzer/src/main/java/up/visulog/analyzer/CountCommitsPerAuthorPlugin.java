@@ -2,59 +2,59 @@ package up.visulog.analyzer;
 
 import up.visulog.config.Configuration;
 import up.visulog.gitrawdata.Commit;
+import up.visulog.gitrawdata.Parsable;
+import up.visulog.gitrawdata.Parsing;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class CountCommitsPerAuthorPlugin implements AnalyzerPlugin {
-    private final Configuration configuration;
-    private Result result;
+public class CountCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
+    public static int nbcommits=0;
 
     public CountCommitsPerAuthorPlugin(Configuration generalConfiguration) {
-        this.configuration = generalConfiguration;
+        if(configuration==null)
+            configuration = generalConfiguration;
     }
 
-    static Result processLog(List<Commit> gitLog) {
+    protected Result processLog(List<Parsable> gitLog) {
         var result = new Result();
-        for (var commit : gitLog) {
-            var nb = result.commitsPerAuthor.getOrDefault(commit.author, 0);
-            result.commitsPerAuthor.put(commit.author, nb + 1);
+        for (var parsable : gitLog) {
+            Commit commit = (Commit) parsable;
+            var nb = result.commits.getOrDefault(commit.author, 0);
+            result.commits.put(commit.author, nb + 1);
         }
         return result;
     }
 
     @Override
-    public void run() {
-        result = processLog(Commit.parseLogFromCommand(configuration.getGitPath()));
+    public void run() {        
+        result = processLog(Parsing.parseLogFromCommand(configuration.getGitPath(),configuration.buildCommand("countCommits")));
     }
 
-    @Override
-    public Result getResult() {
-        if (result == null) run();
-        return result;
-    }
 
     static class Result implements AnalyzerPlugin.Result {
-        private final Map<String, Integer> commitsPerAuthor = new HashMap<>();
+        private final Map<String, Integer> commits = new HashMap<>();
 
-        Map<String, Integer> getCommitsPerAuthor() {
-            return commitsPerAuthor;
+        Map<String, Integer> getCommitsPerAuth() {
+            return commits;
         }
 
         @Override
         public String getResultAsString() {
-            return commitsPerAuthor.toString();
+            return commits.toString();
         }
 
         @Override
-        public String getResultAsHtmlDiv() {
-            StringBuilder html = new StringBuilder("<div>Commits per author: <ul>");
-            for (var item : commitsPerAuthor.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+        public String getResultAsDataPoints() {
+            StringBuilder dataPoints = new StringBuilder();
+            for (var item : commits.entrySet()) {
+                dataPoints.append("{ label: '").append(item.getKey()).append("', y: ").append(item.getValue()).append("},");
             }
-            html.append("</ul></div>");
-            return html.toString();
+            return dataPoints.toString();
+        }
+
+        @Override
+        public String getChartName() {
+            return "Commits Per Author";
         }
     }
 }
