@@ -6,6 +6,9 @@ import up.visulog.config.PluginConfig;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Analyzer {
@@ -17,6 +20,7 @@ public class Analyzer {
 
     public AnalyzerResult computeResults() {
         List<AnalyzerPlugin> plugins = new ArrayList<>();
+        ExecutorService es = Executors.newCachedThreadPool();
         for (var pluginConfigEntry: config.getPluginConfigs().entrySet()) {
             var pluginName = pluginConfigEntry.getKey();
             var pluginConfig = pluginConfigEntry.getValue();
@@ -24,7 +28,19 @@ public class Analyzer {
             plugin.ifPresent(plugins::add);
         }
         // TODO: try running them in parallel (A FAIRE : essayez de les exécuter en parallèle)
-        for (var plugin: plugins) plugin.run();
+        for (var plugin: plugins) {
+        	es.execute(() -> { plugin.run(); });
+        }
+
+        es.shutdown();
+
+        try {
+			while(!es.awaitTermination(1, TimeUnit.MINUTES)) {
+				
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
         // store the results together in an AnalyzerResult instance and return it
         return new AnalyzerResult(plugins.stream().map(AnalyzerPlugin::getResult).collect(Collectors.toList()));
