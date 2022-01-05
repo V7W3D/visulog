@@ -24,6 +24,7 @@ public class ListeMergedCommitid extends AnalyzerGitLogPlugin {
 
             var nb1 = result.ListecomMerged.getOrDefault(commit.mergedFrom, 0);
             result.ListecomMerged.put(commit.mergedFrom, nb + 1);
+
         }
         return result;
     }
@@ -70,8 +71,9 @@ public class ListeMergedCommitid extends AnalyzerGitLogPlugin {
         public String getResultAsHtmlDiv() {
             StringBuilder html = new StringBuilder("<div>List commits merged to develop: <ul>");
             int total  = 0;
+            int mergerequest=0;
             for (var item : ListecomMerged.entrySet()) {
-                html.append("<li>").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
+                html.append("<li>"+"Commit id : ").append(item.getKey()).append(": ").append(item.getValue()).append("</li>");
                 total = total + item.getValue();
             }
 
