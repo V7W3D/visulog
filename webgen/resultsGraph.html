@@ -9,11 +9,53 @@
     <link rel="stylesheet" href="style1.css">
 </head>
 <body>
+<div>
+    <div id="chartContainer0" style="height: 800px; width: 100%;"></div>
+</div>
 
 <script>
+CanvasJS.addColorSet("blueShades",
+        [
+        "#87CEEB",
+        "#33A1C9",
+        "#00BFFF",
+        "#00B2EE",
+        "#0099CC",
+        "#009ACD",
+        "#38B0DE",       
+        "#33A1DE",
+        "#0EBFE9"     
+        ]);   
+const myData0 = [{
+        type: "column",
+        toolTipContent: "<b>{label}</b>: {y} commits",
+        showInLegend: false,
+        dataPoints: [{ label: 'null', y: 12},{ label: 'de6b22e 11e7bf7', y: 6},{ label: '74d1e23 51cac72', y: 1},{ label: '7f9a1f1 393dfa2', y: 6},{ label: 'f6dfc6f dc58f07', y: 1},{ label: '3400a2f dd08141', y: 1},{ label: '26c15e9 dbd44b3', y: 32},{ label: '92612db 3400a2f', y: 2},{ label: 'b5695c5 ee4f93f', y: 4},{ label: 'cc58af4 f21a28e', y: 1},{ label: 'fb7ec21 85cddd6', y: 5},{ label: '88be3f2 22c6350', y: 1},{ label: 'c6debd9 8dc58f3', y: 8},{ label: '98b2007 c69b3ad', y: 10},{ label: '0f0bfcd 83eeb32', y: 15},{ label: '37fec41 e817d00', y: 8},{ label: '9929931 2128269', y: 6},{ label: '9e74f15 8f836af', y: 1},{ label: '6919b06 cd2b31b', y: 6},{ label: 'c0cbe82 3921931', y: 3},{ label: '84caf24 f0d1f9e', y: 3},{ label: '6d8e5f0 0e49123', y: 2},{ label: '2d42231 48891e2', y: 7},{ label: 'd3385d5 9a96f05', y: 2},{ label: '09f9cbd 1329241', y: 3},{ label: '131f203 12e58cd', y: 2},{ label: '6ccd9f0 d32539a', y: 11},{ label: 'b86e80c 84caf24', y: 4},{ label: 'a4e38bb c86e5bb', y: 2},{ label: '78fd1be 33e22af', y: 5},{ label: '689e988 f6a482c', y: 1},{ label: 'fa7513d a4e38bb', y: 9},{ label: '8bdf530 297d5bd', y: 4},{ label: '81fe630 d194f1e', y: 1},{ label: 'b56f5f8 fdaa504', y: 5},{ label: '7fa1a62 a105be5', y: 1},{ label: '4cb0e70 8bdf530', y: 12},{ label: 'f5a795a 2eeec2a', y: 3},{ label: 'fc35761 9929931', y: 13},{ label: '8caec2b b68e7da', y: 12},{ label: 'dbd44b3 3657491', y: 11},{ label: 'a7a6bfd 5f39dbf', y: 6},{ label: '066f216 0f38186', y: 12},{ label: 'd0c7011 f5a795a', y: 7},{ label: '37d288e 848afe9', y: 5},{ label: 'c717b86 f01e13c', y: 4},{ label: 'ac7f9d3 e8c535e', y: 5},{ label: '3afe4aa 4b8c5d8', y: 9},]
+}];
+
+const myConfig0 = {
+        colorSet:"blueShades",
+        theme: "dark1",        exportEnabled: true,
+        zoomEnabled:true,
+        animationEnabled: true,
+        title: {
+                text: "List commits merged to develop"
+        },
+        axisY:{
+                labelFontSize: 20,
+        },
+        axisX:{
+                interval : 1,
+                labelFontSize: 15,
+                labelAngle: -60,
+        },
+        data : myData0
+};
+
+var myChart0 = new CanvasJS.Chart("chartContainer0", myConfig0);
 
 window.onload = function() {
-
+myChart0.render();
 }
 </script>
 </body>

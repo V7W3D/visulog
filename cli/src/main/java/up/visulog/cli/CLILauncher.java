@@ -101,6 +101,10 @@ public class CLILauncher {
                                 case "countMergeCommitsPerDateAndAuthor" :
                                     plugins.put("countMergeCommitsPerDateAndAuthor", GitLogPluginConfig);
                                     break;
+
+                                case "ListeMergedCommitid" :
+                                    plugins.put("ListeMergedCommitid", GitLogPluginConfig);
+                                    break;
                                 case "countLinesAddedPerFile" :
                                     plugins.put("countLinesAddedPerFile", FilePluginConfig);
                                     break;

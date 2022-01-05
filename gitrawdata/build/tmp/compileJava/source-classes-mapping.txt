@@ -18,9 +18,9 @@ up/visulog/gitrawdata/GithubCommit.java
  up.visulog.gitrawdata.GithubCommit
 up/visulog/gitrawdata/FileBuilder.java
  up.visulog.gitrawdata.FileBuilder
-up/visulog/gitrawdata/Day.java
- up.visulog.gitrawdata.Day
 up/visulog/gitrawdata/GithubIssueBuilder.java
  up.visulog.gitrawdata.GithubIssueBuilder
+up/visulog/gitrawdata/Day.java
+ up.visulog.gitrawdata.Day
 up/visulog/gitrawdata/File.java
  up.visulog.gitrawdata.File
