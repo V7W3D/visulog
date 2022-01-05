@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
     implementation(project(":config"))
-    testImplementation("junit:junit:4.+")
+    testImplementation("junit:junit:4.13.2")
 }
 
 

@@ -1,2 +1,0 @@
-up/visulog/analyzer/TestCountCommitsPerAuthorPlugin.java
- up.visulog.analyzer.TestCountCommitsPerAuthorPlugin

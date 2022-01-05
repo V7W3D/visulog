@@ -17,5 +17,5 @@ allprojects {
 }
 
 dependencies {
-    implementation("org.json:json:20210307")
+    implementation("org.json:json:20211205")
 }

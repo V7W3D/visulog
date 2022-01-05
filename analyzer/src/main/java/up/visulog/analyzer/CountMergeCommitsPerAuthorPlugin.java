@@ -45,6 +45,7 @@ public class CountMergeCommitsPerAuthorPlugin extends AnalyzerGitLogPlugin {
             return mergeCommitsPerAuthor.toString();
         }
 
+
         @Override
         public String getResultAsDataPoints() {
             StringBuilder dataPoints = new StringBuilder();
