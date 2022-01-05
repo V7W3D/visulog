@@ -72,7 +72,7 @@ public class ListeMergedCommit extends AnalyzerGitLogPlugin {
                 System.out.println(item.getKey()+": "+item.getValue());
                 System.out.println("Slurhjk,;b");
             }
-            html.append("<li>"+"Total commit merged kheddd : "+totale+"</li>");
+            html.append("<li>"+"Total commit merged : "+totale+"</li>");
             html.append("</ul></div>");
             return html.toString();
         }
