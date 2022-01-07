@@ -289,7 +289,7 @@ public class CLILauncher {
         System.out.println("Wrong command...");
         //TODO: print the list of options and their syntax
         System.out.println("You should try with these commands  :\n" +
-        " -addPlugin\n" + " --loadConfigFile\n" + " --justSaveConfigFile");
+        "--help=all\n"+"--help=addPlugin\n" );
         System.exit(0);
     }
 }
