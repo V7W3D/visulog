@@ -1,0 +1,4 @@
+up/visulog/gitrawdata/TestCommit.java
+ up.visulog.gitrawdata.TestCommit
+up/visulog/gitrawdata/TestGitUser.java
+ up.visulog.gitrawdata.TestGitUser

@@ -15,3 +15,7 @@ allprojects {
     java.sourceCompatibility = JavaVersion.VERSION_1_10
 
 }
+
+dependencies {
+    implementation("org.json:json:20210307")
+}

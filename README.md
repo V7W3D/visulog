@@ -12,7 +12,8 @@ This tool can:
   - number of lines or characters added/deleted/changed
   - number of commits
   - number of merge commits
-- analyze the variations of these indicators in time: for instance sum then in a week, compute a daily average or an average in a sliding window, ...
+  - number of per Author
+- analyze the variations of these indicators in time: for instance sum then in a week, compute a daily average or an average in a sliding window
 - visualize the indicators as charts (histograms, pie charts, etc.) embedded in a generated web page.
 
 ## Already existing similar tools
@@ -40,11 +41,11 @@ Visulog contains the following modules:
 
 1. clone the repository
     ```
-    git clone git@gaufre.informatique.univ-paris-diderot.fr:adegorre/visulog.git
+    git clone git@gaufre.informatique.univ-paris-diderot.fr:leninive/visulog.git
     ```
    or
     ```
-    git clone https://gaufre.informatique.univ-paris-diderot.fr/adegorre/visulog.git
+    git clone https://gaufre.informatique.univ-paris-diderot.fr/leninive/visulog.git
     ```
 2. Enter the project folder
     ```
@@ -61,7 +62,7 @@ Visulog contains the following modules:
     ```
 ### Running the software
 
-Currently, it can be run through gradle too. In order to pass program arguments, you need to pass them behind `--args`:
+Visulog can be run through gradle. In order to pass program arguments, you need to pass them behind `--args`:
 ```
 ./gradlew run --args='here are my args'
 ```
@@ -73,3 +74,10 @@ For instance
 ```
 
 Will count the commits of each author in the current branch of the git repository present in the current folder (".").
+
+To display the list of all arguments in the terminal:
+
+```
+./gradlew run --args='--help=all'
+```
+
