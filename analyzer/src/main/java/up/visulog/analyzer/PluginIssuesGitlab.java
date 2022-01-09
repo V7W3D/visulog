@@ -143,7 +143,7 @@ public class PluginIssuesGitlab extends AnalyzerGitLogPlugin {
                             "  var issueDes = \"<div class=\\'title\\'>\"+ aRepresentative.title +\"</div>\";\n" +
                             "  var Dateissue = \"<li>Created Date :</li> \"+ aRepresentative.created_at + \"\";\n" +
                             "  var State = \"<li>State :</li>\" + aRepresentative.state + \"\";\n" +
-                            "  var CloseIssue = \"<li>Closed Date :</li>\" + aRepresentative.state + \"\";\n" +
+                            "  var CloseIssue = \"<li>Closed Date :</li>\" + aRepresentative.closed_at + \"\";\n" +
                             "  divElementCollection.append(issueDes);\n" +
                             "  divElementCollection.append(Dateissue);\n" +
                             "  divElementCollection.append(State);\n" +

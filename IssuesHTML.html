@@ -50,7 +50,7 @@ function addRepresentativeToPage(arrayIndex, aRepresentative) {
   var issueDes = "<div class=\'title\'>"+ aRepresentative.title +"</div>";
   var Dateissue = "<li>Created Date :</li> "+ aRepresentative.created_at + "";
   var State = "<li>State :</li>" + aRepresentative.state + "";
-  var CloseIssue = "<li>Closed Date :</li>" + aRepresentative.state + "";
+  var CloseIssue = "<li>Closed Date :</li>" + aRepresentative.closed_at + "";
   divElementCollection.append(issueDes);
   divElementCollection.append(Dateissue);
   divElementCollection.append(State);
