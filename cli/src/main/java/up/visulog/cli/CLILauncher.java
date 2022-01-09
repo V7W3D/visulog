@@ -105,12 +105,18 @@ public class CLILauncher {
                                 case "ListeMergedCommitid" :
                                     plugins.put("ListeMergedCommitid", GitLogPluginConfig);
                                     break;
+
+                                case "Issues" :
+                                    plugins.put("Issues", GitLogPluginConfig);
+                                    break;
+
                                 case "countLinesAddedPerFile" :
                                     plugins.put("countLinesAddedPerFile", FilePluginConfig);
                                     break;
                                 case "countLinesDeletedPerFile" : 
                                     plugins.put("countLinesDeletedPerFile", FilePluginConfig);
                                     break;
+
                             }
                             break;
                         case "--loadConfigFile":

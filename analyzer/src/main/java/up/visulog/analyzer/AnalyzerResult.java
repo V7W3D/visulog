@@ -102,10 +102,13 @@ public class AnalyzerResult {
 
     public String toHTML(){
         createFile("../results.html");
+
         try{
             FileWriter writer=new FileWriter("../results.html");
+            FileWriter writer2=new FileWriter("../IssuesHTML.html");
             writer.write("<html><link rel=\"stylesheet\" href=\"style1.css\"><body>"+subResults.stream().map(AnalyzerPlugin.Result::getResultAsHtmlDiv).reduce("", (acc,cur) ->acc+cur)+"<body><html>");
             writer.close();
+
             System.out.println("Successfully wrote to the file");
         }catch(IOException e){
             System.out.println("An error occured");
