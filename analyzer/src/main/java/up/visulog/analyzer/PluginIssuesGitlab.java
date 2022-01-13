@@ -184,7 +184,7 @@ public class PluginIssuesGitlab extends AnalyzerGitLogPlugin {
 
         @Override
         public String getChartName() {
-            return "List commits merged to develop";
+            return "Issues";
         }
     }
 }

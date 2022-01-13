@@ -207,6 +207,10 @@ public class CLILauncher {
                                 System.out.println("All the commands available are :");
                             System.out.println("\n[--addPlugin] : this command will run the analysis of the argument's plugin. \n    Syntaxe : --addPlugin=[Argument]\n    Example : --addPlugin=countCommits");
                             System.out.println("\n    =countCommits will count the number of commits of each member of the git and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                            System.out.println("\n    =Issues command is used to list the different issues from the gitlab project you will find this list in the file IssuesHTML.html");
+                            System.out.println("\n    =mergerequest command displays a list of merges requests from the gitlab project you will find this list in the file IssuesHTML.html");
+                            System.out.println("\n    =Branche command allows you to list the different branches being repositories of the gitlab project you will find this list in the file IssuesHTML.html");
+                            System.out.println("\n    =ListeMergedCommitid command displays the list of commits merges in the develop branch of the gitlab project you will find this list in the results.html file");
                             System.out.println("\n    =countMergeCommits will count the number of merge commits of each member and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
                             System.out.println("\n    =countCommitsPerDay will count the number of commits of each member per day and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
                             System.out.println("\n    =countMergeCommitsPerDay will count the number of merge commits of each member per day and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a atext.");
@@ -237,6 +241,11 @@ public class CLILauncher {
                                 System.out.println("\n    =countMergeCommitsPerDateAndAuthor will count the number of merge commits of each member per date and will create an html page called 'visulog/results.html' with the results as a text.");
                                 System.out.println("\n    =countLinesAddedPerFile will count the number of lines added in a file since the start and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
                                 System.out.println("\n    =countLinesDeletedPerFile will count the number of lines deleted per file since the start and will create an html page called 'webgen/resultsGraph.html' with the results as a graph , and 'visulog/results.html' as a text.");
+                                System.out.println("\n    =Issues command is used to list the different issues from the gitlab project you will find this list in the file IssuesHTML.html");
+                                System.out.println("\n    =mergerequest command displays a list of merges requests from the gitlab project you will find this list in the file IssuesHTML.html");
+                                System.out.println("\n    =Branche command allows you to list the different branches being repositories of the gitlab project you will find this list in the file IssuesHTML.html");
+                                System.out.println("\n    =ListeMergedCommitid command displays the list of commits merges in the develop branch of the gitlab project you will find this list in the results.html file");
+
                             }
                             if(pValue.equals("loadConfigFile")){
                                 System.out.println("\n[--loadConfigFile] : this command will read the arguments/options of a file and execute them. \n    Syntaxe : --loadConfigFile=../[file name.txt]\n    Example : --loadConfigFile='../config.txt'");

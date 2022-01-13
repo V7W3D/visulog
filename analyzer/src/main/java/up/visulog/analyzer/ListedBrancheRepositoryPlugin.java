@@ -185,7 +185,7 @@ public class ListedBrancheRepositoryPlugin extends AnalyzerGitLogPlugin {
 
         @Override
         public String getChartName() {
-            return "List commits merged to develop";
+            return "Branche";
         }
     }
 }
