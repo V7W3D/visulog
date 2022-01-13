@@ -215,8 +215,9 @@ public class CLILauncher {
                             System.out.println("\n\n\n[--justSaveConfigFile] : this command will create a file with a name and with a command starting by -- that will be saved in that file.\n    Syntaxe : [--plugin=argument] --justSaveConfigFile='../[name of the file.txt]'\n    Example : --addPlugin=countCommits --justSaveConfigFile='../config.txt'");
                             System.out.println("\n\n\n[--graphDisplay] : this command will change the boolean that will get the results or not as a graph to display in 'webgen/resultsGraph.html'. \n    Syntaxe : --graphDisplay=[true/false]\n    Example : --graphDisplay=true");
                             System.out.println("\n\n\n[--textDisplay] : this command will change the boolean that will get the results or not as a text to display in 'visulog/results.html'. \n    Syntaxe : --textDisplay=[true/false]\n    Example : --textDisplay=true");
-                            System.out.println("\n\n\n[--githubUser] : this command will get all the informations about a gituser and show the result as a text. \n    Syntaxe : --githubUser=[Username]\n    Example : --githubUser=torvalds");
+                            System.out.println("\n\nYou have to be connected to internet for github plugins to work.\n\n[--githubUser] : this command will get all the informations about a gituser and show the result as a text. \n    Syntaxe : --githubUser=[Username]\n    Example : --githubUser=torvalds");
                             System.out.println("\n\n\n[--githubProjects] : this command will get all the informations about a github and will allow us to get the stats with --addPlugin , it will only work for 'countCommits' , 'countCommitsPerDay' , 'countCommitsPerDate' and 'countCommitsPerDateAndAuthor'. \n    Syntaxe : --githubProjects=[Username/ProjectName]\n    Example : --githubProjects=torvalds/linux");
+                            System.out.println("\n\n\n[--githubIssues] : this command will get all the issues of a github and will give us all the results in 'visulog/results.html' as a text. \n    Syntaxe : --githubIssues=[Username/ProjectName]\n    Example : --githubIssues=torvalds/linux");    
                             }
                             
                             if(pValue.equals("addPlugin")){
@@ -251,6 +252,9 @@ public class CLILauncher {
                             }
                             if(pValue.equals("githubProjects")){
                                 System.out.println("\n[--githubProjects] : this command will get all the informations about a github and will allow us to get the stats with --addPlugin , it will only work for 'countCommits' , 'countCommitsPerDay' , 'countCommitsPerDate' and 'countCommitsPerDateAndAuthor'. \n    Syntaxe : --githubProjects=[Username/ProjectName]\n    Example : --githubProjects=torvalds/linux");
+                            }
+                            if(pValue.equals("githubIssues")){
+                                System.out.println("\n\n\n[--githubIssues] : this command will get all the issues of a github and will give us the results in 'visulog/results.html' as a text. \n    Syntaxe : --githubIssues=[Username/ProjectName]\n    Example : --githubIssues=torvalds/linux");
                             }
                             break; 
                         default:
