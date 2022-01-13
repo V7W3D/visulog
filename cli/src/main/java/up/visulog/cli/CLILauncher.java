@@ -110,6 +110,11 @@ public class CLILauncher {
                                     plugins.put("Issues", GitLogPluginConfig);
                                     break;
 
+                                case "Branche" :
+                                    plugins.put("Branche", GitLogPluginConfig);
+                                    break;
+
+
                                 case "mergerequest" :
                                     plugins.put("mergerequest", GitLogPluginConfig);
                                     break;

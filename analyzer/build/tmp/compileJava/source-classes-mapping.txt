@@ -52,3 +52,6 @@ up/visulog/analyzer/MergeRequestPlugin.java
  up.visulog.analyzer.MergeRequestPlugin$Result
 up/visulog/analyzer/Analyzer.java
  up.visulog.analyzer.Analyzer
+up/visulog/analyzer/ListedBrancheRepositoryPlugin.java
+ up.visulog.analyzer.ListedBrancheRepositoryPlugin
+ up.visulog.analyzer.ListedBrancheRepositoryPlugin$Result
