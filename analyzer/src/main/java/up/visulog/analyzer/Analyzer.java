@@ -60,9 +60,8 @@ public class Analyzer {
             case "countCommits" : return Optional.of(new CountCommitsPerAuthorPlugin(config));
             case "countMergeCommits" : return Optional.of(new CountMergeCommitsPerAuthorPlugin(config));
             case "ListeMergedCommitid" : return Optional.of(new ListeMergedCommitid(config));
-
             case "Issues" : return Optional.of(new PluginIssuesGitlab(config));
-
+            case "mergerequest" : return Optional.of(new MergeRequestPlugin(config));
             case "countMergeCommitsPerDay" : return Optional.of(new CountMergeCommitsPerDayPlugin(config));
             case "countCommitsPerDay" : return Optional.of(new CountCommitsPerDayPlugin(config));
             case "countMergeCommitsPerDate" : return Optional.of(new CountMergeCommitsPerDatePlugin(config));

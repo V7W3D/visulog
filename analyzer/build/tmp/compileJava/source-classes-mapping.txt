@@ -44,8 +44,11 @@ up/visulog/analyzer/CountCommitsPerDayPlugin.java
  up.visulog.analyzer.CountCommitsPerDayPlugin$Result
 up/visulog/analyzer/AnalyzerResult.java
  up.visulog.analyzer.AnalyzerResult
-up/visulog/analyzer/Analyzer.java
- up.visulog.analyzer.Analyzer
 up/visulog/analyzer/PluginIssuesGitlab.java
  up.visulog.analyzer.PluginIssuesGitlab
  up.visulog.analyzer.PluginIssuesGitlab$Result
+up/visulog/analyzer/MergeRequestPlugin.java
+ up.visulog.analyzer.MergeRequestPlugin
+ up.visulog.analyzer.MergeRequestPlugin$Result
+up/visulog/analyzer/Analyzer.java
+ up.visulog.analyzer.Analyzer

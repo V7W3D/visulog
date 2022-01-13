@@ -110,6 +110,10 @@ public class CLILauncher {
                                     plugins.put("Issues", GitLogPluginConfig);
                                     break;
 
+                                case "mergerequest" :
+                                    plugins.put("mergerequest", GitLogPluginConfig);
+                                    break;
+
                                 case "countLinesAddedPerFile" :
                                     plugins.put("countLinesAddedPerFile", FilePluginConfig);
                                     break;
