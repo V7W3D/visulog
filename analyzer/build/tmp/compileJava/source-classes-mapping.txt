@@ -52,6 +52,7 @@ up/visulog/analyzer/MergeRequestPlugin.java
  up.visulog.analyzer.MergeRequestPlugin$Result
 up/visulog/analyzer/Analyzer.java
  up.visulog.analyzer.Analyzer
+<<<<<<< HEAD
 =======
 up/visulog/analyzer/PluginIssuesGitlab.java
  up.visulog.analyzer.PluginIssuesGitlab
@@ -62,3 +63,8 @@ up/visulog/analyzer/CountDeletedLinesPerFile.java
  up.visulog.analyzer.CountDeletedLinesPerFile
  up.visulog.analyzer.CountDeletedLinesPerFile$Result
 >>>>>>> 0fe5d33461428562fb1b6d134cc8c4cbb3e08e5b
+=======
+up/visulog/analyzer/ListedBrancheRepositoryPlugin.java
+ up.visulog.analyzer.ListedBrancheRepositoryPlugin
+ up.visulog.analyzer.ListedBrancheRepositoryPlugin$Result
+>>>>>>> ListedBrancheRepositoryPlugin
