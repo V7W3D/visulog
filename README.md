@@ -75,13 +75,14 @@ For instance
 
 Will count the commits of each author in the current branch of the git repository present in the current folder (".").
 
-### Lien vers la vidéo de présentation du projet : 
-
-https://youtu.be/zogbiOh9TEI
-
 To display the list of all arguments in the terminal:
 
 ```
 ./gradlew run --args='--help=all'
 ```
+
+### Lien vers la vidéo de présentation du projet : 
+
+https://youtu.be/zogbiOh9TEI
+
 
