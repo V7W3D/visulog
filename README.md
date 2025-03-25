@@ -4,7 +4,7 @@
 
 ## Presentation
 
-Visulog a tool for analyzing contributions from the members of a team working a a same given project hosted on a git repository. Its goal is to assist teachers for individual grading of students working as a team.
+Visulog a tool for analyzing contributions from the members of a team working on a same given project hosted on a git repository. Its goal is to assist teachers for individual grading of students working as a team.
 
 This tool can:
 
